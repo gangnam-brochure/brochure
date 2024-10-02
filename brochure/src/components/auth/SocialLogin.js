@@ -7,7 +7,7 @@ import React from 'react';
 import KakaoLogin from './KakaoLogin';
 import NaverLogin from './NaverLogin';
 import GoogleLogin from './GoogleLogin';
-import '../../assets/css/sociallogin.css';  // 소셜 로그인 스타일 가져오기
+import '../../assets/css/sociallogin.css';
 
 const SocialLoginWrapper = () => {
   return (

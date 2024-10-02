@@ -1,3 +1,8 @@
+/*
+    작성자 : 김동규 - 2024-10-02 / 최초 작성
+    설명 : 카카오 소셜 로그인
+*/
+
 import React, { useEffect } from 'react';
 
 const KakaoLogin = () => {

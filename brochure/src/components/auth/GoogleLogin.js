@@ -1,3 +1,8 @@
+/*
+    작성자 : 김동규 - 2024-10-02 / 최초 작성
+    설명 : 구글 소셜 로그인
+*/
+
 import React from 'react';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import Cookies from 'js-cookie';
