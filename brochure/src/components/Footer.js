@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';  // 쿠키 관리를 위한 js-cookie 라이브러리
+import Cookies from 'js-cookie';
 import '../assets/css/footer.css';
 
 const Footer = () => {
@@ -15,6 +15,7 @@ const Footer = () => {
   // 로그인 상태 확인 (쿠키에 토큰이 있는지 확인)
   useEffect(() => {
     const token = Cookies.get('token');  // 쿠키에서 토큰 가져오기
+    console.log('쿠키에서 가져온 토큰:', token);  // 토큰이 제대로 확인되는지 확인
     if (token) {
       setIsLoggedIn(true);  // 토큰이 있으면 로그인 상태로 설정
     } else {
@@ -26,7 +27,7 @@ const Footer = () => {
     Cookies.remove('token');  // 로그아웃 시 쿠키에서 토큰 삭제
     setIsLoggedIn(false);  // 로그인 상태를 로그아웃으로 변경
     navigate('/');  // 로그인 페이지로 이동
-    alert("로그아웃 하셨습니다.");
+    alert('로그아웃 되었습니다.');
   };
 
   const footerItems = [

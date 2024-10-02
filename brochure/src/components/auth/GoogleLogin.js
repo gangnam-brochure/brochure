@@ -13,8 +13,8 @@ const GoogleLogin = () => {
 
   const googleLogin = useGoogleLogin({
     onSuccess: (response) => {
-      Cookies.set('token', response.access_token);
-      navigate('/profile');
+      Cookies.set('token', response.access_token, { expires: 1 });  // Google 로그인 성공 시 토큰 저장 (1일 만료)
+      navigate('/');  // 메인 페이지로 이동
     },
     onError: (error) => console.error('구글 로그인 에러', error),
     flow: 'auth-code',  // OAuth flow를 auth-code로 설정
