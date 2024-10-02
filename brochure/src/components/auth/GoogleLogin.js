@@ -1,7 +1,3 @@
-/*
-    작성자 : 김동규 - 2024-10-02 / 최초 작성
-    설명 : 구글 소셜 로그인 연동
-*/
 import React from 'react';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import Cookies from 'js-cookie';
@@ -16,6 +12,8 @@ const GoogleLogin = () => {
       navigate('/profile');
     },
     onError: (error) => console.error('구글 로그인 에러', error),
+    flow: 'auth-code',  // OAuth flow를 auth-code로 설정
+    redirect_uri: 'http://localhost:3000/',  // 리다이렉트 URL 설정
   });
 
   return (
@@ -26,7 +24,7 @@ const GoogleLogin = () => {
 };
 
 const SocialLoginWrapper = () => (
-  <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
+  <GoogleOAuthProvider clientId="1029984235128-ev1955m4p0hahtudm1mvs4laoujgdtd0.apps.googleusercontent.com">
     <GoogleLogin />
   </GoogleOAuthProvider>
 );

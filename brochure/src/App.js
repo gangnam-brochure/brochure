@@ -6,12 +6,14 @@ import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
 import MainPage from './layout/MainPage';  // 메인 페이지 추가
 import MyPage from './components/mypage/MyPage';
+import LoginRedirectHandler from './components/auth/LoginRedirectHandler';  // 리다이렉트 핸들러
+
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainPage />} />  {/* 메인 페이지 */}
+        <Route path="/" element={<MainPage />} />  {/* 메인 페이지와 리다이렉트 처리 */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />  {/* 로그인 페이지 */}
         <Route path="/sociallogin" element={<SocialLoginWrapper />} />

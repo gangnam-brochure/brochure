@@ -8,27 +8,18 @@ import axios from 'axios';
 
 export const signUp = async (data) => {
   try {
-    const response = await axios.post('/api/signup', data);
+    const response = await axios.post('/api/signup', data);  // 상대 경로로 API 호출
     return { success: true, token: response.data.token };
   } catch (error) {
-    return { success: false, message: error.message };
+    return { success: false, message: error.response ? error.response.data.message : error.message };
   }
 };
 
 export const signIn = async (data) => {
   try {
-    const response = await axios.post('/api/signin', data);
+    const response = await axios.post('/api/signin', data);  // 상대 경로로 API 호출
     return { success: true, token: response.data.token };
   } catch (error) {
-    return { success: false, message: error.message };
-  }
-};
-
-export const deleteAccount = async () => {
-  try {
-    await axios.delete('/api/delete');
-    return { success: true };
-  } catch (error) {
-    return { success: false, message: error.message };
+    return { success: false, message: error.response ? error.response.data.message : error.message };
   }
 };
