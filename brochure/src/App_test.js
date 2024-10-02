@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LayOut from "./layout/LayOut";
 
-function App() {
+function App_test() {
   return (
     <>
       <BrowserRouter>
@@ -15,4 +15,4 @@ function App() {
   );
 }
 
-export default App;
+export default App_test;
