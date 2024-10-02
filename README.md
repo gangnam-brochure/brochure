@@ -1,4 +1,4 @@
-실행 방법
+##실행 방법
 
 terminal 두 개 실행
 
@@ -6,7 +6,7 @@ terminal 두 개 실행
 
 5000port node server.js 
 
-npm 설치
+##npm 설치
 
 npm install
 
