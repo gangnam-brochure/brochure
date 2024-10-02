@@ -5,7 +5,9 @@ import SocialLoginWrapper from './components/auth/SocialLogin';
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
 import MainPage from './layout/MainPage';  // 메인 페이지 추가
+import MyPage from './components/mypage/MyPage';
 import LoginRedirectHandler from './components/auth/LoginRedirectHandler';  // 리다이렉트 핸들러
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Route path="/signin" element={<SignIn />} />  {/* 로그인 페이지 */}
         <Route path="/sociallogin" element={<SocialLoginWrapper />} />
         <Route path="/profile" element={<PrivateRoute />} />  {/* 프로필 페이지 */}
+        <Route path="/mypage" element={<MyPage />} />  {/* 마이 페이지 */}
       </Routes>
     </Router>
   );
