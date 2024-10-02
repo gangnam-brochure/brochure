@@ -1,3 +1,8 @@
+/*
+    작성자 : 김동규 - 2024-10-02 / 최초 작성
+    설명 : 로그인 redirect URL 설정
+*/
+
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
