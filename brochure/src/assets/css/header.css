@@ -1,0 +1,18 @@
+header {
+    background-color: #00c6ff;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  
+  header h1 {
+    margin-left: 10px;
+  }
+  
+  header p {
+    margin-right: 10px;
+    font-size: 14px;
+  }

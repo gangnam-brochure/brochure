@@ -1,0 +1,30 @@
+.signin-container {
+    margin-top: 100px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .signin-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .signin-form input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 300px;
+  }
+  
+  .signin-form button {
+    padding: 10px;
+    width: 320px;
+    background-color: #00c6ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .signup-link {
+    margin-top: 20px;
+  }
