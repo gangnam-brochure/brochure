@@ -1,6 +1,9 @@
 실행 방법
+
 terminal 두 개 실행
+
 3000port npm start
+
 5000port node server.js 
 
 npm 설치
