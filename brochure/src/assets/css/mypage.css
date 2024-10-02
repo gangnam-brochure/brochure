@@ -1,0 +1,13 @@
+.mypage {
+    padding: 20px;        /* 요소 내부 여백 */
+    margin: 100px auto;    /* 상하 20px, 좌우 자동 여백으로 중앙 정렬 */
+    text-align: left;    /* 텍스트 가운데 정렬 */
+    font-size: 24px;      /* 글씨 크기 */
+    color: #333;          /* 글씨 색상 */
+    /*background-color: #f8f9fa; /* 배경 색상 */
+    border-radius: 8px;   /* 모서리 둥글게 */
+   /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    width: 100%;            /* 너비를 100%로 설정 */
+   /* height: calc(100vh - 60px); /* 전체 높이에서 헤더와 푸터의 높이를 뺀 값 */
+    box-sizing: border-box; /* padding과 border를 포함하여 계산 */
+  }
