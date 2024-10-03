@@ -43,7 +43,7 @@ const LoginRedirectHandler = () => {
         {
           params: {
             grant_type: 'authorization_code',
-            client_id: '77ddf9c57d59c5ec87f79398d5ae2e83',
+            client_id: 'f0579f41e144258263ee0dfef34ae35b',
             redirect_uri: 'http://localhost:3000/',
             code: code,
           },
