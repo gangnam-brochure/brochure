@@ -13,7 +13,7 @@ const KakaoLogin = () => {
   useEffect(() => {
     // Kakao SDK 초기화
     if (!window.Kakao.isInitialized()) {
-      window.Kakao.init('77ddf9c57d59c5ec87f79398d5ae2e83');  // 발급받은 JavaScript 키로 SDK 초기화
+      window.Kakao.init('f0579f41e144258263ee0dfef34ae35b');  // 발급받은 JavaScript 키로 SDK 초기화
     }
   }, []);
 
