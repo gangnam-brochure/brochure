@@ -1,0 +1,7 @@
+[
+    { "id": 1, "name": "GS", "place":"천호점" , "favorite": false },
+    { "id": 2, "name": "Emart",  "place":"역삼점", "favorite": false },
+    { "id": 3, "name": "Seven", "place":"강남점" , "favorite": false },
+    { "id": 4, "name": "CU", "place":"대학로점", "favorite": false },
+    { "id": 5, "name": "CU", "place":"산성점", "favorite": false }
+  ]
