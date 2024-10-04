@@ -10,3 +10,4 @@
 #npm install axios
 #npm install js-cookie
 #npm install @react-oauth/google
+#npm run build

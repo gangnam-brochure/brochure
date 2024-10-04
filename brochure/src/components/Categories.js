@@ -4,24 +4,27 @@
 */
 import React from 'react';
 import '../assets/css/categories.css';
-import {NavLink} from "react-router-dom";
+import { Link, NavLink } from 'react-router-dom';
 
 const Categories = () => {
   const categories = [
-    { name: '편의점', icon: '🏪' },
-    { name: '편의시설', icon: '💈' },
-    { name: '문화시설', icon: '🎬' }
+    { name: '편의점', icon: '🏪', code: "PM9"},
+    { name: '편의시설', icon: '💈', code: "MT1"},
+    { name: '문화시설', icon: '🎬', code: "AT4" }
   ];
 
   return (
     <div className="categories-container">
       <h2 className="categories-title">카테고리</h2>
       <div className="category-wrapper">
+        {/* 카테고리 링크 추가  수정자: 최예지 */}
         {categories.map((category, index) => (
-          <div key={index} className="category-item">
-            <span>{category.icon}</span>
-            <p>{category.name}</p>
-          </div>
+          <NavLink to={`/${category.code}`} key={category.code}>
+            <div className="category-item">
+              <span>{category.icon}</span>
+              <p>{category.name}</p>
+            </div>
+          </NavLink>
         ))}
         <div className="test">
         <NavLink to={"/test"}>
