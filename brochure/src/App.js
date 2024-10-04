@@ -31,7 +31,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />  {/* 로그인 페이지 */}
         <Route path= "/favorites" element={<FavoritePage/>}/>
-        {/* <Route path="/test" element={<PlaceTest/>}/> */}
+        <Route path="/test" element={<PlaceTest/>}/>
         <Route path="/sociallogin" element={<SocialLoginWrapper />} />
         <Route path="/profile" element={<PrivateRoute />} />  {/* 프로필 페이지 */}
         <Route path="/mypage" element={<MyPage />} />  {/* 마이 페이지 */}

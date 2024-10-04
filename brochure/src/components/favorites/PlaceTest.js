@@ -1,4 +1,5 @@
 
+
 import { useEffect, useState } from "react";
 import useBookMark from "../../Store"; 
 import { useNavigate } from "react-router-dom";
@@ -11,6 +12,20 @@ const PlaceTest=()=>{
         bookmark(id);
         console.log(id);
     }
+
+// import { useEffect, useState } from "react";
+// import useBookMark from "../../Store"; 
+// import { useNavigate } from "react-router-dom";
+// import { getFavoList } from "../../api/BrochureApi";
+// const PlaceTest=()=>{
+//     const navigate = useNavigate();
+//     const {bookmark} = useBookMark();
+//     const [places,setPlace] = useState([]);
+//     const onClickHandler=(id)=>{
+//         bookmark(id);
+//         console.log(id);
+//     }
+
 
 
     useEffect(() => {

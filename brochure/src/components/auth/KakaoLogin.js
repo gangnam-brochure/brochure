@@ -15,7 +15,7 @@ const KakaoLogin = () => {
   const handleLogin = () => {
     // 카카오 로그인 페이지로 리다이렉트
     window.Kakao.Auth.authorize({
-      redirectUri: 'http://localhost:5000/oauth/kakao/callback',  // 서버의 리다이렉트 URI와 일치해야 함
+      redirectUri: 'http://localhost:3000/oauth/kakao/callback',  // 프론트엔드의 리다이렉트 URI
     });
   };
 
