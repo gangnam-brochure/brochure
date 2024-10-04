@@ -12,8 +12,8 @@ import { faTrash , faCommentDots, faUserEdit } from '@fortawesome/free-solid-svg
 import '../../assets/css/mypage.css'; //마이페이지에대한 css
 
 const EditProfile = () => {
-    const [user,setUser] = useState({username:'cookie3013',password:'1111'});
-    const [user1,setUser1] = useState({username:'',password:''});
+    const [user,setUser] = useState({email:'cookie3013',password:'1111'});
+    const [user1,setUser1] = useState({email:'',password:''});
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // 아이디삭제 창 열고닫기
   const [changeprofile, setchangeprofile] = useState(false); //변경창 열고닫기
   const [newprofile, setnewprofile] = useState(false); //새로운 아이디 비밀번호 열고닫기
@@ -50,28 +50,28 @@ const EditProfile = () => {
   }
   const onClicker = () => {  // 아이디와 비밀번호를 각각 비교합니다.
     
-    if (user1.username === user.username && user1.password === user.password) {
+    if (user1.email === user.email && user1.password === user.password) {
         alert("인증되었습니다");
         setchangeprofile(false);
-        setUser1({username:'', password:''});   
+        setUser1({email:'', password:''});   
         setnewprofile(!newprofile);
     } else {
         alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
-        setUser1({username:'', password:''});   
+        setUser1({email:'', password:''});   
         
     }
     
 };
 const onClicker2 = () => {  // 삭제를위한 아이디와 비밀번호를 각각 비교합니다.
     
-    if (user1.username === user.username && user1.password === user.password) {
+    if (user1.email === user.email && user1.password === user.password) {
         alert("인증되었습니다");
         setchangeprofile2(false);
-        setUser1({username:'', password:''});   
+        setUser1({email:'', password:''});   
         setShowDeleteConfirmation(!showDeleteConfirmation);
     } else {
         alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
-        setUser1({username:'', password:''});   
+        setUser1({email:'', password:''});   
         
     }
 };
@@ -79,7 +79,7 @@ const onCilckNewProfile = () => {  //아이디 변경
     setUser(user1);
     alert("아이디가 변경 되었습니다");
     setnewprofile(false);
-    setUser1({username:'', password:''});
+    setUser1({email:'', password:''});
 }
   return (
     <>
@@ -87,7 +87,7 @@ const onCilckNewProfile = () => {  //아이디 변경
       <div className="mypage-container">
         <h1>회원 정보 변경</h1>
         <div className="welcome-message">
-          안녕하세요 {user.username} 님
+          안녕하세요 {user.email} 님
         </div>
         <div className="button-group">
           <button onClick={handleClick} className="mypage-button">
@@ -115,11 +115,11 @@ const onCilckNewProfile = () => {  //아이디 변경
           <div className="delete-confirmation">
             <h2>기존 아이디와 비밀번호를 입력해주세요</h2>
             <p>변경을 위한 아이디와 비밀번호</p>
-            <label>userName : </label>
+            <label>email : </label>
             <input type="text" 
-            name="username" 
-            value={user1.username}
-            placeholder="아이디 입력" 
+            name="email" 
+            value={user1.email}
+            placeholder="이메일 입력" 
             onChange={onChangeHandler}/>
             <br/>
             <label>password :</label>
@@ -138,11 +138,11 @@ const onCilckNewProfile = () => {  //아이디 변경
           <div className="delete-confirmation">
             <h2>기존 아이디와 비밀번호를 입력해주세요</h2>
             <p>삭제를 위한 아이디와 비밀번호</p>
-            <label>userName : </label>
+            <label>email : </label>
             <input type="text" 
-            name="username" 
-            value={user1.username}
-            placeholder="아이디 입력" 
+            name="email" 
+            value={user1.email}
+            placeholder="이메일 입력" 
             onChange={onChangeHandler}/>
             <br/>
             <label>password :</label>
@@ -165,11 +165,11 @@ const onCilckNewProfile = () => {  //아이디 변경
         {newprofile && (                          //새로운 아이디창
           <div className="delete-confirmation">
             <h2>바꿀 아이디와 비밀번호를 입력해주세요</h2>
-            <label>userName : </label>
+            <label>email : </label>
             <input type="text" 
-            name="username" 
-            value={user1.username}
-            placeholder="아이디 입력" 
+            name="email" 
+            value={user1.email}
+            placeholder="이메일 입력" 
             onChange={onChangeHandler}/>
             <br/>
             <label>password :</label>
