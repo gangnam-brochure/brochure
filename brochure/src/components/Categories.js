@@ -31,6 +31,11 @@ const Categories = () => {
                 <h3>test</h3>
                 </NavLink>
         </div>
+        <div className="reviewtest">
+        <NavLink to={"/reviewtest"}>
+                <h3>review</h3>
+                </NavLink>
+        </div>
       </div>
     </div>
   );

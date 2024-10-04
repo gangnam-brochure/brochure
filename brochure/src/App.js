@@ -12,7 +12,8 @@ import FavoritePage from './layout/FavoritePage';
 import PlaceTest from './components/favorites/PlaceTest';
 import PlaceDetail from './components/placelist/PlaceDetail';
 import PlaceListNearby from './components/placelist/PlaceListNearby';
-
+import ReviewPage from './layout/ReviewPage';
+import ReviewBoard from './components/reviews/ReViewBoard';
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
         <Route path="/signin" element={<SignIn />} />  {/* 로그인 페이지 */}
         <Route path= "/favorites" element={<FavoritePage/>}/>
         <Route path="/test" element={<PlaceTest/>}/>
+        <Route path="/reviewtest" element={<ReviewBoard/>}/> {/*리뷰테트스*/}
+        <Route path="/reviews" element={<ReviewPage/>}/> 
         <Route path="/sociallogin" element={<SocialLoginWrapper />} />
         <Route path="/profile" element={<PrivateRoute />} />  {/* 프로필 페이지 */}
         <Route path="/mypage" element={<MyPage />} />  {/* 마이 페이지 */}
