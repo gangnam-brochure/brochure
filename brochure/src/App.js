@@ -8,7 +8,7 @@ import MainPage from './layout/MainPage';
 import MyPage from './components/mypage/MyPage';
 import LoginRedirectHandler from './components/auth/LoginRedirectHandler';  // 리다이렉트 핸들러
 import Logout from './components/auth/Logout';
-
+import EditProfile from './components/EditProfile/editprofile';
 
 function App() {
   return (
