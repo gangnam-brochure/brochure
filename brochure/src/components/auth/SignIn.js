@@ -6,8 +6,8 @@ import React, { useState } from 'react';
 import { signIn } from '../../services/authService';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import SocialLoginWrapper from './SocialLogin';  // 소셜 로그인 가져오기
-import '../../assets/css/signin.css';  // 로그인 페이지 CSS 가져오기
+import SocialLoginWrapper from './SocialLogin';
+import '../../assets/css/signin.css';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -26,7 +26,7 @@ const SignIn = () => {
     if (response.success) {
       Cookies.set('token', response.token);
       alert('로그인 성공');
-      navigate('/profile');  // 로그인 성공 후 프로필 페이지로 이동
+      navigate('/');
     } else {
       alert('로그인 실패: ' + response.message);
     }

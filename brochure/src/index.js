@@ -6,9 +6,9 @@ import { GoogleOAuthProvider } from '@react-oauth/google'; // 구글 OAuth 프�
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID"> {/* 구글 OAuth client ID 적용 */}
       <App />
     </GoogleOAuthProvider>
-  </React.StrictMode>
+  //</React.StrictMode>
 );

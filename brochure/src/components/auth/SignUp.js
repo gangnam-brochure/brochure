@@ -4,9 +4,11 @@
 */
 import React, { useState } from 'react';
 import { signUp } from '../../services/authService';
+import { useNavigate } from 'react-router-dom'; 
 
 const SignUp = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     setFormData({
@@ -20,9 +22,11 @@ const SignUp = () => {
     const response = await signUp(formData);
     if (response.success) {
       alert('회원가입 완료');
+      navigate('/signin');
     } else {
-      alert('회원가입 실패');
-      console.log(formData);
+      alert('회원가입 실패' + response.message);
+      console.log('오류:', response.message);
+      console.log('입력 이메일 및 비번 : ' + formData);
     }
   };
 

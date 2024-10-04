@@ -4,6 +4,7 @@
 */
 import React from 'react';
 import '../assets/css/categories.css';
+import {NavLink} from "react-router-dom";
 
 const Categories = () => {
   const categories = [
@@ -22,6 +23,11 @@ const Categories = () => {
             <p>{category.name}</p>
           </div>
         ))}
+        <div className="test">
+        <NavLink to={"/test"}>
+                <h3>test</h3>
+                </NavLink>
+        </div>
       </div>
     </div>
   );

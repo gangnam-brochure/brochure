@@ -7,4 +7,6 @@ import place from "../data/ex.json";
 export function getFavoList(){
     return place;
 }
-
+export function getPlaceDetail(placeId){
+    return place.filter(places=> places.id===parseInt(placeId));
+}
