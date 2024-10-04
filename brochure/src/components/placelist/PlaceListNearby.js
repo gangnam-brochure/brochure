@@ -27,7 +27,7 @@ const PlaceListNearby = () =>
     const fetchData = () => {
         return fetch(`https://dapi.kakao.com/v2/local/search/category.json?category\_group\_code=${categoryCode}&radius=20000`, {
             headers: {
-                Authorization: `KakaoAK f0579f41e144258263ee0dfef34ae35b`
+                Authorization: `KakaoAK ${kakaoKey}`
             }})
     }
     
