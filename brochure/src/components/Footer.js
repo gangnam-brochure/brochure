@@ -9,24 +9,28 @@ import Cookies from 'js-cookie';
 import '../assets/css/footer.css';
 
 const Footer = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);  // 로그인 상태 관리
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  // 로그인 상태 확인 (쿠키에 토큰이 있는지 확인)
   useEffect(() => {
-    const token = Cookies.get('token');  // 쿠키에서 토큰 가져오기
-    console.log('쿠키에서 가져온 토큰:', token);  // 토큰이 제대로 확인되는지 확인
-    if (token) {
-      setIsLoggedIn(true);  // 토큰이 있으면 로그인 상태로 설정
-    } else {
-      setIsLoggedIn(false);  // 토큰이 없으면 로그아웃 상태로 설정
-    }
+    const checkToken = async () => {
+      await new Promise(resolve => setTimeout(resolve, 100));  // 100ms 지연
+      const token = Cookies.get('token');  // 쿠키에서 토큰 가져오기
+      console.log('쿠키에서 가져온 토큰:', token);  // undefined 인지 확인
+      if (token) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkToken();
   }, []);
 
   const handleLogout = () => {
-    Cookies.remove('token');  // 로그아웃 시 쿠키에서 토큰 삭제
-    setIsLoggedIn(false);  // 로그인 상태를 로그아웃으로 변경
-    navigate('/');  // 로그인 페이지로 이동
+    Cookies.remove('token');  // 쿠키에서 토큰 삭제
+    setIsLoggedIn(false);
+    navigate('/');
     alert('로그아웃 되었습니다.');
   };
 
@@ -34,7 +38,6 @@ const Footer = () => {
     { name: '홈', icon: '🏠', path: '/' },
     { name: '즐겨찾기', icon: '⭐', path: '/favorites' },
     { name: '후기', icon: '📝', path: '/reviews' },
-    // 로그인 상태에 따라 로그인/로그아웃 항목 결정
     isLoggedIn
       ? { name: '로그아웃', icon: '🚪', action: handleLogout }
       : { name: '로그인', icon: '🔑', path: '/signin' },
