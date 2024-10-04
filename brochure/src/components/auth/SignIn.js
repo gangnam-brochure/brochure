@@ -1,6 +1,6 @@
 /*
     작성자 : 김동규 - 2024-10-02 / 최초 작성
-    설명 : 입력된 회원 정보를 서버에 보내고 성공 시 sessionStorage에 토큰을 저장
+    설명 : 입력된 회원 정보를 외부 서비스로 보내고 성공 시 sessionStorage에 토큰을 저장
 */
 import React, { useState } from 'react';
 import { signIn } from '../../services/authService';
@@ -25,8 +25,10 @@ const SignIn = () => {
     const response = await signIn(formData);
     if (response.success) {
       Cookies.set('token', response.token);
-      alert('로그인 성공');
-      navigate('/');
+      // 사용자의 이름을 이메일 앞부분으로 설정
+      const userName = formData.email.split('@')[0];
+      alert(`환영합니다, ${userName}님!`);
+      navigate('/');  // 로그인 성공 시 메인 페이지로 이동
     } else {
       alert('로그인 실패: ' + response.message);
     }
