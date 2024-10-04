@@ -23,13 +23,19 @@ app.use(cors());
 app.get('/oauth/kakao/callback', async (req, res) => {
   const { code } = req.query;
 
+  if (!code) {
+    return res.status(400).json({ message: '카카오로부터 code를 받지 못했습니다.' });
+  }
+
+  console.log('카카오로부터 받은 인증 코드:', code);  // 인증 코드가 잘 넘어오는지 확인
+
   try {
     const response = await axios.post('https://kauth.kakao.com/oauth/token', null, {
       params: {
         grant_type: 'authorization_code',
-        client_id: process.env.REACT_APP_KAKAO_CLIENT_ID,
-        redirect_uri: 'http://localhost:3000/oauth/kakao/callback',
-        code: code,
+        client_id: process.env.REACT_APP_KAKAO_CLIENT_ID,  // REST API 키 사용
+        redirect_uri: 'http://localhost:5000/oauth/kakao/callback',  // 서버의 리다이렉트 URI
+        code: code,  // 받은 인증 코드
       },
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -37,12 +43,13 @@ app.get('/oauth/kakao/callback', async (req, res) => {
     });
 
     const { access_token } = response.data;
+    console.log('카카오로부터 받은 access_token:', access_token);  // 액세스 토큰 확인
 
     // 프론트엔드로 리다이렉트하면서 토큰 전달
     res.redirect(`http://localhost:3000/oauth/kakao/callback?token=${access_token}`);
   } catch (error) {
-    console.error('카카오 로그인 처리 중 에러 발생:', error);
-    res.status(500).json({ message: '카카오 로그인 처리 중 에러가 발생했습니다.' });
+    console.error('카카오 API 요청 실패:', error.response ? error.response.data : error.message);
+    res.status(500).json({ message: '카카오 API 요청 실패', error: error.response ? error.response.data : error.message });
   }
 });
 
@@ -136,7 +143,7 @@ app.use(express.static(path.join(__dirname, '/build')));
 
 // 모든 나머지 요청을 React 앱의 index.html로 라우팅
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
 });
 
 // 서버 실행
