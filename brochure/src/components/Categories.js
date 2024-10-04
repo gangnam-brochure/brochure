@@ -26,6 +26,11 @@ const Categories = () => {
             </div>
           </NavLink>
         ))}
+        <div className="test">
+        <NavLink to={"/test"}>
+                <h3>test</h3>
+                </NavLink>
+        </div>
       </div>
     </div>
   );
