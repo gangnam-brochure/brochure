@@ -8,8 +8,8 @@ const Header = () => {
   const [address, setAddress] = useState('주소 불러오는 중...');
   const [showModal, setShowModal] = useState(false);  // 모달 표시 여부
 
-  // Kakao Developers에서 발급받은 실제 JavaScript 키로 교체
-  const KAKAO_API_KEY = "f0579f41e144258263ee0dfef34ae35b";  // 올바른 JavaScript 키 입력
+  // 환경 변수에서 API 키 가져오기
+  const KAKAO_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
 
   // 위도와 경도를 받아서 Kakao API로 주소를 변환하는 함수
   const getAddressFromCoordinates = async (latitude, longitude) => {
@@ -17,14 +17,8 @@ const Header = () => {
       const response = await axios.get(
         `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`,
         {
-          params: {
-            input_coord: 'WGS84',  // 좌표계 설정 (기본값은 WGS84)
-          },
           headers: {
-            // Authorization 헤더가 필요하지 않습니다.
-          },
-          params: {
-            key: KAKAO_API_KEY, // JavaScript 키를 URL 파라미터로 전달
+            Authorization: `KakaoAK ${KAKAO_API_KEY}`,  // Authorization 헤더에 API 키 전달
           },
         }
       );
