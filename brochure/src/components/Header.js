@@ -9,7 +9,7 @@ const Header = () => {
   const [showModal, setShowModal] = useState(false);  // 모달 표시 여부
 
   // Kakao Developers에서 발급받은 실제 JavaScript 키로 교체
-  const KAKAO_API_KEY = '77ddf9c57d59c5ec87f79398d5ae2e83';  // 올바른 JavaScript 키 입력
+  const KAKAO_API_KEY = "f0579f41e144258263ee0dfef34ae35b";  // 올바른 JavaScript 키 입력
 
   // 위도와 경도를 받아서 Kakao API로 주소를 변환하는 함수
   const getAddressFromCoordinates = async (latitude, longitude) => {
