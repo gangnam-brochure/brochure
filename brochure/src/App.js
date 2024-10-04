@@ -8,7 +8,7 @@ import MainPage from './layout/MainPage';
 import MyPage from './components/mypage/MyPage';
 import LoginRedirectHandler from './components/auth/LoginRedirectHandler';  // 리다이렉트 핸들러
 import Logout from './components/auth/Logout';
-
+import EditProfile from './components/EditProfile/editprofile';
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
         <Route path="/sociallogin" element={<SocialLoginWrapper />} />
         <Route path="/profile" element={<PrivateRoute />} />  {/* 프로필 페이지 */}
         <Route path="/mypage" element={<MyPage />} />  {/* 마이 페이지 */}
+        <Route path="/editprofile" element={<EditProfile/>} />  {/* 회원변경 페이지 */}
       </Routes>
     </Router>
   );
