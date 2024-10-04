@@ -22,6 +22,7 @@ function App() {
         <Route path="/" element={<MainPage />}>
           <Route index  element={<Categories />}/>
           <Route path=":categoryCode" element={<PlaceListNearby />}/>
+          <Route path=":categoryCode/:placeId" element={<PlaceDetail/>}/>
         </Route>  {/* 메인 페이지와 리다이렉트 처리 */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />  {/* 로그인 페이지 */}
