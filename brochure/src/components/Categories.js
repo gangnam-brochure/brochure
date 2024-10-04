@@ -8,7 +8,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 const Categories = () => {
   const categories = [
-    { name: '편의점', icon: '🏪', code: "PM9"},
+    { name: '편의점', icon: '🏪', code: "PM9"}, //임의 설정, 후 편집 필요
     { name: '편의시설', icon: '💈', code: "MT1"},
     { name: '문화시설', icon: '🎬', code: "AT4" }
   ];

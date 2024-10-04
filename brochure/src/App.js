@@ -12,6 +12,7 @@ import FavoritePage from './layout/FavoritePage';
 import PlaceTest from './components/favorites/PlaceTest';
 import PlaceDetail from './components/placelist/PlaceDetail';
 import PlaceListNearby from './components/placelist/PlaceListNearby';
+import Categories from './components/Categories';
 
 
 function App() {
@@ -19,12 +20,14 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<MainPage />}>
+          <Route index  element={<Categories />}/>
           <Route path=":categoryCode" element={<PlaceListNearby />}/>
+          <Route path=":categoryCode/:placeId" element={<PlaceDetail/>}/>
         </Route>  {/* 메인 페이지와 리다이렉트 처리 */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />  {/* 로그인 페이지 */}
         <Route path= "/favorites" element={<FavoritePage/>}/>
-        <Route path="/test" element={<PlaceTest/>}/>
+        {/* <Route path="/test" element={<PlaceTest/>}/> */}
         <Route path="/sociallogin" element={<SocialLoginWrapper />} />
         <Route path="/profile" element={<PrivateRoute />} />  {/* 프로필 페이지 */}
         <Route path="/mypage" element={<MyPage />} />  {/* 마이 페이지 */}
