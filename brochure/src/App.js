@@ -11,10 +11,6 @@ import Logout from './components/auth/Logout';
 import PlaceDetail from './components/placelist/PlaceDetail';
 import PlaceListNearby from './components/placelist/PlaceListNearby';
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4c61482b44390a2762b234efae43ab28b7db4397
 function App() {
   return (
     <Router>
