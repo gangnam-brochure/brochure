@@ -41,3 +41,60 @@ h1 {
   font-size: 2em;
   color: #444; /* Slightly darker for the heading */
 }
+
+
+.delete-confirmation {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.delete-confirmation h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.delete-confirmation label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.delete-confirmation input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.delete-confirmation input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.delete-confirmation button {
+  padding: 10px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #28a745; /* 확인 버튼 색상 */
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.delete-confirmation button:hover {
+  background-color: #218838; /* 확인 버튼 호버 색상 */
+}
+
+.delete-confirmation button:last-child {
+  background-color: #dc3545; /* 취소 버튼 색상 */
+}
+
+.delete-confirmation button:last-child:hover {
+  background-color: #c82333; /* 취소 버튼 호버 색상 */
+}
