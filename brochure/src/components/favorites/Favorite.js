@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+/*
+    작성자 손정원
+    (만약 점포정보가 넘어오고 상세페이지에서 즐찾 버튼을 눌렀을때)
+    고유 식별자 id를 getFavoList로 json객체 받아오고
+    리스트로 뿌려주기
+*/
+import useBookMark from '../../Store';
+import { useState, useEffect } from "react";
+import { getPlaceDetail } from "../../api/BrochureApi";
+import { useNavigate } from "react-router-dom";
+=======
 // /*
 //     작성자 손정원
 //     (만약 점포정보가 넘어오고 상세페이지에서 즐찾 버튼을 눌렀을때)
@@ -8,6 +20,7 @@
 // import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { getPlaceDetaill } from "../../api/BrochureApi";
+>>>>>>> b2e1ff999a9d354b3e717014410538f8b0d87326
 
 // export const Favorite = () => {
 //     const navigate = useNavigate();

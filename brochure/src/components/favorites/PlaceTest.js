@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+import { useEffect, useState } from "react";
+import { getFavoList } from "../../api/BrochureApi";
+import useBookMark from "../../Store"; 
+import { useNavigate } from "react-router-dom";
+const PlaceTest=()=>{
+    const navigate = useNavigate();
+    const {bookmark} = useBookMark();
+    const [places,setPlace] = useState([]);
+    const onClickHandler=(id)=>{
+        bookmark(id);
+        console.log(id);
+    }
+=======
 // import { useEffect, useState } from "react";
 // import useBookMark from "../../Store"; 
 // import { useNavigate } from "react-router-dom";
@@ -10,6 +24,7 @@
 //         bookmark(id);
 //         console.log(id);
 //     }
+>>>>>>> b2e1ff999a9d354b3e717014410538f8b0d87326
 
 //     useEffect(() => {
 //         const fetchPlaceList = async () => {
