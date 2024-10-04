@@ -1,22 +1,23 @@
-/*
-    작성자 손정원
-    (만약 점포정보가 넘어오고 상세페이지에서 즐찾 버튼을 눌렀을때)
-    고유 식별자 id를 getFavoList로 json객체 받아오고
-    리스트로 뿌려주기
-*/
-import useBookMark from '../../Store';
-import { useState, useEffect } from "react";
-import { getPlaceDetail } from "../../Api/BrochureApi";
-import { useNavigate } from "react-router-dom";
+// /*
+//     작성자 손정원
+//     (만약 점포정보가 넘어오고 상세페이지에서 즐찾 버튼을 눌렀을때)
+//     고유 식별자 id를 getFavoList로 json객체 받아오고
+//     리스트로 뿌려주기
+// */
+// import useBookMark from '../../Store';
+// import { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { getPlaceDetaill } from "../../api/BrochureApi";
 
-export const Favorite = () => {
-    const navigate = useNavigate();
-    const [favoList, setFavoList] = useState([]);
-    const { bookmarkCancle, placeCodes } = useBookMark();
+// export const Favorite = () => {
+//     const navigate = useNavigate();
+//     const [favoList, setFavoList] = useState([]);
+//     const { bookmarkCancle, placeCodes } = useBookMark();
 
-    const onClickHandler = (id) => {
-        bookmarkCancle(id);
-    }
+//     const onClickHandler = (id) => {
+//         bookmarkCancle(id);
+//     }
+
 
     useEffect(() => {
         const fetchFavoList = async () => {
@@ -28,10 +29,11 @@ export const Favorite = () => {
                 setFavoList(placesDetails);
                 console.log(favoList,"여기문제1");
 
-              } catch (error) {
-                console.error("즐겨찾기 목록을 가져오는 데 실패했습니다", error);
-            }
-        };
+
+//               } catch (error) {
+//                 console.error("즐겨찾기 목록을 가져오는 데 실패했습니다", error);
+//             }
+//         };
 
          // placeCodes가 비어있지 않은 경우에만 호출
             fetchFavoList(); // 함수 호출
@@ -61,4 +63,5 @@ export const Favorite = () => {
     );
 };
 
-export default Favorite;
+
+// export default Favorite;

@@ -4,13 +4,15 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import '../../assets/css/categories.css';
 
 const PlaceListNearby = () =>
 {
     const [data, setData] = useState([{}]);
     const [error, setError] = useState(null);
-    const kakaoKey = process.env.REST_API_KAKAO_KEY;
+
+    const kakaoAPI = process.env.REACT_APP_REST_API_KAKAO_KEY; 
 
     const {categoryCode} = useParams();
 
@@ -25,9 +27,10 @@ const PlaceListNearby = () =>
     }
 
     const fetchData = () => {
-        return fetch(`https://dapi.kakao.com/v2/local/search/category.json?category\_group\_code=${categoryCode}&radius=20000`, {
+        // x, y에 location 받아와서 넣어야 됨!!
+        return fetch(`https://dapi.kakao.com/v2/local/search/category.json?category\_group\_code=${categoryCode}&y=37.514322572335935&x=127.06283102249932&radius=20000`, {
             headers: {
-                Authorization: `KakaoAK ${kakaoKey}`
+                Authorization: `KakaoAK ${kakaoAPI}`
             }})
     }
     
@@ -46,19 +49,22 @@ const PlaceListNearby = () =>
             setData(result.documents);
         }
         fetchDataEffect();
-        console.log(data);
     }, []);
 
     return(
-        <>
-            {/* 데이터 불러와서 삽입 */}
-            <h2> category </h2>
+        <div className="categories-container">
+            <button>◁</button>
+            <h2 className="categories-title"> category </h2>
+            {console.log(data)}
             {data.map((place, index)=>(
-                <div key={index}>
-                    <span>{place.place_name}</span>
-                </div>
-            ))}
-        </>
+                <Link to={`/${categoryCode}/${place.id}`} key={place.id}>
+                    <div key={index}>
+                        <span>{place.place_name}</span>
+                    </div>
+                </Link>
+
+                ))}
+        </div>
     )
 }
 
