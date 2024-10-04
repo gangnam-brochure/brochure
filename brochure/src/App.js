@@ -16,6 +16,7 @@ import ReviewPage from './layout/ReviewPage';
 import ReviewBoard from './components/reviews/ReViewBoard';
 import EditProfile from './components/EditProfile/editprofile';
 import Categories from './components/Categories';
+// import './assets/css/tailwind.css';     // 반응형 패키지
 
 function App() {
   return (
