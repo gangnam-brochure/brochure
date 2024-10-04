@@ -12,6 +12,7 @@ import FavoritePage from './layout/FavoritePage';
 import PlaceTest from './components/favorites/PlaceTest';
 import PlaceDetail from './components/placelist/PlaceDetail';
 import PlaceListNearby from './components/placelist/PlaceListNearby';
+import EditProfile from './components/EditProfile/editprofile';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/sociallogin" element={<SocialLoginWrapper />} />
         <Route path="/profile" element={<PrivateRoute />} />  {/* 프로필 페이지 */}
         <Route path="/mypage" element={<MyPage />} />  {/* 마이 페이지 */}
+        <Route path="/editprofile" element={<EditProfile />} />  {/* 회원정보 변경 페이지 */}
 
         {/* 카카오 및 네이버 로그인 콜백 처리 */}
         <Route path="/oauth/kakao/callback" element={<LoginRedirectHandler />} />

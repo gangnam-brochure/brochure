@@ -26,11 +26,13 @@ const EditProfile = () => {
     setchangeprofile(!changeprofile);
     setShowDeleteConfirmation(false);
     setnewprofile(false);
+    setchangeprofile2(false);
   };
   const handleClick2 = () => {
     setchangeprofile2(!changeprofile2);
     setShowDeleteConfirmation(false);
     setnewprofile(false);
+    setchangeprofile(false);
   };
 
   const handleDeleteClick = () => { //
@@ -112,6 +114,7 @@ const onCilckNewProfile = () => {  //아이디 변경
         {changeprofile && (                     // 기존아이디 창
           <div className="delete-confirmation">
             <h2>기존 아이디와 비밀번호를 입력해주세요</h2>
+            <p>변경을 위한 아이디와 비밀번호</p>
             <label>userName : </label>
             <input type="text" 
             name="username" 
@@ -134,6 +137,7 @@ const onCilckNewProfile = () => {  //아이디 변경
         {changeprofile2 && (                     // 기존아이디 삭제창
           <div className="delete-confirmation">
             <h2>기존 아이디와 비밀번호를 입력해주세요</h2>
+            <p>삭제를 위한 아이디와 비밀번호</p>
             <label>userName : </label>
             <input type="text" 
             name="username" 

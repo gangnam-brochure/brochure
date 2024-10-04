@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getFavoList } from "../../Api/BrochureApi";
+import { getFavoList } from "../../api/BrochureApi";
 import useBookMark from "../../Store"; 
 import { useNavigate } from "react-router-dom";
 const PlaceTest=()=>{

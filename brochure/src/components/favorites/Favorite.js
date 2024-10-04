@@ -6,7 +6,7 @@
 */
 import useBookMark from '../../Store';
 import { useState, useEffect } from "react";
-import { getPlaceDetail } from "../../Api/BrochureApi";
+import { getPlaceDetail } from "../../api/BrochureApi";
 import { useNavigate } from "react-router-dom";
 
 export const Favorite = () => {
