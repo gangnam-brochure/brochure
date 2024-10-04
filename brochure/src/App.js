@@ -8,13 +8,17 @@ import MainPage from './layout/MainPage';
 import MyPage from './components/mypage/MyPage';
 import LoginRedirectHandler from './components/auth/LoginRedirectHandler';  // 리다이렉트 핸들러
 import Logout from './components/auth/Logout';
+import PlaceDetail from './components/placelist/PlaceDetail';
+import PlaceListNearby from './components/placelist/PlaceListNearby';
 
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainPage />} />  {/* 메인 페이지와 리다이렉트 처리 */}
+        <Route path="/" element={<MainPage />}>
+          <Route path=":categoryCode" element={<PlaceListNearby />}/>
+        </Route>  {/* 메인 페이지와 리다이렉트 처리 */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />  {/* 로그인 페이지 */}
         <Route path="/logout" element={<Logout />} /> {/* 로그아웃 페이지 */}

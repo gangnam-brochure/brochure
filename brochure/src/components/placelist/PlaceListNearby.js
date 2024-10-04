@@ -4,12 +4,15 @@
 */
 
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const PlaceListNearby = ({categoryCode}) =>
+const PlaceListNearby = () =>
 {
     const [data, setData] = useState([{}]);
     const [error, setError] = useState(null);
     const kakaoKey = process.env.REST_API_KAKAO_KEY;
+
+    const {categoryCode} = useParams();
 
     const to = async (promise) => {
         try{
@@ -22,7 +25,7 @@ const PlaceListNearby = ({categoryCode}) =>
     }
 
     const fetchData = () => {
-        return fetch(`https://dapi.kakao.com/v2/local/search/category.json?category\_group\_code=PM9&radius=20000`, {
+        return fetch(`https://dapi.kakao.com/v2/local/search/category.json?category\_group\_code=${categoryCode}&radius=20000`, {
             headers: {
                 Authorization: `KakaoAK f0579f41e144258263ee0dfef34ae35b`
             }})
@@ -43,6 +46,7 @@ const PlaceListNearby = ({categoryCode}) =>
             setData(result.documents);
         }
         fetchDataEffect();
+        console.log(data);
     }, []);
 
     return(
