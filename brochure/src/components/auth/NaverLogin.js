@@ -12,8 +12,8 @@ const NaverLogin = () => {
 
   useEffect(() => {
     const naverLogin = new window.naver.LoginWithNaverId({
-      clientId: 'ZFYiGNm6iOeB7tgsolqV',
-      callbackUrl: 'http://localhost:3000/',
+      clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
+      callbackUrl: 'http://localhost:3000/oauth/naver/callback',
       isPopup: false,  // 팝업 방식으로 로그인 할 것인지
       loginButton: { color: 'green', type: 3, height: 48 },
     });
