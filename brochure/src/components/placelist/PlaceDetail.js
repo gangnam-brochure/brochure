@@ -11,6 +11,7 @@ import KakaoMapModal from '../auth/KakaoMapModal';
 import axios from 'axios';
 
 import {useFavorite} from "../../Store"
+import KakaoMapShowingPlace from './KaKaoMapShowingPlace';
 const PlaceDetail = ({data}) =>
 {
     // 불러왔을 때 있어야 되는거
@@ -22,9 +23,8 @@ const PlaceDetail = ({data}) =>
     // 리뷰창    
     const navigate = useNavigate();
     const KAKAO_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-    const [location, setLocation] = useState("");
 
-    const getAddress = async (latitude, longitude) => {
+    const getAddressFromCoordinates = async (latitude, longitude) => {
         try{
             const response = await axios.get(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`,
             {
@@ -36,23 +36,18 @@ const PlaceDetail = ({data}) =>
         if(response.data.documents.length > 0){
             console.log(response.data.documents.length);
         }
+        else{
+            console.log("주소를 찾을 수 없습니다.");
+        }
     } catch(error){
         console.error("주소 변환 실패: ", error);
     }}
 
     useEffect(() => {
-        setLocation(`위도: ${data.y}, 경도: ${data.x}`);
-        console.log(data.y + " " + data.x);
-        getAddress(data.y, data.x);
-    },
-    (error) => {console.error(error);})
+        getAddressFromCoordinates(data.y, data.x);
+        console.log(`lat: ${data.y} lng: ${data.x}`);
+    },[])
 
-    const onSelectionLocation = (latitude, longitude) =>
-    {
-        latitude = data.y;
-        longitude = data.x;
-        console.log("내가 쓸 수 잇는 것이 아닌 것 같습니다");
-    }
     const {favoriteOn} = useFavorite();
     const onClickFavorite = () =>
     {
@@ -70,7 +65,7 @@ const PlaceDetail = ({data}) =>
         <div className="categories-container">
             <h2 className="categories-title"> 〓〓〓〓〓〓〓〓〓〓 </h2>
             <h2> {data.place_name} </h2>
-            <KakaoMapModal onSelectLocation={onSelectionLocation}/>
+            <KakaoMapShowingPlace latitude={data.y} longitude={data.x}/>
             <p>{data.phone}</p>
             <p>{data.address_name}</p>
             <button onClick={()=>onClickFavorite({data})}>즐찾</button>
