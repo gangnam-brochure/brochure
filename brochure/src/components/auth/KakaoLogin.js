@@ -4,6 +4,8 @@
 */
 
 import React, { useEffect } from 'react';
+import kakaoLogo from '../../assets/images/kakao_login_medium_narrow.png'; 
+import '../../assets/css/kakaologin.css';
 
 const KakaoLogin = () => {
   useEffect(() => {
@@ -19,7 +21,14 @@ const KakaoLogin = () => {
   };
 
   return (
-    <button onClick={handleLogin}>카카오 로그인</button>
+    <button className="google-login-button" onClick={() => handleLogin()}>
+      <img 
+      onClick={() => handleLogin()}
+        src={kakaoLogo} 
+        alt="Kakao Logo"
+        className="kakao-logo"
+      />
+    </button>
   );
 };
 
