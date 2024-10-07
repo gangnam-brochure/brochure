@@ -12,7 +12,7 @@ const PlaceListNearby = ({setData}) =>
     const [currData, setCurrData] = useState([{}]);
     const [error, setError] = useState(null);
 
-    const kakaoAPI = process.env.REACT_APP_REST_API_KAKAO_KEY; 
+    const kakaoAPI = process.env.REACT_APP_KAKAO_REST_API_KEY; 
 
     const {categoryCode} = useParams();
 
@@ -47,6 +47,7 @@ const PlaceListNearby = ({setData}) =>
                 return setError("*** json response error ***");
             }
             setCurrData(result.documents);
+            console.log(result.documents);
         }
         fetchDataEffect();
     }, []);
@@ -54,11 +55,14 @@ const PlaceListNearby = ({setData}) =>
     return(
         <div className="categories-container">
             <button>◁</button>
-            <h2 className="categories-title"> category </h2>
+            <h2 className="categories-title"> category </h2> {/*거리순 정렬? 거리를 보여줄 수 잇나 */}
             {currData.map((place, index)=>(
                 <Link to={`/${categoryCode}/${place.id}`} key={index} onClick={()=>{setData(currData[index])}}>
                     <div key={place.id}>
                         <span>{place.place_name}</span>
+                        <br/>
+
+                        <span>{place.phone}</span>
                     </div>
                 </Link>
 

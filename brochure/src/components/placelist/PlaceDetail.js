@@ -5,19 +5,22 @@
 
 import { faChampagneGlasses } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/css/categories.css';
+import { useNavigate } from 'react-router-dom';
 
 const PlaceDetail = ({data}) =>
 {
-    //장소 눌렀을 때 해당 장소에 관한 데이터 리턴해주셈
-
     // 불러왔을 때 있어야 되는거
     // 장소 이름
     // 지도
     // 주소
     // 전화번호 ** 필수
     // 즐겨찾기 클릭 할수잇는 버튼
-    console.log("Place Detail Called");
-    console.log(data);
+    // 리뷰창    
+    const navigate = useNavigate();
+    const mapContainer = document.getElementById("map"), mapOption = {
+        cetner: new window.kakao.maps.LatLng(data.x, data.y),
+        level: 3
+    };
     const onClickFavorite = () =>
     {
         console.log("즐겨찾기 설정");
@@ -25,8 +28,7 @@ const PlaceDetail = ({data}) =>
 
     const onClickBack = () =>
     {
-        console.log("뒤로 가세요");
-        //navigate(`/${categoryCode}`);
+        navigate(`/${data.category_group_code}`);
     }
 
     return(
