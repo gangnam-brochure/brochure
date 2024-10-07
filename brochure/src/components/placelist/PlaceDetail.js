@@ -21,22 +21,22 @@ import KakaoMapShowingPlace from './KaKaoMapShowingPlace';
 const PlaceDetail = ({data}) =>
 {
     //장소 눌렀을 때 해당 장소에 관한 데이터 리턴해주셈
-
     // 불러왔을 때 있어야 되는거
     // 장소 이름
     // 지도
     // 주소
     // 전화번호 ** 필수
     // 즐겨찾기 클릭 할수잇는 버튼
-    const { favoriteOn, favoriteOff, placeData } = useFavorite();
+    // 밑에 댓글 입력할수 있는 창 텍스트 생성  *작성자*손정원
+    const { favoriteOn, favoriteOff, placeData ,addReview , reviewPlace,review} = useFavorite();
     const isFavorite = placeData.some(item => item.data.id === data.id);
 
     const onClickFavorite = () =>
     {
         if (isFavorite) {
-            favoriteOff(data.id); // Remove from favorites
+            favoriteOff(data.id); 
         } else {
-            favoriteOn({data}); // Add to favorites
+            favoriteOn({data});
         }
         
     }
@@ -75,9 +75,10 @@ const PlaceDetail = ({data}) =>
             )}
 
             <button onClick={onClickBack}>돌아가기</button>
+            <p>후기 : <input type="text" placeholder="후기 내용 입력해주세요" onChange={onChangeOpinion} /><button onClick={onClickReview}>등록</button></p>
         </div>
     )
-}
+
 }
 
 export default PlaceDetail;
