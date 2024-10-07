@@ -1,0 +1,20 @@
+
+.star {
+    background: transparent; /* 배경 없음 */
+    border: none; /* 테두리 없음 */
+    color: #FFD700; /* 별 색상 (금색) */
+    font-size: 24px; /* 아이콘 크기 조절 */
+    cursor: pointer; /* 마우스 포인터 변경 */
+}
+
+.star:hover {
+    color: #FFA500; /* 호버 시 색상 변화 */
+}
+
+.onOffStar{
+    background: transparent; /* 배경 없음 */
+    border: none; /* 테두리 없음 */
+    color: #FFD700; /* 별 색상 (금색) */
+    font-size: 24px; /* 아이콘 크기 조절 */
+    cursor: pointer; /* 마우스 포인터 변경 */
+}
