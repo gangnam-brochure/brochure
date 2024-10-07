@@ -11,3 +11,6 @@
 #npm install js-cookie
 #npm install @react-oauth/google
 #npm run build
+
+#npm install --save @fortawesome/fontawesome-free
+#npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons
