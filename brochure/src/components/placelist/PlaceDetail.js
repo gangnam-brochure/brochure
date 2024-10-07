@@ -9,20 +9,13 @@ import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/css/categories.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import KakaoMapModal from '../auth/KakaoMapModal';
 import axios from 'axios';
 
 import {useFavorite} from "../../Store"
 import KakaoMapShowingPlace from './KaKaoMapShowingPlace';
+
 const PlaceDetail = ({data}) =>
-{
-    // 불러왔을 때 있어야 되는거
-    // 장소 이름
-    // 지도
-    // 주소
-    // 전화번호 ** 필수
-    // 즐겨찾기 클릭 할수잇는 버튼
-    // 리뷰창    
+{   
     const navigate = useNavigate();
     const KAKAO_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
 
