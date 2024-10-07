@@ -69,15 +69,15 @@ const PlaceDetail = ({data}) =>
     const onClickBack = () =>
     {
         console.log("뒤로 가세요");
-        //navigate(`/${categoryCode}`);
+        navigate(`/${data.category_group_code}`)
     }
 
     return(
         <div className="categories-container">
             <h2 className="categories-title"> 〓〓〓〓〓〓〓〓〓〓 </h2>
             <h3> {data.place_name} </h3>
+            <KakaoMapShowingPlace latitude={data.y} longitude={data.x}/>
             <p>{data.phone}</p>
-            <p>{data.address_name}</p>
             <p>{data.address_name}</p>
             <button className="onOffStar" onClick={onClickFavorite}>
                 <FontAwesomeIcon icon={isFavorite ? solidStar : regularStar} />
@@ -85,6 +85,7 @@ const PlaceDetail = ({data}) =>
             <button onClick={onClickBack}>돌아가기</button>
         </div>
     )
+}
 }
 
 export default PlaceDetail;
