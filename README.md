@@ -20,3 +20,4 @@ npm install js-cookie
 
 npm install @react-oauth/google
 
+npm install -D tailwindcss
