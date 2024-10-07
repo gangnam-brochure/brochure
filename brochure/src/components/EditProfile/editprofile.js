@@ -2,8 +2,9 @@
     작성자 : 이승환 - 2024-10-02 / 최초 작성
     설명 : 회원 정보 변경
 */
-
-import { useState } from "react";
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useState , useEffect } from "react";
 import Footer from "../Footer";
 import Header from "../Header";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +13,48 @@ import { faTrash , faCommentDots, faUserEdit, faUser } from '@fortawesome/free-s
 import '../../assets/css/mypage.css'; //마이페이지에대한 css
 
 const EditProfile = () => {
+
+  const [formData,setFormData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    phone: '',
+    nickname: '',
+    food:'',
+    gender:'',
+
+});
+const [error, setError] = useState('');
+const [successMessage, setSuccessMessage] = useState('');
+// 초기 사용자 정보를 불러오기 (ex: API 호출)
+useEffect(() => {
+const fetchProfile = async () => {
+  const token = Cookies.get('token');
+  try {
+    const response = await axios.get('/api/get-profile', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setFormData({
+      email: response.data.email,
+      nickname: response.data.nickname,
+      phone: response.data.phone,
+      password: '',
+      confirmPassword: '',
+      food:response.data.food,
+      gender:'',
+    });
+  } catch (error) {
+    console.error('프로필 로드 중 오류 발생:', error);
+  }
+};
+
+fetchProfile();
+
+
+}, []); 
+
     const [user,setUser] = useState({email:'cookie3013',password:'1111'});
     const [user1,setUser1] = useState({email:'',password:''});
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // 아이디삭제 창 열고닫기
@@ -53,7 +96,7 @@ const EditProfile = () => {
   
   const onClicker = () => {  // 아이디와 비밀번호를 각각 비교합니다.
     
-    if (user1.email === user.email && user1.password === user.password) {
+    if (user1.email === formData.email && user1.password === formData.password) {
         alert("인증되었습니다");
         setchangeprofile(false);
         setUser1({email:'', password:''});   
@@ -67,7 +110,7 @@ const EditProfile = () => {
 };
 const onClicker2 = () => {  // 삭제를위한 아이디와 비밀번호를 각각 비교합니다.
     
-    if (user1.email === user.email && user1.password === user.password) {
+    if (user1.email === formData.email && user1.password === formData.password) {
         alert("인증되었습니다");
         setchangeprofile2(false);
         setUser1({email:'', password:''});   
@@ -90,7 +133,7 @@ const onCilckNewProfile = () => {  //아이디 변경
       <div className="mypage-container">
         <h1>회원 정보 변경</h1>
         <div className="welcome-message">
-          안녕하세요 {user.email} 님
+          안녕하세요 {formData.password} 님
         </div>
         <div className="button-group">
           <button onClick={handleClick} className="mypage-button">
@@ -100,7 +143,7 @@ const onCilckNewProfile = () => {  //아이디 변경
             <FontAwesomeIcon icon={faTrash} /> 아이디 삭제
           </button>
           <button onClick={()=>handlepath("../changeprofile")} className="mypage-button">
-            <FontAwesomeIcon icon={faUser} /> 회원정보 변경
+            <FontAwesomeIcon icon={faUser} /> 개인정보 변경
           </button>
         </div>
 
@@ -111,11 +154,6 @@ const onCilckNewProfile = () => {  //아이디 변경
             <button onClick={handleDeleteClick}>취소</button>
           </div>
         )}
-
-
-
-
-
 
         {changeprofile && (                     // 기존아이디 창
           <div className="delete-confirmation">

@@ -1,56 +1,140 @@
-import { useState } from "react";
+
 import Footer from "../Footer";
 import Header from "../Header";
 import { Navigate, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const ChangeProfile = () => {
-    const [user,setUser] = useState({name: "",gender:"",birth:"",food:""})
-    const [user1,setUser1] = useState([]);
+    const [formData,setFormData] = useState({
+        email: '',
+    password: '',
+    confirmPassword: '',
+    phone: '',
+    nickname: '',
+    food:'',
+    gender:'',
+    
+    });
+
+    const [nickname,setNickname] = useState("");
+
+    const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+   // 초기 사용자 정보를 불러오기 (ex: API 호출)
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = Cookies.get('token');
+      try {
+        const response = await axios.get('/api/get-profile', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setFormData({
+          email: response.data.email,
+          nickname: response.data.nickname,
+          phone: response.data.phone,
+          password: '',
+          confirmPassword: '',
+          food:response.data.food,
+          gender:'',
+        });
+      } catch (error) {
+        console.error('프로필 로드 중 오류 발생:', error);
+      }
+    };
+
+    fetchProfile();
+
+   
+  }, []); 
+
+  useEffect(() => {
+
+    setNickname(formData.nickname);
+
+  },[nickname]);
+
+
+    
     const navigate = useNavigate(); // useNavigate 훅 사용
     const onChangeHandler = (e) =>
     {
-        setUser1({
-            ...user1,                          // 유저 전체를 가져와서 참조하고 e.target.name이 변하는곳을 밸류로 채워줌
-            [e.target.name] : e.target.value // 
-        })
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     }
 const handleBack = () => {
 
     navigate(-1); // 이전 페이지로 이동
 }
 
+const handleSubmit = async (e) => {
+    e.preventDefault(); // 새로고침 방지?
+    const { email, password, confirmPassword, phone, nickname,food } = formData;
+    const token = Cookies.get('token');
+
+    if (password !== confirmPassword) {
+      setError('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    try {
+      const response = await axios.put( '/api/update-profile', {
+         email, password, phone, nickname, food},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setSuccessMessage('회원정보가 성공적으로 수정되었습니다.');
+      setError('');
+    } catch (error) {
+      setError('회원정보 수정 중 오류가 발생했습니다.');
+    }
+  };
+
+
+
+
     return (
         <>
         <Header/>
+        <form onSubmit={handleSubmit}>
       <div className="mypage-container">
-
       <div className="back-button-container" style={{ textAlign: "right", marginBottom: "10px", marginTop: "15px" }}>
                     <button className="button" onClick={handleBack}>뒤로가기</button>
                 </div>
 
         <h1>개인 정보 변경</h1>
         <div className="welcome-message">
-          안녕하세요 님 정보를 변경하거나 수정해주세요
+            정보를 변경하거나 수정해주세요
         </div>
-        <label className="label">이름 : </label>
+        <label className="label">닉네임 : </label>
             <input type="text" 
-            name="name" 
-            placeholder="이름" 
+            name="nickname" 
+            placeholder="nickname" 
+            value={formData.nickname}
             className="input-field" 
             onChange={onChangeHandler}/>
             
             <br/>
-            <label for="gender">성별:</label>
+            <label className="label" for="gender">성별:</label>
             <select id="gender" name="gender">
                 <option value="male">남성</option>
                 <option value="female">여성</option>
                 <option value="other">기타</option>
             </select>
             <br/>
-        <label className="label">생년월일 : </label>
+            
+            <label className="label">전화번호 : </label>
             <input type="text" 
-            name="birth" 
-            placeholder="생년월일" 
+            name="phone" 
+            placeholder="전화번호" 
+            value={formData.phone}
             className="input-field" 
             onChange={onChangeHandler}/>
             
@@ -59,17 +143,16 @@ const handleBack = () => {
             <input type="text" 
             name="food" 
             placeholder="좋아하는 음식" 
+            value={formData.food}
             className="input-field" 
             onChange={onChangeHandler}/>
             {/* 버튼을 모든 입력 필드 아래에 위치시킴 */}
-            <div className="button-container" style={{ textAlign: "center", marginTop: "20px" }}>
-                    <button className="button" >변경</button>
-                </div> 
-                
-        <div className="button-group">
-          
-        </div>
+                       
       </div>
+      <div className="button-container" style={{ textAlign: "center", marginTop: "20px" }}>
+                    <button type="submit" className="button" /*onClick={()=>alert("변경됨")}*/ >변경</button>
+                </div> 
+    </form>
       <Footer/>
         </>
     )

@@ -30,29 +30,6 @@ const PlaceDetail = ({data}) =>
     // 즐겨찾기 클릭 할수잇는 버튼
     const { favoriteOn, favoriteOff, placeData } = useFavorite();
     const isFavorite = placeData.some(item => item.data.id === data.id);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-{   
-    const navigate = useNavigate();
-    const KAKAO_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-
-    const getAddressFromCoordinates = async (latitude, longitude) => {
-        try{
-            const response = await axios.get(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`,
-            {
-                headers:{
-                    Authorization: `KakaoAK ${KAKAO_API_KEY}`,
-                },
-            }
-        );
-        if(response.data.documents.length > 0){
-            console.log(response.data.documents.length);
-        }
-        else{
-            console.log("주소를 찾을 수 없습니다.");
-        }
-    } catch(error){
-        console.error("주소 변환 실패: ", error);
-    }}
 
     const onClickFavorite = () =>
     {
@@ -68,6 +45,7 @@ const PlaceDetail = ({data}) =>
     {
         console.log("뒤로 가세요");
         navigate(`/${data.category_group_code}`)
+
     }
 
     // 로그인 여부 확인
@@ -82,7 +60,9 @@ const PlaceDetail = ({data}) =>
         <div className="categories-container">
             <h2 className="categories-title"> 〓〓〓〓〓〓〓〓〓〓 </h2>
             <h3> {data.place_name} </h3>
+
             <KakaoMapShowingPlace latitude={data.y} longitude={data.x}/>
+
             <p>{data.phone}</p>
             <p>{data.address_name}</p>
             <p>{data.address_name}</p>
