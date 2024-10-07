@@ -3,7 +3,9 @@
     설명 : 네이버 지도 기반으로 장소 세부 정보 불러오기
 */
 
-import { faChampagneGlasses } from '@fortawesome/free-solid-svg-icons';
+import "../../assets/css/favorite.css";
+import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
+import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/css/categories.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -51,8 +53,11 @@ const PlaceDetail = ({data}) =>
     const {favoriteOn} = useFavorite();
     const onClickFavorite = () =>
     {
-        console.log({data});
-        favoriteOn({data});
+        if (isFavorite) {
+            favoriteOff(data.id); // Remove from favorites
+        } else {
+            favoriteOn({data}); // Add to favorites
+        }
         
     }
 
@@ -68,7 +73,10 @@ const PlaceDetail = ({data}) =>
             <KakaoMapShowingPlace latitude={data.y} longitude={data.x}/>
             <p>{data.phone}</p>
             <p>{data.address_name}</p>
-            <button onClick={()=>onClickFavorite({data})}>즐찾</button>
+            <p>{data.address_name}</p>
+            <button className="onOffStar" onClick={onClickFavorite}>
+                <FontAwesomeIcon icon={isFavorite ? solidStar : regularStar} />
+            </button>
             <button onClick={onClickBack}>돌아가기</button>
         </div>
     )

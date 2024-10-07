@@ -4,9 +4,12 @@
     고유 식별자 id를 getFavoList로 json객체 받아오고
     리스트로 뿌려주기
 */
+import { faStar, faCommentDots, faUserEdit } from '@fortawesome/free-solid-svg-icons'; // 설치해야함
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFavorite } from '../../Store';
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "../../assets/css/favorite.css";
 
 const Favorite = () => {
     const navigate = useNavigate();
@@ -31,7 +34,6 @@ const Favorite = () => {
                 <button onClick={() => navigate(-1)}>돌아가기</button>
                 {favoList.length > 0 ? (
                     favoList.map((item) => (
-                        
                         <li key={item.data.id}> {/* item.data.id로 고유키 설정 */}
                             <Link to={`/${item.data.category_group_code}/${item.data.id}`}>
                             <p>장소 이름: {item.data.place_name}</p>
@@ -39,7 +41,8 @@ const Favorite = () => {
                             <p>주소: {item.data.road_address_name}</p>
                             <p>카테고리: {item.data.category_name}</p>
                             </Link>
-                            <button onClick={() => onClickHandler(item.data.id)}>즐찾삭제</button>
+                            <button className="star" onClick={() => onClickHandler(item.data.id)}>
+                            <FontAwesomeIcon icon={faStar} /></button>
                         </li>
                     ))
                 ) : (
