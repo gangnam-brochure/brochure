@@ -80,7 +80,7 @@ const KakaoMapModal = ({ onClose, onSelectLocation }) => {
         color: '#000', // 글자 색 검정
         zIndex: 5, // 글자가 지도의 아래로 내려가는 문제 해결
         fontSize: '16px', // 글자 크기 설정
-        backgroundColor: '#fff', // 배경색을 흰색으로 설정하여 더 잘 보이도록 함
+        backgroundColor: '#fff',
         padding: '5px',
         position: 'relative', // 위치 설정
         width: '100%' // 넓이 설정

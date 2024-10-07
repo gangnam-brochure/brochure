@@ -57,7 +57,7 @@ const SignIn = () => {
 
       {/* 소셜 로그인 섹션 */}
       <div className="social-login-section mt-4 flex flex-col items-center">
-        <h3 className="text-center text-lg mb-2">소셜 로그인</h3>
+        <h3 className="text-center text-lg mb-2">다른 방법으로 로그인</h3>
         <SocialLoginWrapper />
       </div>
 

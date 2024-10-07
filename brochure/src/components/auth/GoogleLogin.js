@@ -7,6 +7,8 @@ import React from 'react';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import googleLogo from '../../assets/images/web_neutral_sq_na@2x.png';
+import '../../assets/css/googlelogin.css';
 
 const GoogleLogin = () => {
   const navigate = useNavigate();
@@ -22,9 +24,13 @@ const GoogleLogin = () => {
   });
 
   return (
-    <div>
-      <button onClick={() => googleLogin()}>구글 로그인</button>
-    </div>
+    <button className="google-login-button" onClick={() => googleLogin()}>
+      <img 
+        src={googleLogo} 
+        alt="Google Logo"
+        className="google-logo"
+      />
+    </button>
   );
 };
 
