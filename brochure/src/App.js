@@ -12,11 +12,11 @@ import FavoritePage from './layout/FavoritePage';
 import PlaceTest from './components/favorites/PlaceTest';
 import PlaceDetail from './components/placelist/PlaceDetail';
 import PlaceListNearby from './components/placelist/PlaceListNearby';
-
+import ReviewPage from './layout/ReviewPage';
+import ReviewBoard from './components/reviews/ReViewBoard';
 import EditProfile from './components/EditProfile/editprofile';
-
 import Categories from './components/Categories';
-
+// import './assets/css/tailwind.css';     // 반응형 패키지
 
 function App() {
   const [data, setData] = useState([{}]);
@@ -32,7 +32,9 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />  {/* 로그인 페이지 */}
         <Route path= "/favorites" element={<FavoritePage/>}/>
-        {/* <Route path="/test" element={<PlaceTest/>}/> */}
+        <Route path="/test" element={<PlaceTest/>}/>
+        <Route path="/reviewtest" element={<ReviewBoard/>}/> {/*리뷰테트스*/}
+        <Route path="/reviews" element={<ReviewPage/>}/> 
         <Route path="/sociallogin" element={<SocialLoginWrapper />} />
         <Route path="/profile" element={<PrivateRoute />} />  {/* 프로필 페이지 */}
         <Route path="/mypage" element={<MyPage />} />  {/* 마이 페이지 */}

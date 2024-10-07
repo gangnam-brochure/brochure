@@ -8,14 +8,13 @@ import React, { useEffect } from 'react';
 const KakaoLogin = () => {
   useEffect(() => {
     if (!window.Kakao.isInitialized()) {
-      window.Kakao.init(process.env.REACT_APP_KAKAO_CLIENT_ID);  // 발급받은 JavaScript 키로 SDK 초기화
+      window.Kakao.init(process.env.REACT_APP_KAKAO_CLIENT_ID);  // 카카오 JavaScript 키로 SDK 초기화
     }
   }, []);
 
   const handleLogin = () => {
-    // 카카오 로그인 페이지로 리다이렉트
     window.Kakao.Auth.authorize({
-      redirectUri: 'http://localhost:3000/oauth/kakao/callback',  // 프론트엔드의 리다이렉트 URI
+      redirectUri: 'http://localhost:3000/oauth/kakao/callback',  // 카카오 개발자 콘솔에 등록된 Redirect URI
     });
   };
 
