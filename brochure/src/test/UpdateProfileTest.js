@@ -44,6 +44,7 @@ const UpdateProfileTest = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  //사용자 정보 변경 api
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password, confirmPassword, phone, nickname } = formData;

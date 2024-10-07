@@ -24,3 +24,6 @@ npm install -D tailwindcss
 
 npm install express bcrypt jsonwebtoken body-parser cors (server 폴더에서 실행)
 
+npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons
+
+
