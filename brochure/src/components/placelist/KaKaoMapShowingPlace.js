@@ -33,7 +33,19 @@ const KakaoMapShowingPlace = ({latitude, longitude}) => {
         map: createdMap, // 마커를 표시할 지도
         position: options.center, // 선택된 위치에 마커 설정
       });
+
       setMarker(createdMarker); // 마커 객체를 상태에 저장
+
+    //   const iwContent = `<div style="padding:5px;"> ${placename}</div>`
+    //   const infowindow = new kakao.maps.InfoWindow({content: iwContent});
+    //   kakao.maps.event.addListener(marker, 'mouseover', function(){
+    //     infowindow.open(map, marker);
+    //   }); //마우스오버 이벤트 왜 안될까요??
+
+    //   kakao.maps.event.addListener(marker, 'mouseout', function() {
+    //     // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+    //     infowindow.close();
+    // });
     };
 
     // Kakao 지도 API 스크립트 동적으로 로드
