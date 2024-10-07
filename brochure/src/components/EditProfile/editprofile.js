@@ -8,7 +8,7 @@ import Footer from "../Footer";
 import Header from "../Header";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; //아이콘사용하기위한 라이브러리
-import { faTrash , faCommentDots, faUserEdit } from '@fortawesome/free-solid-svg-icons'; // 설치해야함
+import { faTrash , faCommentDots, faUserEdit, faUser } from '@fortawesome/free-solid-svg-icons'; // 설치해야함
 import '../../assets/css/mypage.css'; //마이페이지에대한 css
 
 const EditProfile = () => {
@@ -20,7 +20,9 @@ const EditProfile = () => {
   const [changeprofile2, setchangeprofile2] = useState(false); //삭제창 전 인증 열고닫기
  
   const navigate = useNavigate();
-
+  const handlepath = (path) => {
+    navigate(path);
+  };
 
   const handleClick = () => {
     setchangeprofile(!changeprofile);
@@ -47,7 +49,8 @@ const EditProfile = () => {
         ...user1,                          // 유저 전체를 가져와서 참조하고 e.target.name이 변하는곳을 밸류로 채워줌
         [e.target.name] : e.target.value // 
     })
-  }
+  };
+  
   const onClicker = () => {  // 아이디와 비밀번호를 각각 비교합니다.
     
     if (user1.email === user.email && user1.password === user.password) {
@@ -95,6 +98,9 @@ const onCilckNewProfile = () => {  //아이디 변경
           </button>
           <button onClick={handleClick2} className="mypage-button">
             <FontAwesomeIcon icon={faTrash} /> 아이디 삭제
+          </button>
+          <button onClick={()=>handlepath("../changeprofile")} className="mypage-button">
+            <FontAwesomeIcon icon={faUser} /> 회원정보 변경
           </button>
         </div>
 
