@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import KakaoMapModal from '../auth/KakaoMapModal';
 import axios from 'axios';
 
+import {useFavorite} from "../../Store"
 const PlaceDetail = ({data}) =>
 {
     // 불러왔을 때 있어야 되는거
@@ -52,9 +53,12 @@ const PlaceDetail = ({data}) =>
         longitude = data.x;
         console.log("내가 쓸 수 잇는 것이 아닌 것 같습니다");
     }
+    const {favoriteOn} = useFavorite();
     const onClickFavorite = () =>
     {
-        console.log("즐겨찾기 설정");
+        console.log({data});
+        favoriteOn({data});
+        
     }
 
     const onClickBack = () =>
@@ -69,7 +73,7 @@ const PlaceDetail = ({data}) =>
             <KakaoMapModal onSelectLocation={onSelectionLocation}/>
             <p>{data.phone}</p>
             <p>{data.address_name}</p>
-            <button onClick={onClickFavorite}>즐찾</button>
+            <button onClick={()=>onClickFavorite({data})}>즐찾</button>
             <button onClick={onClickBack}>돌아가기</button>
         </div>
     )

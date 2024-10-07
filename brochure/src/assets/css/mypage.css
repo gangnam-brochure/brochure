@@ -98,3 +98,46 @@ h1 {
 .delete-confirmation button:last-child:hover {
   background-color: #c82333; /* 취소 버튼 호버 색상 */
 }
+
+.label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.input-field {
+  width: 90%; /* 너비를 90%로 조정 */
+  max-width: 400px; /* 최대 너비 설정 */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.input-field:focus {
+  border-color: #007bff; /* 포커스 시 경계 색상 */
+  outline: none; /* 기본 포커스 아웃라인 제거 */
+}
+
+.button {
+  padding: 10px 15px;
+  background-color: #007bff; /* 버튼 배경 색상 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s; /* 배경 색상 변경 애니메이션 */
+  margin-top: 10px; /* 버튼 위쪽 여백 추가 */
+}
+
+.button:hover {
+  background-color: #0056b3; /* 마우스 오버 시 색상 변경 */
+}
+
+.welcome-message {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #555;
+}
