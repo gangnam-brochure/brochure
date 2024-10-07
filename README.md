@@ -22,4 +22,4 @@ npm install @react-oauth/google
 
 npm install -D tailwindcss
 
-npm install express bcrypt jsonwebtoken body-parser cors
+npm install express bcrypt jsonwebtoken body-parser cors (server 폴더에서 실행)
