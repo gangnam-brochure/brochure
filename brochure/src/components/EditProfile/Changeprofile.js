@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Footer from "../Footer";
 import Header from "../Header";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ChangeProfile = () => {
     const [user,setUser] = useState({name: "",gender:"",birth:"",food:""})
     const [user1,setUser1] = useState([]);
+    const navigate = useNavigate(); // useNavigate 훅 사용
     const onChangeHandler = (e) =>
     {
         setUser1({
@@ -12,12 +14,20 @@ const ChangeProfile = () => {
             [e.target.name] : e.target.value // 
         })
     }
+const handleBack = () => {
 
+    navigate(-1); // 이전 페이지로 이동
+}
 
     return (
         <>
         <Header/>
       <div className="mypage-container">
+
+      <div className="back-button-container" style={{ textAlign: "right", marginBottom: "10px", marginTop: "15px" }}>
+                    <button className="button" onClick={handleBack}>뒤로가기</button>
+                </div>
+
         <h1>개인 정보 변경</h1>
         <div className="welcome-message">
           안녕하세요 님 정보를 변경하거나 수정해주세요
@@ -56,6 +66,7 @@ const ChangeProfile = () => {
             <div className="button-container" style={{ textAlign: "center", marginTop: "20px" }}>
                     <button className="button" >변경</button>
                 </div> 
+                
         <div className="button-group">
           
         </div>
