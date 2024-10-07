@@ -56,11 +56,10 @@ const PlaceListNearby = ({setData}) =>
             <button>◁</button>
             <h2 className="categories-title"> category </h2>
             {currData.map((place, index)=>(
-                <Link to={`/${categoryCode}/${place.id}`} key={index}>
+                <Link to={`/${categoryCode}/${place.id}`} key={index} onClick={()=>{setData(currData[index])}}>
                     <div key={place.id}>
                         <span>{place.place_name}</span>
                     </div>
-                    {setData(currData[index])}
                 </Link>
 
                 ))}
