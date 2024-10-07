@@ -21,3 +21,5 @@ npm install js-cookie
 npm install @react-oauth/google
 
 npm install -D tailwindcss
+
+npm install express bcrypt jsonwebtoken body-parser cors
