@@ -17,6 +17,7 @@ import ReviewBoard from './components/reviews/ReViewBoard';
 import EditProfile from './components/EditProfile/editprofile';
 import Categories from './components/Categories';
 import ChangeProfile from './components/EditProfile/Changeprofile';
+import UpdateProfileTest from './test/UpdateProfileTest';
 // import './assets/css/tailwind.css';     // 반응형 패키지
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />  {/* 마이 페이지 */}
         <Route path="/editprofile" element={<EditProfile />} />  {/* 회원정보 변경 페이지 */}
         <Route path="/changeprofile" element={<ChangeProfile />} />  {/* 회원정보 변경 페이지 */}
-
+        <Route path="/edit" element={<UpdateProfileTest />} />  {/* 테스트 */}
         {/* 카카오 및 네이버 로그인 콜백 처리 */}
         <Route path="/oauth/kakao/callback" element={<LoginRedirectHandler />} />
         <Route path="/oauth/naver/callback" element={<LoginRedirectHandler />} />
