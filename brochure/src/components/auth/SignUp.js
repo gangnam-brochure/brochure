@@ -3,8 +3,9 @@
     설명 : 회원가입 시스템 (이메일 앞부분, 도메인 선택 추가 및 직접 입력 기본 설정)
 */
 import React, { useState, useEffect } from 'react';
-import { signUp } from '../../services/authService';  // authService.js에서 가져옴
-import '../../assets/css/signup.css';  // 스타일링을 위해 CSS 파일 연결
+import { signUp } from '../../services/authService';
+import axios from 'axios';
+import '../../assets/css/signup.css'; 
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -14,13 +15,21 @@ const SignUp = () => {
     emailDomain: '',
     password: '',
     confirmPassword: '',
+    phone: '',
+    nickname: '',
   });
+  
   const [error, setError] = useState({
     email: '',
     password: '',
     confirmPassword: '',
+    phone: '',
+    nickname: '',
     general: '',
   });
+  
+  const [isNicknameValid, setIsNicknameValid] = useState(false); // 닉네임 유효성 체크
+  const [isCheckingNickname, setIsCheckingNickname] = useState(false); // 닉네임 체크 중
   const [isFormValid, setIsFormValid] = useState(false);
   const [domainOption, setDomainOption] = useState('직접입력');
   const navigate = useNavigate();
@@ -31,32 +40,51 @@ const SignUp = () => {
     return emailRegex.test(email);
   };
 
-  // 비밀번호와 비밀번호 확인 검사
+  // 닉네임 중복 체크 함수
+  const checkNicknameAvailability = async (nickname) => {
+    setIsCheckingNickname(true);
+    try {
+      const response = await axios.post('http://localhost:5000/api/check-nickname', { nickname });
+      setIsNicknameValid(response.data.isAvailable);
+      if (!response.data.isAvailable) {
+        setError((prev) => ({ ...prev, nickname: '이미 사용 중인 닉네임입니다.' }));
+      } else if (nickname.length >= 10) {
+        setError((prev) => ({ ...prev, nickname: '닉네임은 10자 이하여야 합니다.' }));
+        setIsNicknameValid(false);
+      } else {
+        setError((prev) => ({ ...prev, nickname: '' }));
+      }
+    } catch (error) {
+      setError((prev) => ({ ...prev, nickname: '닉네임 중복 체크 중 오류가 발생했습니다.' }));
+    } finally {
+      setIsCheckingNickname(false);
+    }
+  };
+
+  // 닉네임 입력 시 중복 체크 호출
+  useEffect(() => {
+    if (formData.nickname.length > 0) {
+      checkNicknameAvailability(formData.nickname);
+    }
+  }, [formData.nickname]);
+
+  // 비밀번호, 전화번호 유효성 및 확인 검사
   useEffect(() => {
     const isEmailValid = validateEmail(`${formData.emailFront}@${formData.emailDomain}`);
     const isPasswordValid = formData.password.length >= 6;
     const isConfirmPasswordValid = formData.password === formData.confirmPassword;
+    const isPhoneValid = formData.phone.length >= 10;  // 전화번호는 최소 10자리로 설정
 
-    if (!isEmailValid) {
-      setError((prev) => ({ ...prev, email: '올바른 이메일 형식을 입력하세요.' }));
-    } else {
-      setError((prev) => ({ ...prev, email: '' }));
-    }
+    setError((prev) => ({
+      ...prev,
+      email: isEmailValid ? '' : '올바른 이메일 형식을 입력하세요.',
+      password: isPasswordValid ? '' : '비밀번호는 최소 6자 이상이어야 합니다.',
+      confirmPassword: isConfirmPasswordValid ? '' : '비밀번호가 일치하지 않습니다.',
+      phone: isPhoneValid ? '' : '유효한 전화번호를 입력하세요.',
+    }));
 
-    if (!isPasswordValid) {
-      setError((prev) => ({ ...prev, password: '비밀번호는 최소 6자 이상이어야 합니다.' }));
-    } else {
-      setError((prev) => ({ ...prev, password: '' }));
-    }
-
-    if (!isConfirmPasswordValid) {
-      setError((prev) => ({ ...prev, confirmPassword: '비밀번호가 일치하지 않습니다.' }));
-    } else {
-      setError((prev) => ({ ...prev, confirmPassword: '' }));
-    }
-
-    setIsFormValid(isEmailValid && isPasswordValid && isConfirmPasswordValid);
-  }, [formData]);
+    setIsFormValid(isEmailValid && isPasswordValid && isConfirmPasswordValid && isPhoneValid && isNicknameValid);
+  }, [formData, isNicknameValid]);
 
   // 입력값 변경 처리
   const handleChange = (e) => {
@@ -78,13 +106,19 @@ const SignUp = () => {
   // 회원가입 폼 제출
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isFormValid) {
+    if (!isFormValid || !isNicknameValid) {
       alert('모든 항목을 올바르게 입력해주세요.');
       return;
     }
 
     const fullEmail = `${formData.emailFront}@${formData.emailDomain}`;
-    const result = await signUp({ email: fullEmail, password: formData.password });
+    const result = await signUp({
+      email: fullEmail,
+      password: formData.password,
+      phone: formData.phone,
+      nickname: formData.nickname,
+    });
+
     if (result.success) {
       Cookies.set('token', result.token, { expires: 1, path: '/', sameSite: 'Lax' });
       alert('회원가입이 완료되었습니다.');
@@ -133,9 +167,41 @@ const SignUp = () => {
             <option value="daum.net">daum.net</option>
             <option value="gmail.com">gmail.com</option>
             <option value="yahoo.com">yahoo.com</option>
+            <option value="nate.com">nate.com</option>
+            <option value="hanmail.com">hanmail.com</option>
           </select>
         </div>
         {error.email && <p className="error-message">{error.email}</p>}
+      </div>
+
+      {/* 닉네임 입력 (선택사항) */}
+      <div className={`form-group ${error.nickname ? 'error' : ''}`}>
+        <label>닉네임 (선택사항)</label>
+        <br />
+        <input
+          type="text"
+          name="nickname"
+          value={formData.nickname}
+          onChange={handleChange}
+          placeholder="닉네임"
+        />
+        {isCheckingNickname && <p>닉네임 확인 중...</p>}
+        {error.nickname && <p className="error-message">{error.nickname}</p>}
+      </div>
+
+      {/* 전화번호 입력 */}
+      <div className={`form-group ${error.phone ? 'error' : ''}`}>
+        <label>전화번호</label>
+        <br />
+        <input
+          type="text"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          placeholder="전화번호"
+          required
+        />
+        {error.phone && <p className="error-message">{error.phone}</p>}
       </div>
 
       {/* 비밀번호 입력 */}
@@ -155,6 +221,7 @@ const SignUp = () => {
       {/* 비밀번호 확인 */}
       <div className={`form-group ${error.confirmPassword ? 'error' : ''}`}>
         <label>비밀번호 확인</label>
+        <br />
         <input
           type="password"
           name="confirmPassword"
