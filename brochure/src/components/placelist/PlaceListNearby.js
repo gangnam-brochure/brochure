@@ -61,11 +61,9 @@ const PlaceListNearby = ({setData}) =>
                     <div key={place.id}>
                         <span>{place.place_name}</span>
                         <br/>
-
                         <span>{place.phone}</span>
                     </div>
                 </Link>
-
                 ))}
         </div>
     )
