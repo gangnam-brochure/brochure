@@ -4,7 +4,7 @@ terminal 두 개 실행
 
 3000port npm start
 
-5000port node server.js 
+5000port node server.js (server 폴더에서 실행)
 
 ##npm 설치
 
@@ -21,3 +21,6 @@ npm install js-cookie
 npm install @react-oauth/google
 
 npm install -D tailwindcss
+
+npm install express bcrypt jsonwebtoken body-parser cors (server 폴더에서 실행)
+

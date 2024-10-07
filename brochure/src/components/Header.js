@@ -1,3 +1,8 @@
+/*
+    작성자 : 김동규 - 2024-10-02 / 최초 작성
+    설명 : 메인 페이지 헤더 영역
+*/
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import KakaoMapModal from '../components/auth/KakaoMapModal';  // 카카오 지도 모달 컴포넌트 가져오기
