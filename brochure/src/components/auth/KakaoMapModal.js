@@ -4,9 +4,9 @@ const KakaoMapModal = ({ onClose, onSelectLocation }) => {
   const [map, setMap] = useState(null); // 지도 객체를 상태로 관리
   const [marker, setMarker] = useState(null); // 마커 객체를 상태로 관리
   const [selectedPosition, setSelectedPosition] = useState({
-    lat: 37.5665,
-    lng: 126.9780,
-  }); // 선택된 위치 저장 (초기 위치: 서울 중심)
+    lat: 37.4988635,
+    lng: 127.0266457,
+  }); // 선택된 위치 저장 (초기 위치: 하이미디어 강남)
 
   useEffect(() => {
     const loadKakaoMap = () => {

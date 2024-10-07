@@ -26,10 +26,10 @@ const SignIn = () => {
     if (response.success) {
       Cookies.set('token', response.token);
       // 사용자의 이름을 이메일 앞부분으로 설정
-      const userName = formData.nickname;
+      const userName = formData.email.split('@', [1]);
       alert(`환영합니다, ${userName}님!`);
       navigate('/');  // 로그인 성공 시 메인 페이지로 이동
-    } else {
+    } else {  
       alert('로그인 실패: ' + response.message);
     }
   };
