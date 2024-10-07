@@ -5,7 +5,7 @@
 
 import { faChampagneGlasses } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/css/categories.css';
-
+import {useFavorite} from "../../Store"
 const PlaceDetail = ({data}) =>
 {
     //장소 눌렀을 때 해당 장소에 관한 데이터 리턴해주셈
@@ -16,11 +16,12 @@ const PlaceDetail = ({data}) =>
     // 주소
     // 전화번호 ** 필수
     // 즐겨찾기 클릭 할수잇는 버튼
-    console.log("Place Detail Called");
-    console.log(data);
+    const {favoriteOn} = useFavorite();
     const onClickFavorite = () =>
     {
-        console.log("즐겨찾기 설정");
+        console.log({data});
+        favoriteOn({data});
+        
     }
 
     const onClickBack = () =>
@@ -35,7 +36,7 @@ const PlaceDetail = ({data}) =>
             <h3> {data.place_name} </h3>
             <p>{data.phone}</p>
             <p>{data.address_name}</p>
-            <button onClick={onClickFavorite}>즐찾</button>
+            <button onClick={()=>onClickFavorite({data})}>즐찾</button>
             <button onClick={onClickBack}>돌아가기</button>
         </div>
     )

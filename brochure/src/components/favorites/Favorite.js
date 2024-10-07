@@ -1,67 +1,53 @@
-// // /*
-// //     작성자 손정원
-// //     (만약 점포정보가 넘어오고 상세페이지에서 즐찾 버튼을 눌렀을때)
-// //     고유 식별자 id를 getFavoList로 json객체 받아오고
-// //     리스트로 뿌려주기
-// // */
-// // import useBookMark from '../../Store';
-// // import { useState, useEffect } from "react";
-// // import { useNavigate } from "react-router-dom";
-// // import { getPlaceDetaill } from "../../api/BrochureApi";
+/*
+    작성자 손정원
+    (만약 점포정보가 넘어오고 상세페이지에서 즐찾 버튼을 눌렀을때)
+    고유 식별자 id를 getFavoList로 json객체 받아오고
+    리스트로 뿌려주기
+*/
+import { useFavorite } from '../../Store';
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-// // export const Favorite = () => {
-// //     const navigate = useNavigate();
-// //     const [favoList, setFavoList] = useState([]);
-// //     const { bookmarkCancle, placeCodes } = useBookMark();
+const Favorite = () => {
+    const navigate = useNavigate();
+    const { placeData, favoriteOff } = useFavorite(); // placeData와 favoriteOff을 불러옴
+    const [favoList, setFavoList] = useState([]); // favoList 상태 선언
 
-// //     const onClickHandler = (id) => {
-// //         bookmarkCancle(id);
-// //     }
+    const onClickHandler = (id) => {
+        favoriteOff(id); // ID로 즐겨찾기 삭제
+        console.log(`삭제할 ID: ${id}`);
+    };
 
+    useEffect(() => {
+        if (placeData) { // placeData가 있을 때만
+            console.log(placeData, "placeData 상태");
+            setFavoList(placeData); // placeData를 favoList에 설정
+        }
+    }, [placeData]); // placeData가 변경될 때마다 호출
 
-//     useEffect(() => {
-//         const fetchFavoList = async () => {
-//             try {
-//                // 비동기 호출
-//                console.log(placeCodes);
-//                const placesDetails = placeCodes.map(placeId => getPlaceDetail(placeId));
-//                 console.log(placesDetails);
-//                 setFavoList(placesDetails);
-//                 console.log(favoList,"여기문제1");
+    return (
+        <main style={{ padding: "20px", marginTop: "90px" }}>
+            <div className="placeinfo">
+                <button onClick={() => navigate(-1)}>돌아가기</button>
+                {favoList.length > 0 ? (
+                    favoList.map((item) => (
+                        
+                        <li key={item.data.id}> {/* item.data.id로 고유키 설정 */}
+                            <Link to={`/${item.data.category_group_code}/${item.data.id}`}>
+                            <p>장소 이름: {item.data.place_name}</p>
+                            <p>전화번호: {item.data.phone}</p>
+                            <p>주소: {item.data.road_address_name}</p>
+                            <p>카테고리: {item.data.category_name}</p>
+                            </Link>
+                            <button onClick={() => onClickHandler(item.data.id)}>즐찾삭제</button>
+                        </li>
+                    ))
+                ) : (
+                    <p>즐겨찾기 목록이 비어 있습니다.</p> 
+                )}
+            </div>
+        </main>
+    );
+};
 
-
-// //               } catch (error) {
-// //                 console.error("즐겨찾기 목록을 가져오는 데 실패했습니다", error);
-// //             }
-// //         };
-
-//          // placeCodes가 비어있지 않은 경우에만 호출
-//             fetchFavoList(); // 함수 호출
-//     }, [placeCodes]); // placeCodes가 변경될 때만 호출
-//     console.log(favoList);
-//     return (
-//         <>
-//             <main style={{ padding: "20px", marginTop: "90px" }}>
-//                 <div className="placeinfo">
-//                     <button onClick={() => navigate(-1)}>돌아가기</button>
-//                     {favoList.length === 0 ? (
-//                         <p>즐겨찾기 목록이 비어 있습니다.</p> 
-//                     ) : (
-//                        <div>
-//                             {favoList.map((item, index) => (
-//                                 <li key={index}>
-//                                     {item[0].name}={item[0].place}
-//                                     <button onClick={() => onClickHandler(item[0].id)}>즐찾삭제</button>
-//                                 </li>
-//                             ))}
-                            
-//                         </div>
-//                     )}
-//                 </div>
-//             </main>
-//         </>
-//     );
-// };
-
-
-// // export default Favorite;
+export default Favorite;
