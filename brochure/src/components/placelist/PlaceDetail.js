@@ -17,6 +17,7 @@ const PlaceDetail = ({data}) =>
     // 전화번호 ** 필수
     // 즐겨찾기 클릭 할수잇는 버튼
     console.log("Place Detail Called");
+    console.log(data);
     const onClickFavorite = () =>
     {
         console.log("즐겨찾기 설정");
@@ -31,10 +32,9 @@ const PlaceDetail = ({data}) =>
     return(
         <div className="categories-container">
             <h2 className="categories-title"> 〓〓〓〓〓〓〓〓〓〓 </h2>
-            {console.log(data)}
-            <h3> {data[0].place_name} </h3>
-            <p>{data[0].phone}</p>
-            <p>{data[0].address_name}</p>
+            <h3> {data.place_name} </h3>
+            <p>{data.phone}</p>
+            <p>{data.address_name}</p>
             <button onClick={onClickFavorite}>즐찾</button>
             <button onClick={onClickBack}>돌아가기</button>
         </div>

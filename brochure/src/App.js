@@ -20,7 +20,7 @@ import Categories from './components/Categories';
 
 function App() {
   const [data, setData] = useState([{}]);
-
+  
   return (
     <Router>
       <Routes>
