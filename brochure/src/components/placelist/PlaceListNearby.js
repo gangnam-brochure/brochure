@@ -68,5 +68,4 @@ const PlaceListNearby = ({setData}) =>
         </div>
     )
 }
-
 export default PlaceListNearby;
