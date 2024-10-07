@@ -39,8 +39,16 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/reviews"
+          element={
+            <PrivateRoute>
+              <ReviewPage />
+            </PrivateRoute>
+          }
+        />
         <Route path="/reviewtest" element={<ReviewBoard/>}/> {/*리뷰테트스*/}
-        <Route path="/reviews" element={<ReviewPage/>}/> 
+        {/* <Route path="/reviews" element={<ReviewPage/>}/>  위에 로그인된 유저만 볼 수 있게 만듦 */}
         <Route path="/sociallogin" element={<SocialLoginWrapper />} />
         <Route path="/profile" element={<PrivateRoute />} />  {/* 프로필 페이지 */}
         <Route path="/mypage" element={<MyPage />} />  {/* 마이 페이지 */}
