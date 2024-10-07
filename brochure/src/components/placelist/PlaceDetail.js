@@ -6,6 +6,9 @@
 import { faChampagneGlasses } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/css/categories.css';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import KakaoMapModal from '../auth/KakaoMapModal';
+import axios from 'axios';
 
 const PlaceDetail = ({data}) =>
 {
@@ -17,10 +20,38 @@ const PlaceDetail = ({data}) =>
     // 즐겨찾기 클릭 할수잇는 버튼
     // 리뷰창    
     const navigate = useNavigate();
-    const mapContainer = document.getElementById("map"), mapOption = {
-        cetner: new window.kakao.maps.LatLng(data.x, data.y),
-        level: 3
-    };
+    const KAKAO_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+    const [location, setLocation] = useState("");
+
+    const getAddress = async (latitude, longitude) => {
+        try{
+            const response = await axios.get(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`,
+            {
+                headers:{
+                    Authorization: `KakaoAK ${KAKAO_API_KEY}`,
+                },
+            }
+        );
+        if(response.data.documents.length > 0){
+            console.log(response.data.documents.length);
+        }
+    } catch(error){
+        console.error("주소 변환 실패: ", error);
+    }}
+
+    useEffect(() => {
+        setLocation(`위도: ${data.y}, 경도: ${data.x}`);
+        console.log(data.y + " " + data.x);
+        getAddress(data.y, data.x);
+    },
+    (error) => {console.error(error);})
+
+    const onSelectionLocation = (latitude, longitude) =>
+    {
+        latitude = data.y;
+        longitude = data.x;
+        console.log("내가 쓸 수 잇는 것이 아닌 것 같습니다");
+    }
     const onClickFavorite = () =>
     {
         console.log("즐겨찾기 설정");
@@ -34,7 +65,8 @@ const PlaceDetail = ({data}) =>
     return(
         <div className="categories-container">
             <h2 className="categories-title"> 〓〓〓〓〓〓〓〓〓〓 </h2>
-            <h3> {data.place_name} </h3>
+            <h2> {data.place_name} </h2>
+            <KakaoMapModal onSelectLocation={onSelectionLocation}/>
             <p>{data.phone}</p>
             <p>{data.address_name}</p>
             <button onClick={onClickFavorite}>즐찾</button>
