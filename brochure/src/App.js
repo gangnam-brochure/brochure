@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './routes/PrivateRoute';
 import SocialLoginWrapper from './components/auth/SocialLogin';
@@ -19,13 +19,15 @@ import Categories from './components/Categories';
 // import './assets/css/tailwind.css';     // 반응형 패키지
 
 function App() {
+  const [data, setData] = useState([{}]);
+  
   return (
     <Router>
       <Routes>
         <Route path="/" element={<MainPage />}>
           <Route index  element={<Categories />}/>
-          <Route path=":categoryCode" element={<PlaceListNearby />}/>
-          <Route path=":categoryCode/:placeId" element={<PlaceDetail/>}/>
+          <Route path=":categoryCode" element={<PlaceListNearby setData={setData}/>}/>
+          <Route path=":categoryCode/:placeId" element={<PlaceDetail data={data}/>}/>
         </Route>  {/* 메인 페이지와 리다이렉트 처리 */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />  {/* 로그인 페이지 */}

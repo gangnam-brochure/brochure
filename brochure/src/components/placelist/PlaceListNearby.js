@@ -7,9 +7,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import '../../assets/css/categories.css';
 
-const PlaceListNearby = () =>
+const PlaceListNearby = ({setData}) =>
 {
-    const [data, setData] = useState([{}]);
+    const [currData, setCurrData] = useState([{}]);
     const [error, setError] = useState(null);
 
     const kakaoAPI = process.env.REACT_APP_REST_API_KAKAO_KEY; 
@@ -46,7 +46,7 @@ const PlaceListNearby = () =>
             if(jsonError) {
                 return setError("*** json response error ***");
             }
-            setData(result.documents);
+            setCurrData(result.documents);
         }
         fetchDataEffect();
     }, []);
@@ -55,12 +55,12 @@ const PlaceListNearby = () =>
         <div className="categories-container">
             <button>◁</button>
             <h2 className="categories-title"> category </h2>
-            {console.log(data)}
-            {data.map((place, index)=>(
-                <Link to={`/${categoryCode}/${place.id}`} key={place.id}>
-                    <div key={index}>
+            {currData.map((place, index)=>(
+                <Link to={`/${categoryCode}/${place.id}`} key={index}>
+                    <div key={place.id}>
                         <span>{place.place_name}</span>
                     </div>
+                    {setData(currData[index])}
                 </Link>
 
                 ))}

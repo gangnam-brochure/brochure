@@ -3,9 +3,10 @@
     설명 : 네이버 지도 기반으로 장소 세부 정보 불러오기
 */
 
+import { faChampagneGlasses } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/css/categories.css';
 
-const PlaceDetail = () =>
+const PlaceDetail = ({data}) =>
 {
     //장소 눌렀을 때 해당 장소에 관한 데이터 리턴해주셈
 
@@ -16,6 +17,7 @@ const PlaceDetail = () =>
     // 전화번호 ** 필수
     // 즐겨찾기 클릭 할수잇는 버튼
     console.log("Place Detail Called");
+    console.log(data);
     const onClickFavorite = () =>
     {
         console.log("즐겨찾기 설정");
@@ -30,9 +32,9 @@ const PlaceDetail = () =>
     return(
         <div className="categories-container">
             <h2 className="categories-title"> 〓〓〓〓〓〓〓〓〓〓 </h2>
-            {/* <h3> {data.place_name} </h3>
+            <h3> {data.place_name} </h3>
             <p>{data.phone}</p>
-            <p>{data.address_name}</p> */}
+            <p>{data.address_name}</p>
             <button onClick={onClickFavorite}>즐찾</button>
             <button onClick={onClickBack}>돌아가기</button>
         </div>
