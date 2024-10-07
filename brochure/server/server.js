@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
-const port = 5000;
+const PORT = process.env.PORT || 5000;
 
 // JSON 형식의 요청 본문을 처리하기 위해 body-parser 사용
 app.use(bodyParser.json());
@@ -88,8 +88,75 @@ app.post('/api/check-nickname', (req, res) => {
   return res.status(200).json({ isAvailable });
 });
 
+  // 회원정보 조회 API (JWT를 기반으로 사용자 정보 반환)
+app.get('/api/get-profile', (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+  
+    if (!token) {
+      return res.status(401).json({ message: '인증이 필요합니다.' });
+    }
+  
+    try {
+      const decoded = jwt.verify(token, JWT_SECRET);
+      const user = users.find((user) => user.email === decoded.email);
+      
+      if (!user) {
+        return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+      }
+  
+      return res.json({ email: user.email, nickname: user.nickname, phone: user.phone });
+    } catch (error) {
+      return res.status(400).json({ message: '회원정보를 불러오는 중 오류가 발생했습니다.' });
+    }
+  });
+
+  // 회원정보 수정 API
+app.put('/api/update-profile', async (req, res) => {
+    const { email, password, phone, nickname } = req.body;
+    const token = req.headers.authorization?.split(' ')[1];
+  
+    if (!token) {
+      return res.status(401).json({ message: '인증이 필요합니다.' });
+    }
+  
+    try {
+      // JWT 토큰을 이용해 사용자 이메일을 추출
+      const decoded = jwt.verify(token, JWT_SECRET);
+      const userEmail = decoded.email;
+  
+      // 사용자 정보 찾기
+      const user = users.find((user) => user.email === userEmail);
+      if (!user) {
+        return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+      }
+  
+      // 비밀번호가 변경되었을 때만 해시화 (없을 시 유지)
+      if (password) {
+        user.password = await bcrypt.hash(password, 10);
+      }
+  
+      // 닉네임 변경 시 중복 확인
+      if (nickname && existingNicknames.includes(nickname) && user.nickname !== nickname) {
+        return res.status(400).json({ message: '이미 사용 중인 닉네임입니다.' });
+      } else if (nickname) {
+        // 닉네임 목록에서 이전 닉네임 제거 후 새로운 닉네임 추가
+        existingNicknames = existingNicknames.filter((name) => name !== user.nickname);
+        existingNicknames.push(nickname);
+        user.nickname = nickname;
+      }
+  
+      // 전화번호 변경
+      if (phone) {
+        user.phone = phone;
+      }
+  
+      return res.status(200).json({ message: '회원정보가 성공적으로 변경되었습니다.' });
+    } catch (error) {  
+      return res.status(400).json({ message: '회원정보 수정 중 오류가 발생했습니다.', error });
+    }
+  });
+
 // 서버 포트 설정
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`서버가 http://localhost:${PORT} 에서 실행 중입니다.`);
 });

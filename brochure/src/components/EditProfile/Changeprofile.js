@@ -40,13 +40,12 @@ const handleBack = () => {
             onChange={onChangeHandler}/>
             
             <br/>
-        <label className="label">성별 : </label>
-            <input type="text" 
-            name="gender" 
-            placeholder="성별" 
-            className="input-field" 
-            onChange={onChangeHandler}/>
-            
+            <label for="gender">성별:</label>
+            <select id="gender" name="gender">
+                <option value="male">남성</option>
+                <option value="female">여성</option>
+                <option value="other">기타</option>
+            </select>
             <br/>
         <label className="label">생년월일 : </label>
             <input type="text" 
