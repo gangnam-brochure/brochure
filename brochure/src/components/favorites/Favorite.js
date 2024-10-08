@@ -26,7 +26,15 @@ const Favorite = () => {
     const navigate = useNavigate();
     const { placeData, favoriteOff } = useFavorite(); // placeData와 favoriteOff을 불러옴
     const [favoList, setFavoList] = useState([]); // favoList 상태 선언
+
+    const [ currentUserNickname,setCurrentUserNickname] = useState('');
+    const onClickHandler = (id) => {
+        favoriteOff(id); // ID로 즐겨찾기 삭제
+        console.log(`삭제할 ID: ${id}`);
+    };
+
     const [currentUserNickname, setCurrentUserNickname] = useState('');
+
 
     useEffect(() => {
         if (placeData) { // placeData가 있을 때만
@@ -69,13 +77,7 @@ const Favorite = () => {
     }
   }, [placeData, currentUserNickname]);
   
-
   // 즐겨찾기 삭제 핸들러
-  const onClickHandler = (id) => {
-    favoriteOff(id, currentUserNickname); // 사용자 닉네임과 함께 즐겨찾기 삭제
-    console.log(`삭제할 ID: ${id}, 사용자: ${currentUserNickname}`);
-  };
-
   return (
         <main style={{ padding: "20px", marginTop: "90px" }}>
              <div className="backBtnContainer">

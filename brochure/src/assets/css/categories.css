@@ -35,7 +35,7 @@
     font-size: 24px; /* 아이콘 크기 조절 */
     cursor: pointer; /* 마우스 포인터 변경 */
 } 
-    .button.onOffStar:hover {
+  button.onOffStar:hover {
   color: #ff9900;
   transform: scale(1.2);
 }
