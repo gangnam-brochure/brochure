@@ -2,8 +2,9 @@
     작성자 : 이승환 - 2024-10-02 / 최초 작성
     설명 : 회원 정보 변경
 */
-
-import { useState } from "react";
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useState , useEffect } from "react";
 import Footer from "../Footer";
 import Header from "../Header";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +13,48 @@ import { faTrash , faCommentDots, faUserEdit, faUser } from '@fortawesome/free-s
 import '../../assets/css/mypage.css'; //마이페이지에대한 css
 
 const EditProfile = () => {
+
+  const [formData,setFormData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    phone: '',
+    nickname: '',
+    food:'',
+    gender:'',
+
+});
+const [error, setError] = useState('');
+const [successMessage, setSuccessMessage] = useState('');
+// 초기 사용자 정보를 불러오기 (ex: API 호출)
+useEffect(() => {
+const fetchProfile = async () => {
+  const token = Cookies.get('token');
+  try {
+    const response = await axios.get('/api/get-profile', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setFormData({
+      email: response.data.email,
+      nickname: response.data.nickname,
+      phone: response.data.phone,
+      password: '',
+      confirmPassword: '',
+      food:response.data.food,
+      gender:'',
+    });
+  } catch (error) {
+    console.error('프로필 로드 중 오류 발생:', error);
+  }
+};
+
+fetchProfile();
+
+
+}, []); 
+
     const [user,setUser] = useState({email:'cookie3013',password:'1111'});
     const [user1,setUser1] = useState({email:'',password:''});
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // 아이디삭제 창 열고닫기
@@ -50,34 +93,49 @@ const EditProfile = () => {
         [e.target.name] : e.target.value // 
     })
   };
-  
-  const onClicker = () => {  // 아이디와 비밀번호를 각각 비교합니다.
-    
-    if (user1.email === user.email && user1.password === user.password) {
-        alert("인증되었습니다");
-        setchangeprofile(false);
-        setUser1({email:'', password:''});   
-        setnewprofile(!newprofile);
-    } else {
-        alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
-        setUser1({email:'', password:''});   
-        
+
+// 기존 비밀번호 확인 함수
+const verifyPassword = async () => {
+  try {
+    const token = Cookies.get('token');
+    const response = await axios.post(
+      '/api/verify-password', // POST 요청
+      { email: formData.email, password: user1.password }, // 서버로 전달할 데이터
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      alert('비밀번호가 확인되었습니다.');
+      // 비밀번호 확인 후 처리할 로직
     }
-    
+  } catch (error) {
+    alert('비밀번호가 일치하지 않습니다.');
+  }
 };
+
+
+const onClicker = () => {  // 아이디와 비밀번호를 각각 비교합니다.
+  verifyPassword();
+};
+
 const onClicker2 = () => {  // 삭제를위한 아이디와 비밀번호를 각각 비교합니다.
     
-    if (user1.email === user.email && user1.password === user.password) {
-        alert("인증되었습니다");
-        setchangeprofile2(false);
-        setUser1({email:'', password:''});   
-        setShowDeleteConfirmation(!showDeleteConfirmation);
-    } else {
-        alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
-        setUser1({email:'', password:''});   
-        
-    }
+  if (user1.email === formData.email && user1.password === formData.password) {
+      alert("인증되었습니다");
+      setchangeprofile2(false);
+      setUser1({email:'', password:''});   
+      setShowDeleteConfirmation(!showDeleteConfirmation);
+  } else {
+      alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
+      setUser1({email:'', password:''});   
+      
+  }
 };
+
 const onCilckNewProfile = () => {  //아이디 변경
     setUser(user1);
     alert("아이디가 변경 되었습니다");
@@ -90,17 +148,17 @@ const onCilckNewProfile = () => {  //아이디 변경
       <div className="mypage-container">
         <h1>회원 정보 변경</h1>
         <div className="welcome-message">
-          안녕하세요 {user.email} 님
+          안녕하세요 {formData.password} 님
         </div>
         <div className="button-group">
-          <button onClick={handleClick} className="mypage-button">
+          <button onClick={handleClick2} className="mypage-button">
             <FontAwesomeIcon icon={faUserEdit} /> 아이디/비밀번호 변경
           </button>
           <button onClick={handleClick2} className="mypage-button">
             <FontAwesomeIcon icon={faTrash} /> 아이디 삭제
           </button>
           <button onClick={()=>handlepath("../changeprofile")} className="mypage-button">
-            <FontAwesomeIcon icon={faUser} /> 회원정보 변경
+            <FontAwesomeIcon icon={faUser} /> 개인정보 변경
           </button>
         </div>
 
@@ -111,11 +169,6 @@ const onCilckNewProfile = () => {  //아이디 변경
             <button onClick={handleDeleteClick}>취소</button>
           </div>
         )}
-
-
-
-
-
 
         {changeprofile && (                     // 기존아이디 창
           <div className="delete-confirmation">
@@ -158,7 +211,7 @@ const onCilckNewProfile = () => {  //아이디 변경
             placeholder="패스워드 입력"
             onChange={onChangeHandler}/>
             <br/>
-            <button onClick={onClicker2}>확인</button>
+            <button onClick={onClicker}>확인</button>
             <button onClick={handleClick2}>취소</button>
           </div>
         )}

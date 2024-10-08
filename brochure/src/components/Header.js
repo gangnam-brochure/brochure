@@ -27,9 +27,11 @@ const Header = () => {
           },
         }
       );
+      
 
       if (response.data.documents.length > 0) {
         setAddress(response.data.documents[0].address.address_name);  // 변환된 주소 설정
+        console.log("현재 위치 : " + response.data.documents[0].address.address_name);
       } else {
         setAddress('주소를 찾을 수 없습니다.');
       }
@@ -49,6 +51,8 @@ const Header = () => {
 
           // 위도와 경도를 Kakao API를 통해 주소로 변환
           getAddressFromCoordinates(latitude, longitude);
+          console.log("latitude : " + latitude);
+          console.log("longitude : " + longitude);
         },
         (error) => {
           console.error(error);

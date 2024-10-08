@@ -1,18 +1,27 @@
 /*
     작성자 : 최예지 - 2024-10-04 / 최초 작성
     설명 : 네이버 지도 기반으로 장소 세부 정보 불러오기
+<<<<<<< HEAD
     
     김동규 - 2024-10-07 / 수정
     설명 : 로그인한 유저만 즐겨찾기 등록 가능하도록 수정
 
     손정원 : 2024 -10-07/ 추가
     리뷰쓰는 텍스트 추가
+=======
+*/
+
+/*
+    작성자 : 김동규 - 2024-10-07 / 수정
+    설명 : 로그인한 유저에게만 즐겨찾기 기능 사용할 수 있게
+>>>>>>> b9639499930735c426bc2e9b1c35cd678090fced
 */
 
 import "../../assets/css/favorite.css";
 import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/css/categories.css';
+<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -89,6 +98,22 @@ const PlaceDetail = ({data}) =>
         console.log("뒤로 가세요");
         navigate(`/${data.category_group_code}`)
     }
+=======
+import {useFavorite} from "../../Store"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Cookies from 'js-cookie';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
+
+const PlaceDetail = ({ data }) => {
+    // 즐겨찾기 관련 상태와 함수
+    const { favoriteOn, favoriteOff, placeData } = useFavorite();
+    const isFavorite = placeData.some(item => item.data.id === data.id);
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
+    const navigate = useNavigate();
+    const {categoryCode} = useParams();
+>>>>>>> b9639499930735c426bc2e9b1c35cd678090fced
 
     // 로그인 여부 확인
     useEffect(() => {
@@ -99,23 +124,39 @@ const PlaceDetail = ({data}) =>
         }
     }, []);
 
-    return(
+    const onClickFavorite = () => {
+        if (isFavorite) {
+            favoriteOff(data.id); // 즐겨찾기에서 제거
+        } else {
+            favoriteOn({ data }); // 즐겨찾기에 추가
+        }
+    }
+
+    const onClickBack = () => {
+        navigate(`/${categoryCode}`);
+        console.log("뒤로 가세요");
+        //navigate(`/${categoryCode}`);
+    }
+
+    return (
         <div className="categories-container">
             <h2 className="categories-title"> 〓〓〓〓〓〓〓〓〓〓 </h2>
             <h3> {data.place_name} </h3>
-            <KakaoMapShowingPlace latitude={data.y} longitude={data.x}/>
             <p>{data.phone}</p>
             <p>{data.address_name}</p>
             <p>{data.address_name}</p>
+
+            {/* 로그인한 사용자만 즐겨찾기 버튼을 클릭할 수 있도록 조건부 렌더링 */}
             {isLoggedIn ? (
                 <button className="onOffStar" onClick={onClickFavorite}>
                     <FontAwesomeIcon icon={isFavorite ? solidStar : regularStar} />
                 </button>
             ) : (
-                <p>로그인 후 즐겨찾기를 이용하실 수 있습니다.</p> // 로그인하지 않은 경우 표시
+                <p>로그인이 필요합니다.</p> // 로그인하지 않은 경우 표시
             )}
 
             <button onClick={onClickBack}>돌아가기</button>
+<<<<<<< HEAD
             {isLoggedIn ? (
                 <p>후기 : <input type="text" placeholder="후기 내용 입력해주세요" onChange={onChangeOpinion}/><button onClick={onClickReview}>등록</button></p>
                 ) : (
@@ -131,3 +172,10 @@ const PlaceDetail = ({data}) =>
     }
 }
 export default PlaceDetail;
+=======
+        </div>
+    )
+}
+
+export default PlaceDetail;
+>>>>>>> b9639499930735c426bc2e9b1c35cd678090fced
