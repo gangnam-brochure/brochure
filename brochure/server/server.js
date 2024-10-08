@@ -228,61 +228,87 @@ app.post('/api/verify-password', async (req, res) => {
   }
 });
 
-// 닉네임 설정 API
-app.post('/api/set-nickname', (req, res) => {
+
+// JWT 생성 함수
+const createJWT = (email, nickname) => {
+  return jwt.sign({ email, nickname }, JWT_SECRET, { expiresIn: '1h' });
+};
+
+// 네이버 로그인 후 JWT 발급
+app.post('/api/naver-login', (req, res) => {
   const { email, nickname } = req.body;
 
   if (!email || !nickname) {
     return res.status(400).json({ message: '이메일과 닉네임은 필수입니다.' });
   }
 
-  // 사용자를 이메일로 찾기
-  const user = users.find(user => user.email === email);
-  
-  if (!user) {
-    return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+  // JWT 생성
+  const token = jwt.sign({ email, nickname }, JWT_SECRET, { expiresIn: '1h' });
+
+  // 클라이언트에 JWT 토큰 반환
+  return res.status(200).json({ token });
+});
+
+// 닉네임 설정 API
+app.post('/api/set-nickname', (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  console.log('받은 토큰:', token);
+
+  if (!token) {
+    return res.status(401).json({ message: '인증 토큰이 필요합니다.' });
   }
 
-  // 닉네임 설정
-  user.nickname = nickname;
+  const { nickname } = req.body;
 
-  return res.status(200).json({ message: '닉네임이 설정되었습니다.', nickname });
-});
-
-// 서버 포트 설정
-app.listen(PORT, () => {
-  console.log(`서버가 http://localhost:${PORT} 에서 실행 중입니다.`);
-});
-
-
-// 네이버 프로필 API 프록시
-app.get('/api/naver-profile', async (req, res) => {
-  const accessToken = req.headers.authorization;
-
-  // Authorization 헤더에서 Bearer 중복 제거
-  if (!accessToken || !accessToken.startsWith('Bearer ')) {
-    return res.status(401).json({ message: '올바른 Access Token이 제공되지 않았습니다.' });
+  if (!nickname) {
+    return res.status(400).json({ message: '닉네임은 필수입니다.' });
   }
 
   try {
-    const response = await axios.get('https://openapi.naver.com/v1/nid/me', {
-      headers: {
-        Authorization: accessToken,  // Bearer가 중복되지 않도록 수정
-      },
-    });
+    const decoded = jwt.verify(token, JWT_SECRET); // 서버에서 생성한 JWT 검증
+    console.log('디코딩된 토큰:', decoded);
 
-    const email = response.data.response?.email;
-    if (!email) {
-      return res.status(400).json({ message: '네이버 로그인 정보에 이메일이 없습니다.' });
+    const user = users.find(user => user.email === decoded.email);
+
+    if (!user) {
+      return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
     }
 
-    res.json(response.data);
+    user.nickname = nickname;
+    return res.status(200).json({ message: '닉네임이 설정되었습니다.', nickname });
   } catch (error) {
-    console.error('네이버 프로필 로드 중 오류 발생:', error);
-    return res.status(500).json({ message: '네이버 프로필 로드 중 오류 발생', error });
+    console.error('JWT 검증 중 오류 발생:', error);
+    return res.status(500).json({ message: '닉네임 설정 중 오류가 발생했습니다.', error: error.message });
   }
 });
 
+// 네이버 프로필 API 프록시
+app.get('/api/naver-profile', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1]; // Authorization 헤더에서 토큰 추출
+  if (!token) {
+    return res.status(401).json({ message: '인증 토큰이 필요합니다.' });
+  }
+
+  try {
+    const naverProfileUrl = 'https://openapi.naver.com/v1/nid/me';
+    const profileResponse = await axios.get(naverProfileUrl, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const profileData = profileResponse.data.response;
+
+    if (!profileData.email || !profileData.nickname) {
+      return res.status(400).json({ message: '네이버 로그인 정보에 이메일과 닉네임이 없습니다.' });
+    }
+
+    res.json({ email: profileData.email, nickname: profileData.nickname });
+  } catch (error) {
+    console.error('네이버 프로필 로드 중 오류 발생:', error);
+    res.status(500).json({ message: '네이버 프로필 로드 중 오류 발생', error: error.message });
+  }
+});
 
 
   // 전체 라우팅 하단에 에러 핸들러 추가
@@ -290,7 +316,6 @@ app.use((err, req, res, next) => {
   console.error(err.stack); // 에러 로그를 서버 콘솔에 출력
   res.status(500).json({ message: '서버 내부 오류가 발생했습니다.', error: err.message }); // JSON 형식의 에러 메시지 반환
 });
-
 
 
 // 서버 포트 설정
