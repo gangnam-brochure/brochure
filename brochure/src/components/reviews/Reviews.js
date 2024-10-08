@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import { useReview } from "../../Store";
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 export const Reviews = () => {
     const { reviewData } = useReview();
@@ -49,7 +50,9 @@ export const Reviews = () => {
                 {reviewList.length > 0 ? (
                     reviewList.map((review, index) => (
                         <li key={index}>
+                            <Link to={`/${review.categoryCode}/${review.id}`}>
                             <p><strong>가게 이름:</strong> {review.placeName}</p>
+                            </Link>
                             <p><strong>리뷰:</strong> {review.text}</p>
 
                         </li>

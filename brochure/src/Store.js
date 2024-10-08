@@ -26,8 +26,8 @@ export const useFavorite = create((set) => ({
 }));
 export const useReview = create((set) => ({
     reviewData: [],
-    addReview: (placeId, text, nickname, placeName) => set((state) => ({
-        reviewData: [...state.reviewData, { id: Date.now(), placeId, text, nickname, placeName }],
+    addReview: (placeId, text, nickname, placeName,categoryCode) => set((state) => ({
+        reviewData: [...state.reviewData, { id: Date.now(), placeId, text, nickname, placeName,categoryCode }],
     })),
     updateReview: (reviewId, updatedText) => set((state) => ({
         reviewData: state.reviewData.map((review) => 
