@@ -33,12 +33,12 @@ const PlaceDetail = ({data}) =>
     const { favoriteOn, favoriteOff, placeData} = useFavorite();
     const {addReview,reviewData} = useReview();
     const [opinion,setOpinion] = useState('');
-    const [text,setText] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const isFavorite = placeData.some(item => item.data.id === data.id);
     const currentReviews = reviewData.filter(review => review.placeId === data.id);
+    const userId = Cookies.get('userId');
     {   
-
+    
     const navigate = useNavigate();
     const KAKAO_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
 
@@ -71,7 +71,7 @@ const PlaceDetail = ({data}) =>
     const onChangeOpinion=e=>setOpinion(e.target.value);
     const onClickReview=()=>{
         addReview(data.id,opinion);
-        console.log(opinion,"확인")
+        console.log(opinion,userId,"확인")
     }
 
     const onClickFavorite = () =>
@@ -93,6 +93,7 @@ const PlaceDetail = ({data}) =>
     // 로그인 여부 확인
     useEffect(() => {
         const token = Cookies.get('token');
+        console.log(token);
         if (token) {
             setIsLoggedIn(true); // 로그인 되어 있으면 true로 설정
         }
