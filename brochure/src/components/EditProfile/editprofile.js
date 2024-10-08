@@ -200,12 +200,29 @@ const onCilckNewProfile = () => {  //비밀번호 변경
   }
   
 };
+const deleteToken = () => {
+  Cookies.remove('token');
+  console.log('토큰이 삭제되었습니다.');
+  alert("삭제되었습니다");
+};
 
-
-  const onDelete = () => {
-
-
-  }
+const onDelete = async () => {
+ /*} try {
+      const token = Cookies.get('token');
+      await axios.post('/api/logout', {}, {
+          headers: {
+              Authorization: `Bearer ${token}`,
+          },
+      });
+      
+      deleteToken(); //토큰지우기
+      navigate('/signin');
+  } catch (error) {
+      console.error('로그아웃 중 오류 발생:', error);
+  }*/
+      deleteToken(); //토큰지우기
+      navigate('/signin');
+};
   return (
     <>
       <Header />
@@ -237,7 +254,7 @@ const onCilckNewProfile = () => {  //비밀번호 변경
         {showDeleteConfirmation && (                // 삭제 창
           <div className="delete-confirmation">
             <h2>정말 삭제하시겠습니까?</h2>
-            <button onClick={{onDelete}}>확인</button>
+            <button onClick={onDelete}>확인</button>
             <button onClick={handleDeleteClick}>취소</button>
           </div>
         )}
