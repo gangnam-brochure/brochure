@@ -91,6 +91,8 @@ app.post('/api/check-nickname', (req, res) => {
   // 회원정보 조회 API (JWT를 기반으로 사용자 정보 반환)
 app.get('/api/get-profile', (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
+
+    console.log('/api/get-profile 요청됨');
   
     if (!token) {
       return res.status(401).json({ message: '인증이 필요합니다.' });
@@ -149,12 +151,49 @@ app.put('/api/update-profile', async (req, res) => {
       if (phone) {
         user.phone = phone;
       }
-  
+
       return res.status(200).json({ message: '회원정보가 성공적으로 변경되었습니다.' });
     } catch (error) {  
       return res.status(400).json({ message: '회원정보 수정 중 오류가 발생했습니다.', error });
     }
   });
+
+  // 기존 비밀번호 확인 API
+app.post('http://localhost:5000/api/verify-password', async (req, res) => {
+  console.log('POST /api/verify-password 요청 수신');
+
+  const { email, password } = req.body;
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ message: '인증이 필요합니다.' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const userEmail = decoded.email;
+
+    // 사용자 정보 찾기
+    const user = users.find((user) => user.email === userEmail);
+    if (!user) {
+      return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+    }
+
+    // 입력된 비밀번호가 해시화된 비밀번호와 일치하는지 확인
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: '아이디와 비밀번호가 일치하지 않습니다.' });
+    }
+
+    return res.status(200).json({ message: '비밀번호가 확인되었습니다.' });
+  } catch (error) {
+    console.error('비밀번호 확인 중 오류 발생:', error);
+    return res.status(400).json({ message: '비밀번호 확인 중 오류가 발생했습니다.', error });
+  }
+});
+
+  
+
 
 // 서버 포트 설정
 app.listen(PORT, () => {
