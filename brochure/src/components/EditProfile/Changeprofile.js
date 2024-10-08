@@ -146,7 +146,7 @@ const handleSubmit = async (e) => {
             onChange={onChangeHandler}/>
             
             <br/>
-            <label className="label">좋아하는 음식 : </label>
+            {/*<label className="label">좋아하는 음식 : </label>
             <input type="text" 
             name="food" 
             placeholder="좋아하는 음식" 
@@ -171,12 +171,12 @@ const handleSubmit = async (e) => {
           onChange={onChangeHandler}
           className="input-field" 
           placeholder="비밀번호"
-        />
+        />*/}
             {/* 버튼을 모든 입력 필드 아래에 위치시킴 */}
                        
       </div>
       <div className="button-container" style={{ textAlign: "center", marginTop: "20px" }}>
-                    <button type="submit" className="button" onClick={()=>alert()} >변경</button>
+                    <button type="submit" className="button" onClick={()=>alert("변경됨")} >변경</button>
                 </div> 
     </form>
       <Footer/>

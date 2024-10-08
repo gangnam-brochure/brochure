@@ -8,9 +8,16 @@ import { Link, NavLink } from 'react-router-dom';
 
 const Categories = () => {
   const categories = [
-    { name: '편의점', icon: '🏪', code: "PM9"}, //임의 설정, 후 편집 필요
-    { name: '편의시설', icon: '💈', code: "MT1"},
-    { name: '문화시설', icon: '🎬', code: "AT4" }
+    { name: '편의점', icon: '🏪', code: "CS2"},
+    { name: '관광명소', icon: '💈', code: "AT4"},
+    { name: '음식점', icon: '🎬', code: "FD6" },
+    { name: '카페', icon: '🎬', code: "CE7" },
+    { name: '숙박', icon: '🎬', code: "AD5" },
+    { name: '주차장', icon: '🎬', code: "PK6" },
+    { name: '지하철역', icon: '🎬', code: "SW8" },
+    { name: '공공기관', icon: '🎬', code: "PO3" },
+    { name: '문화시설', icon: '🎬', code: "CT1" },
+    { name: '주유소', icon: '🎬', code: "OL7" }
   ];
 
   return (

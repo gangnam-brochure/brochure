@@ -144,7 +144,7 @@
                        <div className='kakaomap'>
                           <KakaoMapShowingPlace latitude={data.y} longitude={data.x} />
                        </div> 
-                       <div className='review-container'>
+                       <div></div>
                         <p>후기: 
                             <input 
                             type="text" 
@@ -178,7 +178,6 @@
                                </li>
                            ))}
                        </ul>
-                       </div>
                    </div>
                    </main>
                );
