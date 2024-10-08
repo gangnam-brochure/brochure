@@ -26,7 +26,7 @@ const Favorite = () => {
     const navigate = useNavigate();
     const { placeData, favoriteOff } = useFavorite(); // placeData와 favoriteOff을 불러옴
     const [favoList, setFavoList] = useState([]); // favoList 상태 선언
-
+    const [ currentUserNickname,setCurrentUserNickname] = useState('');
     const onClickHandler = (id) => {
         favoriteOff(id); // ID로 즐겨찾기 삭제
         console.log(`삭제할 ID: ${id}`);
