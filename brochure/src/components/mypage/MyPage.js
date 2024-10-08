@@ -45,8 +45,13 @@ const MyPage = () => {
       } catch (error) {
         console.error('프로필 로드 중 오류 발생:', error);
       }
+      if(!token)
+      {
+        alert("로그인을 해주세요");
+        handleClick("../signin")
+      }
     };
-
+    
     fetchProfile();
   }, []);
   
@@ -79,7 +84,7 @@ const MyPage = () => {
           <button onClick={() => handleClick("../editprofile")} className="mypage-button">
             <FontAwesomeIcon icon={faUserEdit} /> 회원정보 변경
           </button>
-          <button onClick={() => handleClick("../changeprofile")} className="mypage-button">
+          <button onClick={() => handleClick("../myprofile")} className="mypage-button">
             <FontAwesomeIcon icon={faUserEdit} /> 내정보
           </button>
         </div>

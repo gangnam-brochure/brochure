@@ -55,8 +55,8 @@ fetchProfile();
 
 }, []); 
 
-    const [user,setUser] = useState({email:'cookie3013',password:'1111'});
-    const [user1,setUser1] = useState({email:'',password:''});
+    
+  const [user1,setUser1] = useState({email:'',password:''});
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // 아이디삭제 창 열고닫기
   const [changeprofile, setchangeprofile] = useState(false); //변경창 열고닫기
   const [newprofile, setnewprofile] = useState(false); //새로운 아이디 비밀번호 열고닫기
@@ -88,10 +88,10 @@ fetchProfile();
   };
   const onChangeHandler = e => 
   {
-    setUser1({
-        ...user1,                          // 유저 전체를 가져와서 참조하고 e.target.name이 변하는곳을 밸류로 채워줌
-        [e.target.name] : e.target.value // 
-    })
+    setUser1(prevUser => ({
+      ...prevUser,                           // 기존 상태를 가져옴
+      [e.target.name]: e.target.value        // e.target.name에 해당하는 속성을 e.target.value로 업데이트
+      }));
   };
 
 // 기존 비밀번호 확인 함수
@@ -136,19 +136,60 @@ const onClicker2 = () => {  // 삭제를위한 아이디와 비밀번호를 각�
   }
 };
 
+const handleBack = () => {
+
+  navigate(-1); // 이전 페이지로 이동
+}
+
 const onCilckNewProfile = () => {  //아이디 변경
-    setUser(user1);
+    //setUser(user1);
     alert("아이디가 변경 되었습니다");
     setnewprofile(false);
     setUser1({email:'', password:''});
 }
+ //사용자 정보 변경 api
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  const { email, password, confirmPassword, phone, nickname } = formData;
+  const token = Cookies.get('token');
+
+  if (password !== confirmPassword) {
+    setError('비밀번호가 일치하지 않습니다.');
+    return;
+  }
+
+  try {
+    const response = await axios.put( '/api/update-profile', {
+       email, password, phone, nickname },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setSuccessMessage('회원정보가 성공적으로 수정되었습니다.');
+    setError('');
+  } catch (error) {
+    setError('회원정보 수정 중 오류가 발생했습니다.');
+  }
+};
+
   return (
     <>
       <Header />
+      
+      <form onSubmit={handleSubmit}>
       <div className="mypage-container">
+
+      <div className="back-button-container" style={{ textAlign: "right", marginBottom: "10px", marginTop: "15px" }}>
+                    <button className="button" onClick={handleBack}>뒤로가기</button>
+                    </div>
         <h1>회원 정보 변경</h1>
         <div className="welcome-message">
-          안녕하세요 {formData.password} 님
+          안녕하세요 {formData.email} 님
+          {console.log(formData.email)}
+          {console.log(formData.password)}
         </div>
         <div className="button-group">
           <button onClick={handleClick2} className="mypage-button">
@@ -245,6 +286,7 @@ const onCilckNewProfile = () => {  //아이디 변경
 
 
       </div>
+      </form>
       <Footer />
     </>
   );

@@ -44,7 +44,7 @@ app.post('/api/signup', async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   // 새 유저 추가 (닉네임이 선택사항이므로 nickname 필드는 선택적으로 추가)
-  users.push({ email, password: hashedPassword, phone, nickname: nickname || null });
+  users.push({ email, password: hashedPassword, phone, nickname: nickname || null,});
 
   // 닉네임을 사용 중인 목록에 추가
   if (nickname) {
@@ -106,7 +106,7 @@ app.get('/api/get-profile', (req, res) => {
         return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
       }
   
-      return res.json({ email: user.email, nickname: user.nickname, phone: user.phone });
+      return res.json({ email: user.email, nickname: user.nickname, phone: user.phone, gender:user.gender });
     } catch (error) {
       return res.status(400).json({ message: '회원정보를 불러오는 중 오류가 발생했습니다.' });
     }
@@ -114,7 +114,7 @@ app.get('/api/get-profile', (req, res) => {
 
   // 회원정보 수정 API
 app.put('/api/update-profile', async (req, res) => {
-    const { email, password, phone, nickname } = req.body;
+    const { email, password, phone, nickname, gender } = req.body;
     const token = req.headers.authorization?.split(' ')[1];
   
     if (!token) {
@@ -150,6 +150,10 @@ app.put('/api/update-profile', async (req, res) => {
       // 전화번호 변경
       if (phone) {
         user.phone = phone;
+      }
+
+      if(gender) {
+          user.gender = gender;
       }
 
       return res.status(200).json({ message: '회원정보가 성공적으로 변경되었습니다.' });
