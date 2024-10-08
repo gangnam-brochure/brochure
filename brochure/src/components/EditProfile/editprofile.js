@@ -24,7 +24,7 @@ const EditProfile = () => {
     gender:'',
 
 });
-const [error, setError] = useState('');
+const [error, setError] = useState('비밀번호가 일치하지 않습니다.');
 const [successMessage, setSuccessMessage] = useState('');
 // 초기 사용자 정보를 불러오기 (ex: API 호출)
 useEffect(() => {
@@ -155,14 +155,15 @@ const handleBack = () => {
 
 const onCilckNewProfile = () => {  //비밀번호 변경
     
-
-  if(successMessage != '')
-  {
-    alert(successMessage);
+  if (user1.password !== user1.confirmPassword) {
+    setError('비밀번호가 일치하지 않습니다');
+    alert(error);
+    return;
   }
   else
   {
-    alert(error);
+    setSuccessMessage('회원정보가 성공적으로 수정되었습니다.')
+    alert(successMessage);
   }
     setFormData(user1)      
     setnewprofile(false);
@@ -175,7 +176,8 @@ const onCilckNewProfile = () => {  //비밀번호 변경
   const token = Cookies.get('token');
 
   if (password !== confirmPassword) {
-    setError('비밀번호가 일치하지 않습니다!.');
+    setError('비밀번호가 일치하지 않습니다');
+    
     return;
   }
 
@@ -190,11 +192,12 @@ const onCilckNewProfile = () => {  //비밀번호 변경
     );
 
     setSuccessMessage('회원정보가 성공적으로 수정되었습니다.');
-    setError('');
+    
   } catch (error) {
     setError('회원정보 수정 중 오류가 발생했습니다.');
-    setSuccessMessage('');
+    
   }
+  
 };
 
   return (

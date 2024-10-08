@@ -125,9 +125,9 @@ const handleSubmit = async (e) => {
             <label className="label">전화번호 :{formData.phone} </label>
             
             <br/>
-            <label className="label">좋아하는 음식 : {formData.food} </label>
+           {/* <label className="label">좋아하는 음식 : {formData.food} </label>
 
-            <br/>
+            <br/>*/}
             
             {/* 버튼을 모든 입력 필드 아래에 위치시킴 */}
                        
