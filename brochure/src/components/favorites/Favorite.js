@@ -3,6 +3,10 @@
     (만약 점포정보가 넘어오고 상세페이지에서 즐찾 버튼을 눌렀을때)
     고유 식별자 id를 getFavoList로 json객체 받아오고
     리스트로 뿌려주기
+
+    김동규 - 2024-10-07 / 수정
+    설명 : 로그인한 유저만 즐겨찾기 페이지 이동 가능하도록 수정
+           App.js에서 PrivateRoute로 사용자 확인 후 CustomModal 불러오기
 */
 import { faStar, faCommentDots, faUserEdit } from '@fortawesome/free-solid-svg-icons'; // 설치해야함
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
