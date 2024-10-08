@@ -19,7 +19,13 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // 임시로 사용자 데이터를 저장할 메모리 데이터베이스
-const users = [];
+const users = [
+  // 기존에 사용자를 저장하는 예시
+  { email: 'zzsehdrb@gmail.com', nickname: 'zzsehdrb', phone: '01012345678', gender: 'male' },
+  {email: 'zzsehdrb@naver.com', nickname: '유니클롭', phone: '01012345679', gender: 'male'},
+  {email: 'kakao_3732335934@kakao.com', nickname: '김동규', phone: '01012345677', gender: 'male'}
+];
+
 
 // 예시로 사용할 데이터베이스(배열)
 let existingNicknames = ['user123', 'testNick', 'admin']; // 이미 사용 중인 닉네임 샘플 목록
@@ -118,6 +124,7 @@ app.get('/api/get-profile', (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
 
     console.log('/api/get-profile 요청됨');
+    console.log('받은 토큰 : ' + token);
   
     if (!token) {
       return res.status(401).json({ message: '인증이 필요합니다.' });
@@ -126,6 +133,8 @@ app.get('/api/get-profile', (req, res) => {
     try {
       const decoded = jwt.verify(token, JWT_SECRET);
       const user = users.find((user) => user.email === decoded.email);
+
+      console.log('디코딩된 토큰 정보:', decoded);
       
       if (!user) {
         return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
@@ -133,6 +142,7 @@ app.get('/api/get-profile', (req, res) => {
   
       return res.json({ email: user.email, nickname: user.nickname, phone: user.phone, gender:user.gender });
     } catch (error) {
+      console.error('JWT 검증 중 오류 발생:', error);
       return res.status(400).json({ message: '회원정보를 불러오는 중 오류가 발생했습니다.' });
     }
   });
