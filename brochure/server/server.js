@@ -163,7 +163,7 @@ app.put('/api/update-profile', async (req, res) => {
   });
 
   // 기존 비밀번호 확인 API
-app.post('http://localhost:5000/api/verify-password', async (req, res) => {
+app.post('/api/verify-password', async (req, res) => {
   console.log('POST /api/verify-password 요청 수신');
 
   const { email, password } = req.body;

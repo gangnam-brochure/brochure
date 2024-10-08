@@ -39,7 +39,7 @@ const ChangeProfile = () => {
           password: '',
           confirmPassword: '',
           food:response.data.food,
-          gender:'',
+          gender:response.data.gender,
         });
       } catch (error) {
         console.error('프로필 로드 중 오류 발생:', error);
@@ -60,11 +60,15 @@ const ChangeProfile = () => {
 
     
     const navigate = useNavigate(); // useNavigate 훅 사용
+
+      
     const onChangeHandler = (e) =>
     {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     }
+
+
 const handleBack = () => {
 
     navigate(-1); // 이전 페이지로 이동
@@ -127,7 +131,6 @@ const handleSubmit = async (e) => {
             <br/>
             <label className="label" htmlFor="gender">성별:</label>
             <select id="gender" name="gender" value={formData.gender} onChange={onChangeHandler}>
-            <option value="not selrected">선택안됨</option>
                 <option value="male">남성</option>
                 <option value="female">여성</option>
                 <option value="other">기타</option>
