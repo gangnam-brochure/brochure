@@ -26,11 +26,7 @@ const Favorite = () => {
     const navigate = useNavigate();
     const { placeData, favoriteOff } = useFavorite(); // placeData와 favoriteOff을 불러옴
     const [favoList, setFavoList] = useState([]); // favoList 상태 선언
-
-    const onClickHandler = (id) => {
-        favoriteOff(id); // ID로 즐겨찾기 삭제
-        console.log(`삭제할 ID: ${id}`);
-    };
+    const [currentUserNickname, setCurrentUserNickname] = useState('');
 
     useEffect(() => {
         if (placeData) { // placeData가 있을 때만
@@ -38,12 +34,6 @@ const Favorite = () => {
             setFavoList(placeData); // placeData를 favoList에 설정
         }
     }, [placeData]); // placeData가 변경될 때마다 호출
-
-    
-  const navigate = useNavigate();
-  const { placeData, favoriteOff } = useFavorite();
-  const [favoList, setFavoList] = useState([]);
-  const [currentUserNickname, setCurrentUserNickname] = useState('');
 
   // 로그인한 사용자 정보 가져오기
   const fetchCurrentUser = async () => {

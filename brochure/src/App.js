@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './routes/PrivateRoute';
-import SocialLoginWrapper from './components/auth/SocialLogin';
+import SocialLoginWrapper from './layout/SocialLogin';
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
 import MainPage from './layout/MainPage';
