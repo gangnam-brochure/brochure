@@ -29,7 +29,9 @@ const SignUp = () => {
   });
   
   const [isNicknameValid, setIsNicknameValid] = useState(false); // 닉네임 유효성 체크
+  const [isPhoneValid, setIsPhoneValid] = useState(false); // 전화번호 유효성 체크
   const [isCheckingNickname, setIsCheckingNickname] = useState(false); // 닉네임 체크 중
+  const [isCheckingPhone, setIsCheckingPhone] = useState(false); // 전화번호 체크 중
   const [isFormValid, setIsFormValid] = useState(false);
   const [domainOption, setDomainOption] = useState('직접입력');
   const navigate = useNavigate();
@@ -61,19 +63,43 @@ const SignUp = () => {
     }
   };
 
+    // 전화번호 중복 체크 함수
+    const checkPhoneAvailability = async (phone) => {
+      setIsCheckingPhone(true);
+      try {
+        const response = await axios.post('http://localhost:5000/api/check-phone', { phone });
+        setIsPhoneValid(response.data.isAvailable);
+        if (!response.data.isAvailable) {
+          setError((prev) => ({ ...prev, phone: '이미 사용 중인 번호입니다.' }));
+        } else if (phone.length > 11) {
+          setError((prev) => ({ ...prev, phone: '번호는 11자 이하여야 합니다.' }));
+          setIsPhoneValid(false);
+        } else {
+          setError((prev) => ({ ...prev, phone: '' }));
+        }
+      } catch (error) {
+        setError((prev) => ({ ...prev, phone: '전화번호 중복 체크 중 오류가 발생했습니다.' }));
+      } finally {
+        setIsCheckingPhone(false);
+      }
+    };
+
   // 닉네임 입력 시 중복 체크 호출
   useEffect(() => {
     if (formData.nickname.length > 0) {
       checkNicknameAvailability(formData.nickname);
     }
-  }, [formData.nickname]);
+    if (formData.phone.length > 0) {
+      checkPhoneAvailability(formData.phone);
+    }
+  }, [formData.nickname, formData.phone]);
 
   // 비밀번호, 전화번호 유효성 및 확인 검사
   useEffect(() => {
     const isEmailValid = validateEmail(`${formData.emailFront}@${formData.emailDomain}`);
     const isPasswordValid = formData.password.length >= 6;
     const isConfirmPasswordValid = formData.password === formData.confirmPassword;
-    const isPhoneValid = formData.phone.length >= 10;  // 전화번호는 최소 10자리로 설정
+    const isPhoneValid = formData.phone.length >= 11;  // 전화번호는 최소 11자리로 설정
 
     setError((prev) => ({
       ...prev,
@@ -84,7 +110,7 @@ const SignUp = () => {
     }));
 
     setIsFormValid(isEmailValid && isPasswordValid && isConfirmPasswordValid && isPhoneValid && isNicknameValid);
-  }, [formData, isNicknameValid]);
+  }, [formData, isNicknameValid, isPhoneValid]);
 
   // 입력값 변경 처리
   const handleChange = (e) => {
@@ -106,7 +132,7 @@ const SignUp = () => {
   // 회원가입 폼 제출
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isFormValid || !isNicknameValid) {
+    if (!isFormValid || !isNicknameValid || !isPhoneValid) {
       alert('모든 항목을 올바르게 입력해주세요.');
       return;
     }
@@ -201,6 +227,7 @@ const SignUp = () => {
           placeholder="전화번호"
           required
         />
+        {isCheckingPhone && <p>전화번호 확인 중...</p>}
         {error.phone && <p className="error-message">{error.phone}</p>}
       </div>
 
