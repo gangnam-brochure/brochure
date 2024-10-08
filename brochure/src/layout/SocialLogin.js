@@ -4,10 +4,10 @@
 */
 
 import React from 'react';
-import KakaoLogin from './KakaoLogin';
-import NaverLogin from './NaverLogin';
-import GoogleLogin from './GoogleLogin';
-import '../../assets/css/sociallogin.css';
+import KakaoLogin from '../components/auth/KakaoLogin';
+import NaverLogin from '../components/auth/NaverLogin';
+import GoogleLogin from '../components/auth/GoogleLogin';
+import '../assets/css/sociallogin.css';
 
 const SocialLoginWrapper = () => {
   return (

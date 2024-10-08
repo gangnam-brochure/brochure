@@ -21,7 +21,7 @@ const KakaoLogin = () => {
   };
 
   return (
-    <button className="google-login-button" onClick={() => handleLogin()}>
+    <button className="kakao-login-button" onClick={() => handleLogin()}>
       <img 
       onClick={() => handleLogin()}
         src={kakaoLogo} 
