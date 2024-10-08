@@ -89,7 +89,7 @@ const Header = () => {
               style={{ cursor: 'pointer', fontSize: '15px' }}
               onClick={() => setShowModal(true)}
             >
-              <img className="marker" src={marker} />{/* 카카오에서 제공하는 마커 이미지 */}
+              <img className="marker" src={marker} />{/*제작 마커 이미지 */}
             </span>
           </h1>
         </div>
