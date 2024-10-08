@@ -114,6 +114,7 @@ const verifyPassword = async () => {
       // 비밀번호 확인 후 처리할 로직
     }
   } catch (error) {
+    setShowDeleteConfirmation(false)
     setnewprofile(false)
     alert('비밀번호가 일치하지 않습니다.');
     
@@ -144,7 +145,7 @@ const onClicker2 = () => {  // 삭제를위한 아이디와 비밀번호를 각�
   } else {
       alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
       setUser1({email:'', password:''});   
-      
+      setShowDeleteConfirmation(false)
   }
 };
 
@@ -200,6 +201,11 @@ const onCilckNewProfile = () => {  //비밀번호 변경
   
 };
 
+
+  const onDelete = () => {
+
+
+  }
   return (
     <>
       <Header />
@@ -231,7 +237,7 @@ const onCilckNewProfile = () => {  //비밀번호 변경
         {showDeleteConfirmation && (                // 삭제 창
           <div className="delete-confirmation">
             <h2>정말 삭제하시겠습니까?</h2>
-            <button onClick={() => { /* 여기에 삭제 로직 추가예정 */ }}>확인</button>
+            <button onClick={{onDelete}}>확인</button>
             <button onClick={handleDeleteClick}>취소</button>
           </div>
         )}
