@@ -44,7 +44,7 @@ app.post('/api/signup', async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   // 새 유저 추가 (닉네임이 선택사항이므로 nickname 필드는 선택적으로 추가)
-  users.push({ email, password: hashedPassword, phone, nickname: nickname || null });
+  users.push({ email, password: hashedPassword, phone, nickname: nickname || null,});
 
   // 닉네임을 사용 중인 목록에 추가
   if (nickname) {

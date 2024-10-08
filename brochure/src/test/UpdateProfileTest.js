@@ -82,6 +82,8 @@ const UpdateProfileTest = () => {
       <div>
         <label>이메일</label>
         <input type="email" name="email" value={formData.email} disabled />
+        
+      
       </div>
 
       <div>
