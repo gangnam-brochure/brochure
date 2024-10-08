@@ -5,14 +5,16 @@
 
 /*
     작성자 : 김동규 - 2024-10-07 / 수정
-    설명 : 로그인한 유저에게만 즐겨찾기 기능 사용할 수 있게
+    설명 : 로그인한 유저에게만 즐겨찾기 기능 사용할 수 있게 수정
     
     작성자 : 손정원 10-08 / 추가,수정
     설명 : 각 게시판마다 리뷰 작성란 추가 (로그인 안한상태면 사용X)
            다른 아이디로 로그인했을때 기존 리뷰남겼던거 상태보존
            리뷰 수정삭제 가능
 
-    */
+    작성자 : 김동규 - 2024-10-08 / 수정
+    설명 : 로그인한 유저에게만 후기 사용할 수 있게 수정
+*/
            import "../../assets/css/favorite.css";
            import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
            import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
@@ -37,7 +39,7 @@
                const [formData, setFormData] = useState({
                    email: '',
                    phone: '',
-                   nickname: '',
+                   nickname: '', // 여기서 닉네임을 저장
                });
            
                const navigate = useNavigate();
@@ -57,7 +59,7 @@
                            });
                            setFormData({
                                email: response.data.email,
-                               nickname: response.data.nickname,
+                               nickname: response.data.nickname, // 로그인한 사용자 닉네임 설정
                                phone: response.data.phone,
                            });
                        } catch (error) {
@@ -108,13 +110,22 @@
                    deleteReview(reviewId);
                };
            
+               // 즐겨찾기 등록 시 등록하는 유저의 닉네임도 같이 전달
                const onClickFavorite = () => {
-                   if (isFavorite) {
-                       favoriteOff(data.id);
-                   } else {
-                       favoriteOn({ data });
-                   }
-               };
+                if (!isLoggedIn) {
+                  alert("로그인 후 즐겨찾기를 이용하실 수 있습니다.");
+                } else if (!formData.nickname) {
+                  alert("사용자 정보가 로드되지 않았습니다. 잠시 후 다시 시도해주세요.");
+                } else {
+                  if (isFavorite) {
+                    favoriteOff(data.id, formData.nickname); // 닉네임을 함께 전달하여 해당 사용자만 삭제
+                  } else {
+                    favoriteOn({ data }, formData.nickname); // 닉네임을 전달하여 즐겨찾기에 추가
+                    console.log(`즐겨찾기 추가됨: ${data.place_name}, 사용자: ${formData.nickname}`);
+                  }
+                }
+              };
+              
            
                const onClickBack = () => {
                    navigate(`/${data.category_group_code}`);
@@ -141,39 +152,44 @@
                         </button>
            
                        <button onClick={onClickBack}>돌아가기</button>
-    
-                        <p>후기: 
-                            <input 
-                            type="text" 
-                            placeholder="후기 내용 입력해주세요" 
-                            value={opinion} 
-                            onChange={onChangeOpinion} 
-                            />
-                            <button
-                            onClick={() => {
-                                if (!isLoggedIn) {
-                                alert("후기 등록은 로그인 후 이용하실 수 있습니다.");
-                                setOpinion('');
-                                } else {
-                                onClickReview();  // 로그인한 경우 등록 또는 수정 실행
-                                }
-                            }}
-                            >
-                            {isEditing ? '수정' : '등록'}
-                            </button>
-                            {isEditing && <button onClick={handleCancelEdit}>취소</button>}
-                        </p>
-
+           
+                       <p>후기: 
+                           <input 
+                           type="text" 
+                           placeholder="후기 내용 입력해주세요" 
+                           value={opinion} 
+                           onChange={onChangeOpinion} 
+                           />
+                           <button
+                           onClick={() => {
+                               if (!isLoggedIn) {
+                               alert("후기 등록은 로그인 후 이용하실 수 있습니다.");
+                               setOpinion('');
+                               } else {
+                               onClickReview();  // 로그인한 경우 등록 또는 수정 실행
+                               }
+                           }}
+                           >
+                           {isEditing ? '수정' : '등록'}
+                           </button>
+                           {isEditing && <button onClick={handleCancelEdit}>취소</button>}
+                       </p>
+           
                        <ul>
-                           {currentReviews.map((review, index) => (
-                               <li key={index}>
-                                   {review.nickname}님: {review.text}
-                                   <button onClick={() => handleEdit(review)}>수정</button>
-                                   {!isEditing && ( // isEditing이 false일 때만 삭제 버튼 보이기
-                                       <button onClick={() => handleDelete(review.id)}>삭제</button>
-                                   )}
-                               </li>
-                           ))}
+                       {currentReviews.map((review, index) => (
+                           <li key={index}>
+                           {review.nickname}님: {review.text}
+                           
+                           {/* 로그인한 사용자의 nickname과 review 작성자의 nickname이 일치할 때만 수정 버튼 보이기 */}
+                           {isLoggedIn && review.nickname === formData.nickname && (
+                               <button onClick={() => handleEdit(review)}>수정</button>
+                           )}
+           
+                           {isLoggedIn && review.nickname === formData.nickname && !isEditing && (
+                               <button onClick={() => handleDelete(review.id)}>삭제</button>
+                           )}
+                           </li>
+                       ))}
                        </ul>
                    </div>
                );
