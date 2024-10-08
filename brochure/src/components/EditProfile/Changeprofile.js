@@ -127,6 +127,7 @@ const handleSubmit = async (e) => {
             <br/>
             <label className="label" htmlFor="gender">성별:</label>
             <select id="gender" name="gender" value={formData.gender} onChange={onChangeHandler}>
+            <option value="not selrected">선택안됨</option>
                 <option value="male">남성</option>
                 <option value="female">여성</option>
                 <option value="other">기타</option>
@@ -172,7 +173,7 @@ const handleSubmit = async (e) => {
                        
       </div>
       <div className="button-container" style={{ textAlign: "center", marginTop: "20px" }}>
-                    <button type="submit" className="button" /*onClick={()=>alert("변경됨")}*/ >변경</button>
+                    <button type="submit" className="button" onClick={()=>alert("변경됨")} >변경</button>
                 </div> 
     </form>
       <Footer/>
