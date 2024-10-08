@@ -21,6 +21,7 @@ const users = [];
 
 // 예시로 사용할 데이터베이스(배열)
 let existingNicknames = ['user123', 'testNick', 'admin']; // 이미 사용 중인 닉네임 샘플 목록
+let existingPhone = [];
 
 // 비밀키
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
@@ -40,6 +41,11 @@ app.post('/api/signup', async (req, res) => {
     return res.status(400).json({ message: '이미 사용 중인 닉네임입니다.' });
   }
 
+  // 전화번호 중복 확인
+  if (phone && existingPhone.includes(phone)) {
+    return res.status(400).json({ message: '이미 사용 중인 전화번호입니다.' });
+  }
+
   // 비밀번호 해시화 (암호화)
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -49,6 +55,11 @@ app.post('/api/signup', async (req, res) => {
   // 닉네임을 사용 중인 목록에 추가
   if (nickname) {
     existingNicknames.push(nickname);
+  }
+
+  // 전화번호를 사용중인 목록에 추가
+  if (phone) {
+    existingPhone.push(phone);
   }
 
   return res.status(201).json({ message: '회원가입이 완료되었습니다.' });
@@ -85,6 +96,18 @@ app.post('/api/check-nickname', (req, res) => {
   }
 
   const isAvailable = !existingNicknames.includes(nickname);
+  return res.status(200).json({ isAvailable });
+});
+
+// 전화번호 중복 체크 API
+app.post('/api/check-phone', (req, res) => {
+  const { phone } = req.body;
+
+  if (!phone || phone.length > 11) {
+    return res.status(400).json({ isAvailable: false, message: '전화번호 형식이 올바르지 않습니다.' });
+  }
+
+  const isAvailable = !existingPhone.includes(phone);
   return res.status(200).json({ isAvailable });
 });
 
@@ -152,6 +175,7 @@ app.put('/api/update-profile', async (req, res) => {
         user.phone = phone;
       }
 
+      // 성별 변경
       if(gender) {
           user.gender = gender;
       }
