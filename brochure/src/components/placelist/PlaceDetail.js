@@ -127,24 +127,43 @@
                        <KakaoMapShowingPlace latitude={data.y} longitude={data.x} />
                        <p>{data.phone}</p>
                        <p>{data.address_name}</p>
-                       {isLoggedIn ? (
-                           <button className="onOffStar" onClick={onClickFavorite}>
-                               <FontAwesomeIcon icon={isFavorite ? solidStar : regularStar} />
-                           </button>
-                       ) : (
-                           <p>로그인 후 즐겨찾기를 이용하실 수 있습니다.</p> // 로그인하지 않은 경우 표시
-                       )}
+                       <button
+                        className="onOffStar"
+                        onClick={() => {
+                            if (!isLoggedIn) {
+                            alert("로그인 후 즐겨찾기를 이용하실 수 있습니다.");
+                            } else {
+                            onClickFavorite(); // 로그인한 경우 즐겨찾기 동작 실행
+                            }
+                        }}
+                        >
+                        <FontAwesomeIcon icon={isFavorite ? solidStar : regularStar} />
+                        </button>
            
                        <button onClick={onClickBack}>돌아가기</button>
-                       {isLoggedIn ? (
-                           <p>후기: 
-                               <input type="text" placeholder="후기 내용 입력해주세요" value={opinion} onChange={onChangeOpinion} />
-                               <button onClick={onClickReview}>{isEditing ? '수정' : '등록'}</button>
-                               {isEditing && <button onClick={handleCancelEdit}>취소</button>}
-                           </p>
-                       ) : (
-                           <p>로그인 후 리뷰를 작성할 수 있습니다.</p> // 로그인하지 않은 경우 표시
-                       )}
+    
+                        <p>후기: 
+                            <input 
+                            type="text" 
+                            placeholder="후기 내용 입력해주세요" 
+                            value={opinion} 
+                            onChange={onChangeOpinion} 
+                            />
+                            <button
+                            onClick={() => {
+                                if (!isLoggedIn) {
+                                alert("후기 등록은 로그인 후 이용하실 수 있습니다.");
+                                setOpinion('');
+                                } else {
+                                onClickReview();  // 로그인한 경우 등록 또는 수정 실행
+                                }
+                            }}
+                            >
+                            {isEditing ? '수정' : '등록'}
+                            </button>
+                            {isEditing && <button onClick={handleCancelEdit}>취소</button>}
+                        </p>
+
                        <ul>
                            {currentReviews.map((review, index) => (
                                <li key={index}>
