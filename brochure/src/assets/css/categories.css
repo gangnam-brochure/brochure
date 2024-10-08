@@ -1,26 +1,39 @@
+@font-face{
+  font-family: "BMHANNAProOTF";
+  font-weight: normal;
+  src: url("../fonts/BMHANNAProOTF.otf") format("opentype");
+}
+
 .categories-container {
     margin-top: 80px;  /* 헤더 공간 확보 */
-    padding: 20px;
+    padding: 60px;
   }
   
   .categories-title {
-    font-size: 24px;
+    font-family: "BMHANNAProOTF";
+    font-size: 40px;
     margin-bottom: 20px;
   }
   
   .category-wrapper {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
+    border-radius: 20px;
+    padding: 50px;
+    width: 85%;
+    height: 60%;
+    box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.25);
+    background-color: white;
   }
   
   .category-item {
-    display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
     border-radius: 10px;
     background-color: #f5f5f5;
-    width: 100px;
+    width: 250px;
     height: 100px;
   }
   
