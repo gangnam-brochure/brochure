@@ -6,13 +6,13 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const LoginRedirectHandler = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const currentURL = window.location.href;
-    console.log('현재 URL:', currentURL);
 
     if (currentURL.includes('kakao')) {
       handleKakaoLogin();
@@ -57,6 +57,8 @@ const LoginRedirectHandler = () => {
           sameSite: 'Lax',
         });
 
+        // 프로필 가져오기 및 닉네임 설정
+        await handleSetNickname('kakao');
         navigate('/');
       } catch (error) {
         console.error('카카오 로그인 처리 중 오류 발생:', error);
@@ -70,7 +72,7 @@ const LoginRedirectHandler = () => {
   };
 
   // 네이버 로그인 처리 함수
-  const handleNaverLogin = () => {
+  const handleNaverLogin = async () => {
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = hashParams.get('access_token');
     const error = hashParams.get('error');
@@ -91,6 +93,8 @@ const LoginRedirectHandler = () => {
           sameSite: 'Lax',
         });
 
+        // 프로필 가져오기 및 닉네임 설정
+        await handleSetNickname('naver');
         navigate('/');
       } catch (error) {
         console.error('네이버 로그인 처리 중 오류 발생:', error);
@@ -102,6 +106,51 @@ const LoginRedirectHandler = () => {
       navigate('/signin');
     }
   };
+
+  // 닉네임 설정 로직
+  const handleSetNickname = async (provider) => {
+    try {
+      const token = Cookies.get('token');
+      let userProfileUrl;
+  
+      if (provider === 'kakao') {
+        userProfileUrl = 'https://kapi.kakao.com/v2/user/me';
+      } else if (provider === 'naver') {
+        userProfileUrl = '/api/naver-profile';
+      }
+  
+      // 서버에 Access Token을 전달
+      const profileResponse = await fetch(userProfileUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Bearer 토큰 추가
+        },
+      });
+  
+      const profileData = await profileResponse.json();
+      console.log('받은 프로필 데이터:', profileData);
+  
+      let email;
+      if (provider === 'kakao') {
+        email = profileData?.kakao_account?.email;
+      } else if (provider === 'naver') {
+        email = profileData?.response?.email;
+      }
+  
+      if (!email) {
+        throw new Error(`${provider} 로그인 정보에 이메일이 없습니다.`);
+      }
+  
+      const nickname = email.split('@')[0]; // 이메일의 @ 앞부분을 닉네임으로 설정
+  
+      // 서버에 닉네임 설정 요청
+      await axios.post('/api/set-nickname', { email, nickname });
+      console.log('닉네임 설정 성공:', nickname);
+    } catch (error) {
+      console.error('닉네임 설정 중 오류 발생:', error);
+      alert(`닉네임 설정에 실패했습니다. 이유: ${error.message}`);
+    }
+  };
+  
 
   return null;
 };

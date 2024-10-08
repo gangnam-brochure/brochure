@@ -200,9 +200,9 @@ const SignUp = () => {
         {error.email && <p className="error-message">{error.email}</p>}
       </div>
 
-      {/* 닉네임 입력 (선택사항) */}
+      {/* 닉네임 입력 */}
       <div className={`form-group ${error.nickname ? 'error' : ''}`}>
-        <label>닉네임 (선택사항)</label>
+        <label>닉네임</label>
         <br />
         <input
           type="text"
