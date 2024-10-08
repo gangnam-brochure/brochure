@@ -33,8 +33,6 @@ const Favorite = () => {
         console.log(`삭제할 ID: ${id}`);
     };
 
-    const [currentUserNickname, setCurrentUserNickname] = useState('');
-
 
     useEffect(() => {
         if (placeData) { // placeData가 있을 때만

@@ -34,13 +34,14 @@
                const [isLoggedIn, setIsLoggedIn] = useState(false);
                const [isEditing, setIsEditing] = useState(false); // 수정 모드 상태 추가
                const [currentReviewId, setCurrentReviewId] = useState(null); // 현재 수정 중인 리뷰 ID
-               const isFavorite = placeData.some(item => item.data.id === data.id);
-               const currentReviews = reviewData.filter(review => review.placeId === data.id);
                const [formData, setFormData] = useState({
                    email: '',
                    phone: '',
                    nickname: '', // 여기서 닉네임을 저장
                });
+               const isFavorite = placeData.some(item => item.data.id === data.id && formData.email);
+               const currentReviews = reviewData.filter(review => review.placeId === data.id && formData.email );
+               console.log("formData.email : " + formData.email);
            
                const navigate = useNavigate();
                const KAKAO_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -48,6 +49,7 @@
                useEffect(() => {
                    const fetchProfile = async () => {
                        const token = Cookies.get('token');
+                       console.error('현재 가져온 token:', token);
                        if (token) {
                            setIsLoggedIn(true); // 로그인 되어 있으면 true로 설정
                        }
