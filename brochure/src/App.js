@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './routes/PrivateRoute';
 import SocialLoginWrapper from './components/auth/SocialLogin';
@@ -7,9 +7,8 @@ import SignUp from './components/auth/SignUp';
 import MainPage from './layout/MainPage';
 import MyPage from './components/mypage/MyPage';
 import LoginRedirectHandler from './components/auth/LoginRedirectHandler';  // 리다이렉트 핸들러
-import Logout from './components/auth/Logout';
+// import Logout from './components/auth/Logout';
 import FavoritePage from './layout/FavoritePage';
-import PlaceTest from './components/favorites/PlaceTest';
 import PlaceDetail from './components/placelist/PlaceDetail';
 import PlaceListNearby from './components/placelist/PlaceListNearby';
 import ReviewPage from './layout/ReviewPage';
@@ -34,10 +33,24 @@ function App() {
         </Route>  {/* 메인 페이지와 리다이렉트 처리 */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />  {/* 로그인 페이지 */}
-        <Route path= "/favorites" element={<FavoritePage/>}/>
-        <Route path="/test" element={<PlaceTest/>}/>
+        <Route
+          path="/favorites"
+          element={
+            <PrivateRoute>
+              <FavoritePage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/reviews"
+          element={
+            <PrivateRoute>
+              <ReviewPage />
+            </PrivateRoute>
+          }
+        />
         <Route path="/reviewtest" element={<ReviewBoard/>}/> {/*리뷰테트스*/}
-        <Route path="/reviews" element={<ReviewPage/>}/> 
+        {/* <Route path="/reviews" element={<ReviewPage/>}/>  위에 로그인된 유저만 볼 수 있게 만듦 */}
         <Route path="/sociallogin" element={<SocialLoginWrapper />} />
         <Route path="/profile" element={<PrivateRoute />} />  {/* 프로필 페이지 */}
         <Route path="/mypage" element={<MyPage />} />  {/* 마이 페이지 */}

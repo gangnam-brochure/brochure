@@ -54,6 +54,7 @@ const MyPage = () => {
     
     fetchProfile();
   }, []);
+  
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
 

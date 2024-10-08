@@ -93,38 +93,54 @@ fetchProfile();
       [e.target.name]: e.target.value        // e.target.name에 해당하는 속성을 e.target.value로 업데이트
       }));
   };
-  
-  const onClicker = () => {  // 아이디와 비밀번호를 각각 비교합니다.
-    
-    if (user1.email === formData.email && user1.password === formData.password) {
-        alert("인증되었습니다");
-        setchangeprofile(false);
-        setUser1({email:'', password:''});   
-        setnewprofile(!newprofile);
-    } else {
-        alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
-        setUser1({email:'', password:''});   
-        
+
+// 기존 비밀번호 확인 함수
+const verifyPassword = async () => {
+  try {
+    const token = Cookies.get('token');
+    const response = await axios.post(
+      '/api/verify-password', // POST 요청
+      { email: formData.email, password: user1.password }, // 서버로 전달할 데이터
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      alert('비밀번호가 확인되었습니다.');
+      // 비밀번호 확인 후 처리할 로직
     }
-    
+  } catch (error) {
+    alert('비밀번호가 일치하지 않습니다.');
+  }
 };
+
+
+const onClicker = () => {  // 아이디와 비밀번호를 각각 비교합니다.
+  verifyPassword();
+};
+
 const onClicker2 = () => {  // 삭제를위한 아이디와 비밀번호를 각각 비교합니다.
     
-    if (user1.email === formData.email && user1.password === formData.password) {
-        alert("인증되었습니다");
-        setchangeprofile2(false);
-        setUser1({email:'', password:''});   
-        setShowDeleteConfirmation(!showDeleteConfirmation);
-    } else {
-        alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
-        setUser1({email:'', password:''});   
-        
-    }
+  if (user1.email === formData.email && user1.password === formData.password) {
+      alert("인증되었습니다");
+      setchangeprofile2(false);
+      setUser1({email:'', password:''});   
+      setShowDeleteConfirmation(!showDeleteConfirmation);
+  } else {
+      alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
+      setUser1({email:'', password:''});   
+      
+  }
 };
+
 const handleBack = () => {
 
   navigate(-1); // 이전 페이지로 이동
 }
+
 const onCilckNewProfile = () => {  //아이디 변경
     //setUser(user1);
     alert("아이디가 변경 되었습니다");
@@ -176,7 +192,7 @@ const onCilckNewProfile = () => {  //아이디 변경
           {console.log(formData.password)}
         </div>
         <div className="button-group">
-          <button onClick={handleClick} className="mypage-button">
+          <button onClick={handleClick2} className="mypage-button">
             <FontAwesomeIcon icon={faUserEdit} /> 아이디/비밀번호 변경
           </button>
           <button onClick={handleClick2} className="mypage-button">
@@ -236,7 +252,7 @@ const onCilckNewProfile = () => {  //아이디 변경
             placeholder="패스워드 입력"
             onChange={onChangeHandler}/>
             <br/>
-            <button onClick={onClicker2}>확인</button>
+            <button onClick={onClicker}>확인</button>
             <button onClick={handleClick2}>취소</button>
           </div>
         )}

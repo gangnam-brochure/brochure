@@ -75,6 +75,7 @@ const handleSubmit = async (e) => {
     const { email, password, confirmPassword, phone, nickname, food ,gender } = formData;
     const token = Cookies.get('token');
         console.log(password);
+        console.log("gender : " + gender);
     if (password !== confirmPassword) {
       setError('비밀번호가 일치하지 않습니다.');
       return;

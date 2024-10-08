@@ -6,13 +6,16 @@
     수정 삭제 가능해야함
 
 */
-import React from "react";
-export const Reviews = ({ opinion }) => {
-    
+import React, { useEffect, useState } from "react";
+import { useFavorite } from "../../Store";
+
+export const Reviews = () => {
+    const { reviewPlace, deleteReview, editReview } = useFavorite(); 
+    const [reviewList, setReviewList] = useState([]); //리뷰한 매점 저장
+
     return (
         <div style={{ padding: "20px", marginTop: "200px" }}>
-            <p>후기: {opinion}</p>
+           
         </div>
     );
 };
-

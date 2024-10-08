@@ -39,7 +39,7 @@ const Myprofile = () => {
           password: '',
           confirmPassword: '',
           food:response.data.food,
-          gender:'',
+          gender:response.data.gender,
         });
       } catch (error) {
         console.error('프로필 로드 중 오류 발생:', error);
@@ -110,6 +110,7 @@ const handleSubmit = async (e) => {
                 </div>
                 {console.log(formData.email)}
                 {console.log(formData.password)}
+                {console.log("gender :" + formData.gender)}
         <h1>안녕하세요</h1>
         
         <div className="welcome-message">
