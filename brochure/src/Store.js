@@ -24,14 +24,17 @@ export const useFavorite = create((set) => ({
     };
   }),
 }));
-
 export const useReview = create((set) => ({
-  reviewData: [],
-  addReview: (placeId, text) => set((state) => {
-    console.log(placeId, text, "Zustand 리뷰 저장");
-    return {
-      reviewData: [...state.reviewData, { placeId, text }],
-    
-    };
-  }),
+    reviewData: [],
+    addReview: (placeId, text, nickname, placeName) => set((state) => ({
+        reviewData: [...state.reviewData, { id: Date.now(), placeId, text, nickname, placeName }],
+    })),
+    updateReview: (reviewId, updatedText) => set((state) => ({
+        reviewData: state.reviewData.map((review) => 
+            review.id === reviewId ? { ...review, text: updatedText } : review
+        ),
+    })),
+    deleteReview: (reviewId) => set((state) => ({
+        reviewData: state.reviewData.filter((review) => review.id !== reviewId),
+    })),
 }));

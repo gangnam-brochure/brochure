@@ -7,15 +7,57 @@
 
 */
 import React, { useEffect, useState } from "react";
-import { useFavorite } from "../../Store";
+import { useReview } from "../../Store";
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 export const Reviews = () => {
-    const { reviewPlace, deleteReview, editReview } = useFavorite(); 
-    const [reviewList, setReviewList] = useState([]); //리뷰한 매점 저장
+    const { reviewData } = useReview();
+    const [reviewList, setReviewList] = useState([]);
+    const [userNickname, setUserNickname] = useState('');
+
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            const token = Cookies.get('token'); 
+            if (token) {
+                try {
+                    const response = await axios.get('/api/get-profile', {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+                    setUserNickname(response.data.nickname); 
+                } catch (error) {
+                    console.error('Error fetching user profile:', error);
+                }
+            }
+        };
+
+        fetchUserProfile();
+    }, []);
+    useEffect(() => {
+        if (userNickname) {
+            const userReviews = reviewData.filter(review => review.nickname === userNickname);
+            setReviewList(userReviews);
+        }
+    }, [reviewData, userNickname]);
 
     return (
         <div style={{ padding: "20px", marginTop: "200px" }}>
-           
+            <h2>내가 작성한 리뷰 리스트</h2>
+            <ul>
+                {reviewList.length > 0 ? (
+                    reviewList.map((review, index) => (
+                        <li key={index}>
+                            <p><strong>가게 이름:</strong> {review.placeName}</p>
+                            <p><strong>리뷰:</strong> {review.text}</p>
+
+                        </li>
+                    ))
+                ) : (
+                    <p>작성한 리뷰가 없습니다.</p>
+                )}
+            </ul>
         </div>
     );
 };
