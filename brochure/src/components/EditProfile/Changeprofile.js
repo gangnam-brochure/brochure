@@ -176,7 +176,7 @@ const handleSubmit = async (e) => {
                        
       </div>
       <div className="button-container" style={{ textAlign: "center", marginTop: "20px" }}>
-                    <button type="submit" className="button" onClick={()=>alert("변경됨")} >변경</button>
+                    <button type="submit" className="button" onClick={()=>alert()} >변경</button>
                 </div> 
     </form>
       <Footer/>

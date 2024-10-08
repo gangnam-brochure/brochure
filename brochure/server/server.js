@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { computeHeadingLevel } = require('@testing-library/react');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -159,6 +160,8 @@ app.put('/api/update-profile', async (req, res) => {
       if (password) {
         user.password = await bcrypt.hash(password, 10);
       }
+
+      
   
       // 닉네임 변경 시 중복 확인
       if (nickname && existingNicknames.includes(nickname) && user.nickname !== nickname) {
@@ -193,6 +196,8 @@ app.post('/api/verify-password', async (req, res) => {
   const { email, password } = req.body;
   const token = req.headers.authorization?.split(' ')[1];
 
+  console.log("password : " + password);
+
   if (!token) {
     return res.status(401).json({ message: '인증이 필요합니다.' });
   }
@@ -212,6 +217,8 @@ app.post('/api/verify-password', async (req, res) => {
     if (!isPasswordValid) {
       return res.status(400).json({ message: '아이디와 비밀번호가 일치하지 않습니다.' });
     }
+
+    console.log("해시화된 비번 user.password : " + user.password);
 
     return res.status(200).json({ message: '비밀번호가 확인되었습니다.' });
   } catch (error) {
