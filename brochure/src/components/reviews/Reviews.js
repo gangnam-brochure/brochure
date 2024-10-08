@@ -10,9 +10,11 @@ import React, { useEffect, useState } from "react";
 import { useReview } from "../../Store";
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "../../assets/css/review.css";
 
 export const Reviews = () => {
+    const navigate = useNavigate();
     const { reviewData } = useReview();
     const [reviewList, setReviewList] = useState([]);
     const [userNickname, setUserNickname] = useState('');
@@ -44,12 +46,14 @@ export const Reviews = () => {
     }, [reviewData, userNickname]);
 
     return (
-        <div style={{ padding: "20px", marginTop: "200px" }}>
-            <h2>내가 작성한 리뷰 리스트</h2>
-            <ul>
+        <main style={{ padding: "20px", marginTop: "90px" }}>
+             <div className="backBtnContainer">
+                <button className="backBtn" onClick={() => navigate(-1)}>돌아가기</button>
+            </div>
+            <div className="placeinfo">
                 {reviewList.length > 0 ? (
                     reviewList.map((review, index) => (
-                        <li key={index}>
+                        <li key={index} className="review-item">
                             <Link to={`/${review.categoryCode}/${review.id}`}>
                             <p><strong>가게 이름:</strong> {review.placeName}</p>
                             </Link>
@@ -60,7 +64,7 @@ export const Reviews = () => {
                 ) : (
                     <p>작성한 리뷰가 없습니다.</p>
                 )}
-            </ul>
-        </div>
+            </div>
+        </main>
     );
 };

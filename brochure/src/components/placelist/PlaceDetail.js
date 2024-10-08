@@ -15,7 +15,7 @@
     */
            import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
            import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
-           import '../../assets/css/categories.css';
+           import '../../assets/css/placeDetail.css';
            import { useNavigate } from 'react-router-dom';
            import { useEffect, useState } from 'react';
            import axios from 'axios';
@@ -120,13 +120,13 @@
                };
            
                return (
-                   <div className="categories-container">
-                       <h2 className="categories-title"> 〓〓〓〓〓〓〓〓〓〓 </h2>
-                       <h3>{data.place_name}</h3>
-                       <KakaoMapShowingPlace latitude={data.y} longitude={data.x} />
-                       <p>{data.phone}</p>
-                       <p>{data.address_name}</p>
-                       <button
+                    <main style={{ padding: "20px", marginTop: "130px" }}>
+                          <div className="backBtnContainer">
+                             <button className="backBtn" onClick={onClickBack}>돌아가기</button>
+                         </div>
+                   <div className="categories-containers">
+                       <div className='placedata'>
+                          <h3>{data.place_name}<button
                         className="onOffStar"
                         onClick={() => {
                             if (!isLoggedIn) {
@@ -137,10 +137,14 @@
                         }}
                         >
                         <FontAwesomeIcon icon={isFavorite ? solidStar : regularStar} />
-                        </button>
-           
-                       <button onClick={onClickBack}>돌아가기</button>
-    
+                        </button></h3>
+                          <p>{data.phone}</p>
+                          <p>{data.address_name}</p>
+                       </div>
+                       <div className='kakaomap'>
+                          <KakaoMapShowingPlace latitude={data.y} longitude={data.x} />
+                       </div> 
+                       <div className='review-container'>
                         <p>후기: 
                             <input 
                             type="text" 
@@ -174,7 +178,9 @@
                                </li>
                            ))}
                        </ul>
+                       </div>
                    </div>
+                   </main>
                );
            };
            

@@ -1,0 +1,60 @@
+main {
+    padding: 20px;
+    margin-top: 90px;
+    background-color: #f0f4f8;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* 돌아가기 버튼 스타일링 */
+  .backBtnContainer {
+    position: fixed;             /* 고정 위치 */
+    top: 100px;                  /* 헤더 높이만큼 아래로 위치 */
+    left: 0;                    /* 왼쪽에 고정 */
+    right: 0;                   /* 오른쪽에 고정 */
+    background-color: #ffffff; /* 배경색 설정 (필요에 따라) */
+    padding: 10px;              /* 내부 여백 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    z-index: 9;                 /* 헤더보다 낮은 z-index로 설정 */
+  }
+  
+  .backBtn {
+    background-color: transparent; /* 버튼 배경 투명 */
+    border: none;                  /* 테두리 없음 */
+    font-size: 15px;              /* 버튼 글씨 크기 설정 */
+    cursor: pointer;               /* 포인터 커서 */
+    color: black;               /* 버튼 글씨 색상 설정 */
+    padding: 10px;                /* 내부 여백 */
+    text-align: left;             /* 텍스트 왼쪽 정렬 */
+  }
+  .placeinfo {
+    display: grid;                    /* Grid 사용 */
+    grid-template-columns: repeat(2, 1fr); /* 두 개의 열 설정 */
+    gap: 20px;                        /* 아이템 간격 설정 */                 
+    width: 100%;               /* 전체 너비를 100%로 설정 */
+    margin: 0; 
+    margin-top: 70px;                /* 기본 마진을 제거 */
+    padding: 0;                /* 기본 패딩을 제거 */
+  }
+  /* Favorite List Item */
+  .review-item {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 990px;      /* 고정된 너비 */
+    height: 280px;     /* 고정된 높이 */
+    padding: 20px;     /* 내부 여백 */
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    position: relative; /* 기준 위치 설정 */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .favorite-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
