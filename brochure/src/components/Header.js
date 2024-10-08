@@ -7,11 +7,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import KakaoMapModal from '../components/auth/KakaoMapModal';  // 카카오 지도 모달 컴포넌트 가져오기
 import '../assets/css/header.css';
+import { useNavigate } from 'react-router-dom';
+import marker from '../assets/images/marker.png';
 
 const Header = () => {
   const [location, setLocation] = useState('현재 위치 불러오는 중...');
   const [address, setAddress] = useState('주소 불러오는 중...');
   const [showModal, setShowModal] = useState(false);  // 모달 표시 여부
+  const navigate = useNavigate();
 
   // 환경 변수에서 API 키 가져오기
   const KAKAO_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -72,6 +75,10 @@ const Header = () => {
     getAddressFromCoordinates(latitude, longitude);  // 선택한 좌표로 주소 업데이트
   };
 
+  const goHome = () => {
+    navigate('/');
+  }
+
   return (
     <header>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -82,11 +89,11 @@ const Header = () => {
               style={{ cursor: 'pointer', fontSize: '15px' }}
               onClick={() => setShowModal(true)}
             >
-              ▼ {/* 꺾쇠 화살표 */}
+              <img className="marker" src={marker} />{/* 카카오에서 제공하는 마커 이미지 */}
             </span>
           </h1>
         </div>
-        <p>번호의 민족</p>
+        <p onClick={goHome}>번호의 민족</p>
       </div>
 
       {/* 카카오 지도 모달 */}
