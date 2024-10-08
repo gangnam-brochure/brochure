@@ -40,8 +40,8 @@ const fetchProfile = async () => {
       email: response.data.email,
       nickname: response.data.nickname,
       phone: response.data.phone,
-      password: '',
-      confirmPassword: '',
+      password: response.data.password,
+      confirmPassword: response.data.confirmPassword,
       food:response.data.food,
       gender:'',
     });
@@ -100,7 +100,7 @@ const verifyPassword = async () => {
     const token = Cookies.get('token');
     const response = await axios.post(
       '/api/verify-password', // POST 요청
-      { email: formData.email, password: user1.password }, // 서버로 전달할 데이터
+      { email: formData.email, password: formData.password }, // 서버로 전달할 데이터
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -187,7 +187,7 @@ const onCilckNewProfile = () => {  //아이디 변경
                     </div>
         <h1>회원 정보 변경</h1>
         <div className="welcome-message">
-          안녕하세요 {formData.email} 님
+          안녕하세요 {formData.nickname} 님
           {console.log(formData.email)}
           {console.log(formData.password)}
         </div>

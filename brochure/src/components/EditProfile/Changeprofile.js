@@ -39,7 +39,7 @@ const ChangeProfile = () => {
           password: '',
           confirmPassword: '',
           food:response.data.food,
-          gender:'',
+          gender:response.data.gender,
         });
       } catch (error) {
         console.error('프로필 로드 중 오류 발생:', error);
@@ -60,11 +60,15 @@ const ChangeProfile = () => {
 
     
     const navigate = useNavigate(); // useNavigate 훅 사용
+
+      
     const onChangeHandler = (e) =>
     {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     }
+
+
 const handleBack = () => {
 
     navigate(-1); // 이전 페이지로 이동
@@ -172,7 +176,7 @@ const handleSubmit = async (e) => {
                        
       </div>
       <div className="button-container" style={{ textAlign: "center", marginTop: "20px" }}>
-                    <button type="submit" className="button" /*onClick={()=>alert("변경됨")}*/ >변경</button>
+                    <button type="submit" className="button" onClick={()=>alert("변경됨")} >변경</button>
                 </div> 
     </form>
       <Footer/>
