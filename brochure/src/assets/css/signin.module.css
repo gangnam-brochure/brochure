@@ -8,12 +8,24 @@
 .signinBody {
   background-image: url("https://www.baemin.com/_next/static/media/img-baemin-mobile.0b55bb26.png");
   background-position: center;
-  background-color: rgb(53, 152, 144); 
+  background-repeat: repeat-x; /* 가로로 이미지가 반복되도록 설정 */
+  background-color: rgb(53, 152, 144);
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  animation: background-slide 15s linear infinite; /* 배경 이미지를 애니메이션으로 좌측으로 이동 */
+}
+
+/* 배경 이미지가 우측에서 좌측으로 움직이는 애니메이션 */
+@keyframes background-slide {
+  0% {
+    background-position: 0 20px; /* 처음 위치에서 시작 */
+  }
+  100% {
+    background-position: -100vw 20px; /* 좌측으로 화면 너비만큼 이동 */
+  }
 }
 
 /* 로그인 컨테이너 스타일 */

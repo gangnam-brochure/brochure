@@ -12,8 +12,10 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('https://www.baemin.com/_next/static/media/img-baemin-mobile.0b55bb26.png');
+  background-image: url('../images/signup_image.png');
   background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .signupContainer {
