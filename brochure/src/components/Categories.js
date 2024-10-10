@@ -19,21 +19,22 @@ const Categories = () => {
     { name: '문화시설', icon: '🎬', code: "CT1" },
     { name: '주유소', icon: '🎬', code: "OL7" }
   ];
+  // 카테고리 항목 추가 수정자: 최예지
 
   return (
     <div className="categories-container">
-      <h2 className="categories-title">카테고리</h2>
+      <h2 className="categories-title">현재 내 주변에는?</h2>
       <div className="category-wrapper">
         {/* 카테고리 링크 추가  수정자: 최예지 */}
         {categories.map((category, index) => (
-          <NavLink to={`/${category.code}`} key={category.code}>
+          <NavLink to={`/${category.code}`} key={category.code} style={{width:"200px", margin:"55px"}}>
             <div className="category-item">
               <span>{category.icon}</span>
-              <p>{category.name}</p>
             </div>
+            <p>{category.name}</p>
           </NavLink>
         ))}
-        <div className="test">
+        {/* <div className="test">
         <NavLink to={"/test"}>
                 <h3>test</h3>
                 </NavLink>
@@ -42,7 +43,7 @@ const Categories = () => {
         <NavLink to={"/reviewtest"}>
                 <h3>review</h3>
                 </NavLink>
-        </div>
+        </div> */}
       </div>
     </div>
   );

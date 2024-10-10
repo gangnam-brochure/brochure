@@ -15,6 +15,7 @@
     작성자 : 김동규 - 2024-10-08 / 수정
     설명 : 로그인한 유저에게만 후기 사용할 수 있게 수정
 */
+
 import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/css/placeDetail.css';
