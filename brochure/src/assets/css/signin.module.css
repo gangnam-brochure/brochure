@@ -1,16 +1,14 @@
 /* 전체 배경 이미지 추가 */
-@font-face {
-  font-family: 'CustomFont';
-  src: url('../fonts/BMEULJIRO.otf') format('truetype');
+@font-face{
+  font-family: "BMHANNAProOTF";
   font-weight: normal;
-  font-style: normal;
+  src: url("../fonts/BMHANNAProOTF.otf") format("opentype");
 }
 
-body {
-  font-family: 'CustomFont', sans-serif !important;
+.signinBody {
   background-image: url("https://www.baemin.com/_next/static/media/img-baemin-mobile.0b55bb26.png");
   background-position: center;
-  background-color: rgb(53, 152, 144) !important; 
+  background-color: rgb(53, 152, 144); 
   margin: 0;
   display: flex;
   justify-content: center;
@@ -19,8 +17,9 @@ body {
 }
 
 /* 로그인 컨테이너 스타일 */
-.signin-container {
+.signinContainer {
   background-color: rgba(255, 255, 255, 0.9); /* 배경을 살짝 투명하게 */
+  font-family: "BMHANNAProOTF";
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
@@ -29,13 +28,13 @@ body {
 }
 
 /* 앱 제목 */
-.app-title {
+.appTitle {
   font-size: 36px;
   color: #359890; /* 배달의 민족 스타일 색상 */
   margin-bottom: 30px;
 }
 
-.back-btn {
+.backBtn {
   position: absolute;
   top: 185px;
   right: 735px;
@@ -49,13 +48,13 @@ body {
 }
 
 /* 로그인 폼 스타일 */
-.signin-form {
+.signinForm {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.signin-form input {
+.signinForm input {
   margin: 10px 0;
   padding: 15px;
   width: 100%;
@@ -65,7 +64,7 @@ body {
 }
 
 /* 로그인 버튼 */
-.login-btn {
+.loginBtn {
   width: 100%;
   padding: 15px;
   background-color: #359890; /* 배달의 민족 스타일 색상 */
@@ -77,31 +76,31 @@ body {
   margin-top: 10px;
 }
 
-.login-btn:hover {
-  background-color: #359890;
+.loginBtn:hover {
+  background-color: #2b7f76;
 }
 
 /* 소셜 로그인 섹션 */
-.social-login-section {
+.socialLoginSection {
   margin-top: 20px;
 }
 
-.social-login img {
+.socialLogin img {
   width: 50px;
   margin: 0 10px;
   cursor: pointer;
 }
 
 /* 회원가입 링크 */
-.signup-link {
+.signupLink {
   margin-top: 20px;
 }
 
-.signup-link a {
+.signupLink a {
   color: #359890;
   text-decoration: none;
 }
 
-.signup-link a:hover {
+.signupLink a:hover {
   text-decoration: underline;
 }

@@ -1,60 +1,124 @@
-@font-face{
-  font-family: "BMHANNAProOTF";
-  font-weight: normal;
-  src: url("../fonts/BMHANNAProOTF.otf") format("opentype");
+/* categories.css */
+
+/* 카테고리 컨테이너 및 스타일 */
+.categories-container {
+  margin-top: 80px;
+  padding: 60px;
+  margin-bottom: 80px;
 }
 
-.categories-container {
-    margin-top: 80px;  /* 헤더 공간 확보 */
-    padding: 60px;
-    margin-bottom: 80px;
-  }
-  
-  .categories-title {
-    font-family: "BMHANNAProOTF";
-    font-size: 40px;
-    margin-bottom: 20px;
-  }
-  
-  .category-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    border-radius: 20px;
-    width: 100%;
-    height: 60%;
-    box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.25);
-    background-color: white;
-    margin: auto;
-  }
-  
-  .category-item {
-    flex-direction: column;
-    align-items: center;
-    border-radius: 55px;
-    background-color: #f5f5f5;
-    width: 150px;
-    height: 150px;
-    margin: auto;
-  }
-  
-  .category-item span {
-    font-size: 30px;
-    margin-bottom: 10px;
-  }
+.categories-title {
+  font-family: "BMHANNAProOTF";
+  font-size: 40px;
+  margin-bottom: 20px;
+}
 
-  p {
-    font-size: 15px;
-    text-align: center;
+.category-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border-radius: 20px;
+  width: 100%;
+  height: 60%;
+  box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  margin: auto;
+}
+
+.category-item {
+  flex-direction: column;
+  align-items: center;
+  border-radius: 55px;
+  background-color: #f5f5f5;
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.category-item span {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 15px;
+  text-align: center;
+}
+
+/* 애니메이션 스타일 */
+
+/* 왼쪽에서 오른쪽으로 슬라이드 인 */
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100vw); /* 화면 왼쪽 밖에서 시작 */
+    opacity: 0;
   }
-  .onOffStar{
-    background: transparent; /* 배경 없음 */
-    border: none; /* 테두리 없음 */
-    color: #FFD700; /* 별 색상 (금색) */
-    font-size: 24px; /* 아이콘 크기 조절 */
-    cursor: pointer; /* 마우스 포인터 변경 */
-} 
-  button.onOffStar:hover {
-  color: #ff9900;
-  transform: scale(1.2);
+  100% {
+    transform: translateX(0); /* 화면 안으로 들어옴 */
+    opacity: 1;
+  }
+}
+
+/* 오른쪽에서 왼쪽으로 슬라이드 인 */
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100vw); /* 화면 오른쪽 밖에서 시작 */
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0); /* 화면 안으로 들어옴 */
+    opacity: 1;
+  }
+}
+
+/* 왼쪽에서 오른쪽으로 슬라이드 아웃 */
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0); /* 화면 안에 있음 */
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100vw); /* 화면 밖으로 나감 */
+    opacity: 0;
+  }
+}
+
+/* 오른쪽에서 왼쪽으로 슬라이드 아웃 */
+@keyframes slideOutRight {
+  0% {
+    transform: translateX(0); /* 화면 안에 있음 */
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100vw); /* 화면 밖으로 나감 */
+    opacity: 0;
+  }
+}
+
+/* 왼쪽에서 오른쪽으로 슬라이드 인 */
+.slide-in-left {
+  animation: slideInLeft 1s ease-in-out forwards;
+}
+
+/* 오른쪽에서 왼쪽으로 슬라이드 인 */
+.slide-in-right {
+  animation: slideInRight 1s ease-in-out forwards;
+}
+
+/* 왼쪽에서 오른쪽으로 슬라이드 아웃 */
+.slide-out-left {
+  animation: slideOutLeft 1s ease-in-out forwards;
+}
+
+/* 오른쪽에서 왼쪽으로 슬라이드 아웃 */
+.slide-out-right {
+  animation: slideOutRight 1s ease-in-out forwards;
+}
+
+/* Hover 효과 */
+.category-item:hover {
+  transform: scale(1.05);
 }
