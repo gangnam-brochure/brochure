@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { signUp } from '../../services/authService';
 import axios from 'axios';
-import '../../assets/css/signup.css'; 
+import styles from '../../assets/css/signup.module.css'; 
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -18,7 +18,8 @@ const SignUp = () => {
     phone: '',
     nickname: '',
   });
-  
+
+  // 상태 초기화가 이 부분에 확실하게 정의되도록 합니다.
   const [error, setError] = useState({
     email: '',
     password: '',
@@ -27,13 +28,21 @@ const SignUp = () => {
     nickname: '',
     general: '',
   });
-  
-  const [isNicknameValid, setIsNicknameValid] = useState(false); // 닉네임 유효성 체크
-  const [isPhoneValid, setIsPhoneValid] = useState(false); // 전화번호 유효성 체크
-  const [isCheckingNickname, setIsCheckingNickname] = useState(false); // 닉네임 체크 중
-  const [isCheckingPhone, setIsCheckingPhone] = useState(false); // 전화번호 체크 중
+
+  const [isNicknameValid, setIsNicknameValid] = useState(false);
+  const [isPhoneValid, setIsPhoneValid] = useState(false);  // 이 변수도 초기화됨
+  const [isCheckingNickname, setIsCheckingNickname] = useState(false);
+  const [isCheckingPhone, setIsCheckingPhone] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const [domainOption, setDomainOption] = useState('직접입력');
+
+  // 각 입력 필드의 가시성 상태
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isNicknameVisible, setIsNicknameVisible] = useState(false);
+  const [isPhoneVisible, setIsPhoneVisible] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  
   const navigate = useNavigate();
 
   // 이메일 유효성 검사
@@ -63,62 +72,74 @@ const SignUp = () => {
     }
   };
 
-    // 전화번호 중복 체크 함수
-    const checkPhoneAvailability = async (phone) => {
-      setIsCheckingPhone(true);
-      try {
-        const response = await axios.post('http://localhost:5000/api/check-phone', { phone });
-        setIsPhoneValid(response.data.isAvailable);
-        if (!response.data.isAvailable) {
-          setError((prev) => ({ ...prev, phone: '이미 사용 중인 번호입니다.' }));
-        } else if (phone.length > 11) {
-          setError((prev) => ({ ...prev, phone: '번호 형식이 올바르지 않습니다.' }));
-          setIsPhoneValid(false);
-        } else {
-          setError((prev) => ({ ...prev, phone: '' }));
-        }
-      } catch (error) {
-        setError((prev) => ({ ...prev, phone: '전화번호 중복 체크 중 오류가 발생했습니다.' }));
-      } finally {
-        setIsCheckingPhone(false);
+  // 전화번호 중복 체크 함수
+  const checkPhoneAvailability = async (phone) => {
+    setIsCheckingPhone(true);
+    try {
+      const response = await axios.post('http://localhost:5000/api/check-phone', { phone });
+      setIsPhoneValid(response.data.isAvailable);
+      if (!response.data.isAvailable) {
+        setError((prev) => ({ ...prev, phone: '이미 사용 중인 번호입니다.' }));
+      } else if (phone.length > 11) {
+        setError((prev) => ({ ...prev, phone: '번호 형식이 올바르지 않습니다.' }));
+        setIsPhoneValid(false);
+      } else {
+        setError((prev) => ({ ...prev, phone: '' }));
       }
-    };
+    } catch (error) {
+      setError((prev) => ({ ...prev, phone: '전화번호 중복 체크 중 오류가 발생했습니다.' }));
+    } finally {
+      setIsCheckingPhone(false);
+    }
+  };
 
   // 닉네임 입력 시 중복 체크 호출
   useEffect(() => {
     if (formData.nickname.length > 0) {
       checkNicknameAvailability(formData.nickname);
     }
+  }, [formData.nickname]);
+
+  // 전화번호 입력 시 중복 체크 호출
+  useEffect(() => {
     if (formData.phone.length > 0) {
       checkPhoneAvailability(formData.phone);
     }
-  }, [formData.nickname, formData.phone]);
+  }, [formData.phone]);
 
-  // 비밀번호, 전화번호 유효성 및 확인 검사
+  // 입력 필드 유효성 검사
   useEffect(() => {
-    const isEmailValid = validateEmail(`${formData.emailFront}@${formData.emailDomain}`);
+    const emailFull = `${formData.emailFront}@${formData.emailDomain}`;
+    const isEmailValid = validateEmail(emailFull);
+    setIsEmailValid(isEmailValid);
+
+    if (isEmailValid) setIsNicknameVisible(true);  // 이메일 유효할 때 닉네임 필드 보이기
+    if (isNicknameValid) setIsPhoneVisible(true);  // 닉네임 유효할 때 전화번호 필드 보이기
+    if (isPhoneValid) setIsPasswordVisible(true);  // 전화번호 유효할 때 비밀번호 필드 보이기
+    if (formData.password.length >= 6) setIsConfirmPasswordVisible(true);  // 비밀번호 유효할 때 비밀번호 확인 필드 보이기
+
     const isPasswordValid = formData.password.length >= 6;
     const isConfirmPasswordValid = formData.password === formData.confirmPassword;
-    const isPhoneValid = formData.phone.length >= 11;  // 전화번호는 최소 11자리로 설정
+
+    // 주의: isPhoneValid는 위에서 상태가 정의되어야만 참조 가능
+    const isPhoneValidCheck = formData.phone.length >= 11 && isPhoneValid;
 
     setError((prev) => ({
       ...prev,
       email: isEmailValid ? '' : '올바른 이메일 형식을 입력하세요.',
       password: isPasswordValid ? '' : '비밀번호는 최소 6자 이상이어야 합니다.',
       confirmPassword: isConfirmPasswordValid ? '' : '비밀번호가 일치하지 않습니다.',
-      phone: isPhoneValid ? '' : '유효한 전화번호를 입력하세요.',
+      phone: isPhoneValidCheck ? '' : '유효한 전화번호를 입력하세요.',
     }));
 
-    setIsFormValid(isEmailValid && isPasswordValid && isConfirmPasswordValid && isPhoneValid && isNicknameValid);
+    setIsFormValid(isEmailValid && isPasswordValid && isConfirmPasswordValid && isPhoneValidCheck && isNicknameValid);
   }, [formData, isNicknameValid, isPhoneValid]);
 
-  // 입력값 변경 처리
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // 셀렉트 박스 변경 시 도메인 자동 입력
   const handleDomainChange = (e) => {
     const selectedDomain = e.target.value;
     setDomainOption(selectedDomain);
@@ -129,7 +150,6 @@ const SignUp = () => {
     }
   };
 
-  // 회원가입 폼 제출
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid || !isNicknameValid || !isPhoneValid) {
@@ -155,23 +175,21 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signup-container">
-      <div className="signup-logo">
+    <div className={styles.signupBody}>
+    <div className={styles.signupContainer}>
+      <div className={styles.signupLogo}>
         <h1>번호의 민족</h1>
-        <button 
-          className="back-btn"
-          onClick={() => navigate('/signin')}  // 클릭 시 메인 페이지로 이동
-        >
+        <button className={styles.backBtn2} onClick={() => navigate('/signin')}>
           돌아가기
         </button>
       </div>
-      <form onSubmit={handleSubmit} className="signup-form">
+      <form onSubmit={handleSubmit} className={styles.signupForm}>
         <h2>회원가입</h2>
 
         {/* 이메일 입력 */}
-        <div className={`form-group ${error.email ? 'error' : ''}`}>
+        <div className={`form-group ${error.email ? styles.errorMessage : ''}`}>
           <label>이메일 주소 입력</label>
-          <div className="email-input-wrapper">
+          <div className={styles.emailInputWrapper}>
             <input
               type="text"
               name="emailFront"
@@ -179,7 +197,7 @@ const SignUp = () => {
               onChange={handleChange}
               placeholder="이메일"
               required
-              className="email-front-input"
+              className={styles.emailFrontInput}
             />
             <span>@</span>
             <input
@@ -190,13 +208,13 @@ const SignUp = () => {
               disabled={domainOption !== '직접입력'}
               placeholder="도메인"
               required
-              className="email-domain-input"
+              className={styles.emailDomainInput}
             />
             <select
               name="emailDomainSelect"
               value={domainOption}
               onChange={handleDomainChange}
-              className="email-domain-select"
+              className={styles.emailDomainSelect}
             >
               <option value="직접입력">직접입력</option>
               <option value="naver.com">naver.com</option>
@@ -207,77 +225,87 @@ const SignUp = () => {
               <option value="hanmail.net">hanmail.net</option>
             </select>
           </div>
-          {error.email && <p className="error-message">{error.email}</p>}
+          {error.email && <p className={styles.errorMessage}>{error.email}</p>}
         </div>
 
-        {/* 닉네임 입력 */}
-        <div className={`form-group ${error.nickname ? 'error' : ''}`}>
-          <label>닉네임</label>
-          <br />
-          <input
-            type="text"
-            name="nickname"
-            value={formData.nickname}
-            onChange={handleChange}
-            placeholder="닉네임"
-          />
-          {isCheckingNickname && <p>닉네임 확인 중...</p>}
-          {error.nickname && <p className="error-message">{error.nickname}</p>}
-        </div>
+        {/* 닉네임 입력 (이메일이 유효할 때만 보임) */}
+        {isNicknameVisible && (
+          <div className={`form-group ${error.nickname ? styles.errorMessage : ''}`}>
+            <label>닉네임</label>
+            <br />
+            <input
+              type="text"
+              name="nickname"
+              value={formData.nickname}
+              onChange={handleChange}
+              placeholder="닉네임"
+            />
+            {isCheckingNickname && <p>닉네임 확인 중...</p>}
+            {error.nickname && <p className={styles.errorMessage}>{error.nickname}</p>}
+          </div>
+        )}
 
-        {/* 전화번호 입력 */}
-        <div className={`form-group ${error.phone ? 'error' : ''}`}>
-          <label>전화번호</label>
-          <br />
-          <input
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="전화번호"
-            required
-          />
-          {isCheckingPhone && <p>전화번호 확인 중...</p>}
-          {error.phone && <p className="error-message">{error.phone}</p>}
-        </div>
+        {/* 전화번호 입력 (닉네임이 유효할 때만 보임) */}
+        {isPhoneVisible && (
+          <div className={`form-group ${error.phone ? styles.errorMessage : ''}`}>
+            <label>전화번호</label>
+            <br />
+            <input
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="전화번호"
+              required
+            />
+            {isCheckingPhone && <p>전화번호 확인 중...</p>}
+            {error.phone && <p className={styles.errorMessage}>{error.phone}</p>}
+          </div>
+        )}
 
-        {/* 비밀번호 입력 */}
-        <div className={`form-group ${error.password ? 'error' : ''}`}>
-          <label>비밀번호</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="비밀번호"
-            required
-          />
-          {error.password && <p className="error-message">{error.password}</p>}
-        </div>
+        {/* 비밀번호 입력 (전화번호가 유효할 때만 보임) */}
+        {isPasswordVisible && (
+          <div className={`form-group ${error.password ? styles.errorMessage : ''}`}>
+            <label>비밀번호</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="비밀번호"
+              required
+            />
+            {error.password && <p className={styles.errorMessage}>{error.password}</p>}
+          </div>
+        )}
 
-        {/* 비밀번호 확인 */}
-        <div className={`form-group ${error.confirmPassword ? 'error' : ''}`}>
-          <label>비밀번호 확인</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            placeholder="비밀번호 확인"
-            required
-          />
-          {error.confirmPassword && <p className="error-message">{error.confirmPassword}</p>}
-        </div>
+        {/* 비밀번호 확인 (비밀번호가 유효할 때만 보임) */}
+        {isConfirmPasswordVisible && (
+          <div className={`form-group ${error.confirmPassword ? styles.errorMessage : ''}`}>
+            <label>비밀번호 확인</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="비밀번호 확인"
+              required
+            />
+            {error.confirmPassword && <p className={styles.errorMessage}>{error.confirmPassword}</p>}
+          </div>
+        )}
 
-        <button type="submit" className="signup-btn" disabled={!isFormValid}>
+        <button type="submit" className={styles.signupBtn} disabled={!isFormValid}>
           회원가입
         </button>
 
-        {error.general && <p className="error-message">{error.general}</p>}
+        {error.general && <p className={styles.errorMessage}>{error.general}</p>}
       </form>
+    </div>
     </div>
   );
 };
 
 export default SignUp;
+
    
