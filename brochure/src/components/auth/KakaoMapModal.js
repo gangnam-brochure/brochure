@@ -94,7 +94,7 @@ const KakaoMapModal = ({ onClose, onSelectLocation }) => {
           top: 10,
           right: 10,
           zIndex: 10, // 닫기 버튼을 지도의 위에 표시되도록 설정
-          backgroundColor: '#00c6ff',
+          backgroundColor: 'rgb(53, 152, 144)',
           padding: '5px 10px',
           border: '1px solid #ccc',
           borderRadius: '5px',
