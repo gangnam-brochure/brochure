@@ -83,7 +83,7 @@ const Header = () => {
     <header>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <h1>
+          <h1 style={{fontSize: '20px'}}>
             {address}{' '}
             <span
               style={{ cursor: 'pointer', fontSize: '15px' }}
@@ -99,7 +99,7 @@ const Header = () => {
 
       {/* 카카오 지도 모달 */}
       {showModal && (
-        <div className="modal">
+        <div className="modal"> 
           <KakaoMapModal
             onClose={() => setShowModal(false)}
             onSelectLocation={handleLocationSelect}  // 좌표 선택 시 호출될 함수
