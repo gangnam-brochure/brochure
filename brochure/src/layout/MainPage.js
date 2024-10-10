@@ -13,6 +13,7 @@ import SecondText from './SecondText';
 const MainPage = () => {
   const [hideHeaderFooter, setHideHeaderFooter] = useState(false);
   const [showTexts, setShowTexts] = useState(true); // FirstText와 SecondText 보임 여부 관리
+  const [triggerSecondText, setTriggerSecondText] = useState(false); // SecondText 애니메이션 트리거
   const location = useLocation(); // 현재 경로 확인
 
   useEffect(() => {
@@ -23,6 +24,13 @@ const MainPage = () => {
         setHideHeaderFooter(true);
       } else {
         setHideHeaderFooter(false); // 카테고리 클릭 후 헤더와 푸터 항상 보이게
+      }
+
+      // 스크롤 위치가 특정 값을 넘을 때 SecondText 애니메이션 트리거
+      if (scrollPosition > 800) {
+        setTriggerSecondText(true); // 스크롤 다운 시 SecondText 애니메이션 시작
+      } else {
+        setTriggerSecondText(false); // 스크롤 업 시 애니메이션 리셋
       }
     };
 
@@ -65,7 +73,7 @@ const MainPage = () => {
       {showTexts && (
         <>
           <FirstText />
-          <SecondText />
+          <SecondText triggerAnimation={triggerSecondText} />
         </>
       )}
 
