@@ -41,6 +41,7 @@
                });
                const isFavorite = placeData.some(item => item.data.id === data.id && formData.email);
                const currentReviews = reviewData.filter(review => review.placeId === data.id && formData.email );
+               
                console.log("formData.email : " + formData.email);
            
                const navigate = useNavigate();
