@@ -1,0 +1,33 @@
+.first-text-container {
+  font-family: "BMHANNAProOTF";
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(53, 152, 144);
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+}
+
+.first-text span, .first-second-text {
+  opacity: 0;
+  display: inline-block;
+  transform: translateY(20px);
+}
+
+.fade-in-slide-up {
+  animation: fadeInSlideUp 1s ease forwards;
+}
+
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

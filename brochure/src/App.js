@@ -21,8 +21,7 @@ import Myprofile from './components/mypage/Myprofile';
 // import './assets/css/tailwind.css';     // 반응형 패키지
 
 function App() {
-  const [data, setData] = useState([{}]);
-  
+  const [data, setData] = useState([{}]);  
   return (
     <Router>
       <Routes>
