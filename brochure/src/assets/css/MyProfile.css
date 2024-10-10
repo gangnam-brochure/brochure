@@ -94,3 +94,32 @@
     margin-top: 15px;
 }
 
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease-in; /* 부드러운 전환 */
+  }
+  
+  .fade-in.visible {
+    opacity: 1; /* 완전히 보이게 */
+  }
+  
+  /* 제목 스타일 */
+  .title {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    font-size: 2.5em; /* 제목 크기 조정 */
+    margin: 20px 0; /* 제목 상하 여백 */
+  }
+  
+  /* 각 글자에 대한 스타일 */
+  .title span {
+    opacity: 0; /* 시작할 때 보이지 않음 */
+    transform: translateY(-20px); /* 아래에서 위로 올라오는 효과 */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* 애니메이션 설정 */
+  }
+  
+  /* .title에서 각 span이 보일 때 적용될 클래스 */
+  .title span.visible {
+    opacity: 1; /* 글자 보이게 */
+    transform: translateY(0); /* 원래 위치로 돌아옴 */
+  }

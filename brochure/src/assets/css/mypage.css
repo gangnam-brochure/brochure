@@ -1,13 +1,14 @@
 .mypage-container {
-  padding: 20px;
+  padding: 60px;
   text-align: center;
   margin-top: 600px; /* 원하는 만큼 위쪽 마진을 조정 */
   margin-left: auto; /* 좌우 중앙 정렬 */
   margin-right: auto; /* 좌우 중앙 정렬 */
   font-family: "BMHANNAProOTF";
   transform: translateY(70px);
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), /* 부드러운 섀도우 */
+              0 10px 20px rgba(0, 0, 0, 0.25); /* 더 강한 섀도우 */
   background-color: rgba(255, 255, 255, 0.9);
   background-image: radial-gradient(circle, rgba(104, 97, 97, 0.048) 1px, transparent 1px);
   
@@ -46,18 +47,20 @@
   margin: 12px 0;
   font-size: 1.1em;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s;
+  transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s ease;
 }
 
 .mypage-button:hover {
   background-color: #0096d6;
   transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
   font-size: 2.2em;
   color: #333;
 }
+
 
 .delete-confirmation {
   background-color: #f9f9f9;
@@ -147,7 +150,7 @@ h1 {
   border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s, transform 0.2s  box-shadow 0.2s ease;;
   margin-top: 12px;
 }
 
@@ -212,4 +215,34 @@ h1 {
 
 .value {
   font-size: 1.2em;
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in; /* 부드러운 전환 */
+}
+
+.fade-in.visible {
+  opacity: 1; /* 완전히 보이게 */
+}
+
+/* 제목 스타일 */
+.title {
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  font-size: 2.5em; /* 제목 크기 조정 */
+  margin: 20px 0; /* 제목 상하 여백 */
+}
+
+/* 각 글자에 대한 스타일 */
+.title span {
+  opacity: 0; /* 시작할 때 보이지 않음 */
+  transform: translateY(-20px); /* 아래에서 위로 올라오는 효과 */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* 애니메이션 설정 */
+}
+
+/* .title에서 각 span이 보일 때 적용될 클래스 */
+.title span.visible {
+  opacity: 1; /* 글자 보이게 */
+  transform: translateY(0); /* 원래 위치로 돌아옴 */
 }

@@ -249,6 +249,19 @@ const onDelete = async () => {
       deleteToken(); //토큰지우기
       navigate('/signin');
 };
+useEffect(() => {
+  // Fade-in 효과
+  const fadeInElement = document.querySelector('.mypage-container');
+  fadeInElement.classList.add('visible');
+
+  const letters = document.querySelectorAll('.title span');
+  letters.forEach((letter, index) => {
+    setTimeout(() => {
+      letter.style.opacity = '1';
+      letter.style.transform = 'translateY(0)';
+    }, index * 100);
+  });
+}, []);
   return (
     <>
       <Header />
@@ -259,7 +272,11 @@ const onDelete = async () => {
       <div className="back-button-container" style={{ textAlign: "right", marginBottom: "10px", marginTop: "15px" }}>
                     <button className="button" onClick={handleBack}>뒤로가기</button>
                     </div>
-        <h1>회원 정보 변경</h1>
+                    <h1 className="title">
+            {Array.from("회원 정보 변경").map((letter, index) => (
+              <span key={index}>{letter}</span>
+            ))}
+          </h1>
         <div className="welcome-message">
           안녕하세요 {formData.nickname} 님
           {console.log(formData.email)}
