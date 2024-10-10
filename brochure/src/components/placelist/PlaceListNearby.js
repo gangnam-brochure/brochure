@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import '../../assets/css/categories.css';
+import '../../assets/css/placelist.css';
 
 const PlaceListNearby = ({setData}) =>
 {
@@ -59,12 +59,12 @@ const PlaceListNearby = ({setData}) =>
     }
 
     return(
-        <div className="categories-container">
+        <div className="list-container">
             <button onClick={onClickBack}>◁</button>
-            <h2 className="categories-title"> {currData[0].category_group_name} </h2> {/*거리순 정렬? 거리를 보여줄 수 잇나 */}
+            <h2 className="list-title"> {currData[0].category_group_name} </h2> {/*거리순 정렬? 거리를 보여줄 수 잇나 */}
             {currData.map((place, index)=>(
                 <Link to={`/${categoryCode}/${place.id}`} key={index} onClick={()=>{setData(currData[index])}}>
-                    <div key={place.id}>
+                    <div key={place.id} className ="list-element" >
                         <span>{place.place_name}</span>
                         <br/>
                         <span>{place.phone}</span>
