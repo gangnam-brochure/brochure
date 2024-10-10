@@ -1,0 +1,52 @@
+/* MainPage.module.css */
+
+/* body에 대한 전역 스타일 */
+body {
+    font-family: 'CustomFont', sans-serif;
+    background-position: center;
+    background-color: rgb(53, 152, 144);
+    margin: 0;
+    display: block;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  /* 컨테이너 */
+  .container {
+    width: 100%;
+    height: auto;
+    min-height: 300vh; /* 스크롤을 위한 충분한 공간 */
+  }
+  
+  /* 첫 번째 텍스트 애니메이션 */
+  .fadeIn {
+    opacity: 0;
+    animation: fadeIn 3s forwards;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  /* 두 번째 텍스트 애니메이션 (스크롤 시) */
+  .fadeInOnScroll {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+  }
+  
+  .fadeInOnScroll.visible {
+    opacity: 1;
+  }
+  
+  /* MainPage 컨텐츠 */
+  .mainPageContent {
+    padding: 50px 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  

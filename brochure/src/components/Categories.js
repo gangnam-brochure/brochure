@@ -2,48 +2,78 @@
     작성자 : 김동규 - 2024-10-02 / 최초 작성
     설명 : 메인 페이지 body 카테고리 섹션
 */
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../assets/css/categories.css';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Categories = () => {
-  const categories = [
-    { name: '편의점', icon: '🏪', code: "CS2"},
-    { name: '관광명소', icon: '💈', code: "AT4"},
+  const [isAnimating, setIsAnimating] = useState(false);
+  const categoriesRef = useRef(null);
+
+  const categoriesLeft = [
+    { name: '편의점', icon: '🏪', code: "CS2" },
+    { name: '관광명소', icon: '💈', code: "AT4" },
     { name: '음식점', icon: '🎬', code: "FD6" },
     { name: '카페', icon: '🎬', code: "CE7" },
-    { name: '숙박', icon: '🎬', code: "AD5" },
+    { name: '숙박', icon: '🎬', code: "AD5" }
+  ];
+
+  const categoriesRight = [
     { name: '주차장', icon: '🎬', code: "PK6" },
     { name: '지하철역', icon: '🎬', code: "SW8" },
     { name: '공공기관', icon: '🎬', code: "PO3" },
     { name: '문화시설', icon: '🎬', code: "CT1" },
     { name: '주유소', icon: '🎬', code: "OL7" }
   ];
-  // 카테고리 항목 추가 수정자: 최예지
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsAnimating(true); // 스크롤 다운 시 애니메이션 시작
+          } else {
+            setIsAnimating(false); // 스크롤 업 시 애니메이션 반대로
+          }
+        });
+      },
+      { threshold: 0.5 } // 50% 화면에 보이면 트리거
+    );
+
+    if (categoriesRef.current) {
+      observer.observe(categoriesRef.current);
+    }
+
+    return () => {
+      if (categoriesRef.current) {
+        observer.unobserve(categoriesRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <div className="categories-container">
+    <div className="categories-container" ref={categoriesRef}>
       <h2 className="categories-title">현재 내 주변에는?</h2>
       <div className="category-wrapper">
-        {/* 카테고리 링크 추가  수정자: 최예지 */}
-        {categories.map((category, index) => (
-          <NavLink to={`/${category.code}`} key={category.code} style={{width:"200px", margin:"55px"}}>
-            <div className="category-item">
+        {/* 왼쪽에서 오른쪽으로 나오는 카테고리 */}
+        {categoriesLeft.map((category, index) => (
+          <NavLink to={`/${category.code}`} key={category.code} style={{ width: "200px", margin: "55px" }}>
+            <div className={`category-item ${isAnimating ? 'slide-in-left' : 'slide-out-left'}`}>
               <span>{category.icon}</span>
             </div>
             <p>{category.name}</p>
           </NavLink>
         ))}
-        {/* <div className="test">
-        <NavLink to={"/test"}>
-                <h3>test</h3>
-                </NavLink>
-        </div>
-        <div className="reviewtest">
-        <NavLink to={"/reviewtest"}>
-                <h3>review</h3>
-                </NavLink>
-        </div> */}
+
+        {/* 오른쪽에서 왼쪽으로 나오는 카테고리 */}
+        {categoriesRight.map((category, index) => (
+          <NavLink to={`/${category.code}`} key={category.code} style={{ width: "200px", margin: "55px" }}>
+            <div className={`category-item ${isAnimating ? 'slide-in-right' : 'slide-out-right'}`}>
+              <span>{category.icon}</span>
+            </div>
+            <p>{category.name}</p>
+          </NavLink>
+        ))}
       </div>
     </div>
   );

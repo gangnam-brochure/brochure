@@ -1,0 +1,21 @@
+.first-text {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(53, 152, 144);
+  color: white;
+}
+
+/* 애니메이션 초기 상태 */
+.animate-text {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 2s ease-out, transform 2s ease-out;
+}
+
+/* 요소가 화면에 나타날 때 애니메이션 적용 */
+.animate-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -7,7 +7,7 @@ import { signIn } from '../../services/authService';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import SocialLoginWrapper from '../../layout/SocialLogin';
-import '../../assets/css/signin.css';
+import styles from '../../assets/css/signin.module.css';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -35,17 +35,18 @@ const SignIn = () => {
   };
 
   return (
-    <div className="signin-container">
+    <div className={styles.signinBody}>
+    <div className={styles.signinContainer}>
       <div className="logo-container">
-        <h1 className="app-title">번호의 민족</h1>
+        <h1 className={styles.appTitle}>번호의 민족</h1>
         <button 
-          className="back-btn"
+          className={styles.backBtn}
           onClick={() => navigate('/')}  // 클릭 시 메인 페이지로 이동
         >
           돌아가기
         </button>
       </div>
-      <form onSubmit={handleSubmit} className="signin-form">
+      <form onSubmit={handleSubmit} className={styles.signinForm}>
         <h2>로그인</h2>
         <input
           type="email"
@@ -61,18 +62,19 @@ const SignIn = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit" className="login-btn">로그인</button>
+        <button type="submit" className={styles.loginBtn}>로그인</button>
       </form>
   
       {/* 소셜 로그인 섹션 */}
-      <div className="social-login-section mt-4 flex flex-col items-center">
+      <div className={styles.socialLoginSection}>
         <h3 className="text-center text-lg mb-2">다른 방법으로 로그인</h3>
         <SocialLoginWrapper />
       </div>
   
-      <div className="signup-link">
+      <div className={styles.signupLink}>
         <p>회원이 아니신가요? <a href="/signup">회원가입</a></p>
       </div>
+    </div>
     </div>
   );
 }  
