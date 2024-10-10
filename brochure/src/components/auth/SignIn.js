@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { signIn } from '../../services/authService';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import SocialLoginWrapper from './SocialLogin';
+import SocialLoginWrapper from '../../layout/SocialLogin';
 import '../../assets/css/signin.css';
 
 const SignIn = () => {

@@ -70,8 +70,8 @@ const KakaoMapShowingPlace = ({latitude, longitude}) => {
   }, []);
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '300x' }}>
-      <div id="map" style={{ width: '100%', height: '400px' }}></div>
+    <div>
+      <div id="map" style={{ width: '800px', height: '540px' }}></div>
     </div>
   );
 };

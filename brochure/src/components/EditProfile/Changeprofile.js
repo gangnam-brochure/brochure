@@ -102,7 +102,11 @@ const handleSubmit = async (e) => {
     }
   };
 
+const onClickChange = () => {
+  alert("변경됨");
+  navigate("../mypage");
 
+}
 
 
     return (
@@ -176,7 +180,7 @@ const handleSubmit = async (e) => {
                        
       </div>
       <div className="button-container" style={{ textAlign: "center", marginTop: "20px" }}>
-                    <button type="submit" className="button" onClick={()=>alert("변경됨")} >변경</button>
+                    <button type="submit" className="button" onClick={onClickChange} >변경</button>
                 </div> 
     </form>
       <Footer/>

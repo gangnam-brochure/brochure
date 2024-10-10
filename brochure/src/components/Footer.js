@@ -35,13 +35,13 @@ const Footer = () => {
   };
 
   const footerItems = [
-    { name: '홈', icon: '🏠', path: '/' },
-    { name: '즐겨찾기', icon: '⭐', path: '/favorites' },
-    { name: '후기', icon: '📝', path: '/reviews' },
+    { name: 'home', icon: '🏠', path: '/' },
+    { name: 'favorite', icon: '⭐', path: '/favorites' },
+    { name: 'review', icon: '📝', path: '/reviews' },
     isLoggedIn
-      ? { name: '로그아웃', icon: '🚪', action: handleLogout }
-      : { name: '로그인', icon: '🔑', path: '/signin' },
-    { name: '마이페이지', icon: '👤', path: '/mypage' }
+      ? { name: 'logout', icon: '🚪', action: handleLogout }
+      : { name: 'login', icon: '🔑', path: '/signin' },
+    { name: 'mypage', icon: '👤', path: '/mypage' }
   ];
 
   const handleNavigation = (path, action) => {
@@ -56,8 +56,10 @@ const Footer = () => {
     <footer>
       {footerItems.map((item, index) => (
         <div key={index} onClick={() => handleNavigation(item.path, item.action)}>
-          <span>{item.icon}</span>
-          <p>{item.name}</p>
+          {/* 10-08 footer 디자인 적용 수정자: 최예지 */}
+          <img src={require(`../assets/images/${item.name}_icon.png`)} width={"50px"}/>
+          {/* <span>{item.icon}</span> */}
+          {/* <p>{item.name}</p> */}
         </div>
       ))}
     </footer>

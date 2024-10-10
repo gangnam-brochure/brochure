@@ -6,17 +6,15 @@ import { create } from "zustand";
 
 export const useFavorite = create((set) => ({
   placeData: [],
-
-  favoriteOn: (placeDatas) => set((state) => {
-    // 이미 존재하는 데이터인지 확인
-    const isExisting = state.placeData.some(item => item.data.id === placeDatas.data.id);
-    // 중복이 아닐 경우에만 추가
+  favoriteOn: (placeDatas, nickname) => set((state) => {
+    const isExisting = state.placeData.some(item => item.data.id === placeDatas.data.id && item.nickname === nickname);
+    
     if (!isExisting) {
       return {
-        placeData: [...state.placeData, placeDatas],
+        placeData: [...state.placeData, { ...placeDatas, nickname }], // nickname 포함해서 저장
       };
-    } 
-    return state; // 중복일 경우 상태를 변경하지 않음
+    }
+    return state;
   }),
   favoriteOff: (id) => set((state) => {
     return {
@@ -24,6 +22,10 @@ export const useFavorite = create((set) => ({
     };
   }),
 }));
+
+
+
+
 export const useReview = create((set) => ({
     reviewData: [],
     addReview: (placeId, text, nickname, placeName,categoryCode) => set((state) => ({
