@@ -261,7 +261,7 @@ const onDelete = async () => {
                     </div>
         <h1>회원 정보 변경</h1>
         <div className="welcome-message">
-          안녕하세요 {nickname} 님
+          안녕하세요 {formData.nickname} 님
           {console.log(formData.email)}
           {console.log(user1.password)}
         </div>

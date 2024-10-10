@@ -57,11 +57,15 @@ const Categories = () => {
       <div className="category-wrapper">
         {/* 왼쪽에서 오른쪽으로 나오는 카테고리 */}
         {categoriesLeft.map((category, index) => (
-          <NavLink to={`/${category.code}`} key={category.code} style={{ width: "200px", margin: "55px" }}>
+          <NavLink 
+          to={`/${category.code}`} 
+          key={category.code} 
+          style={{ width: "200px", margin: "55px" }}>
             <div className={`category-item ${isAnimating ? 'slide-in-left' : 'slide-out-left'}`}>
               <span>{category.icon}</span>
+              <p>{category.name}</p>
             </div>
-            <p>{category.name}</p>
+            
           </NavLink>
         ))}
 
@@ -70,8 +74,9 @@ const Categories = () => {
           <NavLink to={`/${category.code}`} key={category.code} style={{ width: "200px", margin: "55px" }}>
             <div className={`category-item ${isAnimating ? 'slide-in-right' : 'slide-out-right'}`}>
               <span>{category.icon}</span>
+              <p>{category.name}</p>
             </div>
-            <p>{category.name}</p>
+            
           </NavLink>
         ))}
       </div>

@@ -65,11 +65,17 @@ const MyPage = () => {
   const deleteReview = (id) => {
     setReviews(reviews.filter((review) => review.id !== id));
   };
+  const handleBack = () => {
 
+    navigate(-1); // 이전 페이지로 이동
+  }
   return (
     <>
       <Header />
       <div className="mypage-container">
+      <div className="back-button-container" style={{ textAlign: "right", marginBottom: "10px", marginTop: "15px" }}>
+                    <button className="button" onClick={handleBack}>뒤로가기</button>
+                    </div>
         <h1>마이 페이지</h1>
         <div className="welcome-message">
           안녕하세요 {formData.nickname} 님

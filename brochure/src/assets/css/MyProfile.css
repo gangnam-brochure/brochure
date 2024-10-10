@@ -2,7 +2,7 @@
     padding: 20px; /* 패딩 줄임 */
     margin-top: 30px;
     margin-bottom: 0; /* 하단 마진 제거 */
-    
+    font-family: "BMHANNAProOTF";
     text-align: left;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);

@@ -1,9 +1,9 @@
 header {
-    background-color: #00c6ff;
+    background-color:rgb(53, 152, 144);
+    font-family: "BMHANNAProOTF";
     color: white;
     padding: 10px;
     position: fixed;
-   
     width: 100%;
     top: 0;                 /* 상단에 위치 */
     left: 0;                /* 좌측에 위치 */
