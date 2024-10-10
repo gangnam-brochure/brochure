@@ -239,6 +239,7 @@ app.post('/api/verify-password', async (req, res) => {
 });
 
 
+
 // JWT 생성 함수
 const createJWT = (email, nickname) => {
   return jwt.sign({ email, nickname }, JWT_SECRET, { expiresIn: '1h' });
@@ -326,6 +327,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack); // 에러 로그를 서버 콘솔에 출력
   res.status(500).json({ message: '서버 내부 오류가 발생했습니다.', error: err.message }); // JSON 형식의 에러 메시지 반환
 });
+
 
 
 // 서버 포트 설정

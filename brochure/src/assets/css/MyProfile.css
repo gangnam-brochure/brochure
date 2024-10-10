@@ -1,0 +1,128 @@
+.mypage-container {
+    padding: 20px; /* 패딩 줄임 */
+    margin-top: 30px;
+    margin-bottom: 0; /* 하단 마진 제거 */
+    font-family: "BMHANNAProOTF";
+    text-align: left;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.9);
+    background-image: radial-gradient(circle, rgba(104, 97, 97, 0.048) 1px, transparent 1px);
+    background-size: 100% auto; /* 배경 크기 설정 */
+    width : 500px;
+    height: calc(100vh - 300px); /* 전체 높이에서 300px 줄임 */
+    background-attachment: fixed;
+    overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+  }
+  
+  .welcome-message {
+    text-align: center;
+    font-size: 1.6em;
+    margin: 25px 0;
+    color: #444;
+    font-weight: 600;
+  }
+
+.profile-info {
+    display: flex;
+    flex-direction: column; /* 세로 방향 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+    gap: 15px; /* 카드 간의 간격 */
+}
+
+.profile-card {
+    display: flex; /* 내부 요소를 flex로 설정 */
+    justify-content: space-between; /* 레이블과 값을 양쪽 끝으로 정렬 */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card.email {
+    border: 2px solid #007BFF;
+    background-color: #E7F3FF;
+    width : 170px;
+}
+
+.profile-card.nickname {
+    border: 2px solid #28A745;
+    background-color: #E8F5E9;
+}
+
+.profile-card.phone {
+    border: 2px solid #FFC107;
+    background-color: #FFF3CD;
+}
+
+.profile-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.label {
+    font-size: 1.2em;
+    font-weight: bold;
+    
+}
+
+.value {
+    
+    font-size: 0.8em;
+    color: #856404;
+    margin-top: 13px; /* 레이블과 값 간의 간격 */
+}
+
+.button-container {
+    margin-top: 30px;
+}
+
+.button {
+    padding: 12px 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.back-button-container {
+    text-align: right;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease-in; /* 부드러운 전환 */
+  }
+  
+  .fade-in.visible {
+    opacity: 1; /* 완전히 보이게 */
+  }
+  
+  /* 제목 스타일 */
+  .title {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    font-size: 2.5em; /* 제목 크기 조정 */
+    margin: 20px 0; /* 제목 상하 여백 */
+  }
+  
+  /* 각 글자에 대한 스타일 */
+  .title span {
+    opacity: 0; /* 시작할 때 보이지 않음 */
+    transform: translateY(-20px); /* 아래에서 위로 올라오는 효과 */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* 애니메이션 설정 */
+  }
+  
+  /* .title에서 각 span이 보일 때 적용될 클래스 */
+  .title span.visible {
+    opacity: 1; /* 글자 보이게 */
+    transform: translateY(0); /* 원래 위치로 돌아옴 */
+  }
