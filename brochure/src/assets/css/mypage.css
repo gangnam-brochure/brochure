@@ -47,6 +47,7 @@
   margin: 12px 0;
   font-size: 1.1em;
   cursor: pointer;
+  width : 200px;
   transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s ease;
 }
 

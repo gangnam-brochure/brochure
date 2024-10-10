@@ -1,6 +1,10 @@
+/*
+    작성자 : 김동규 - 2024-10-10 / 애니메이션 추가 수정
+    설명 : 메인 페이지 
+*/
+
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import Categories from '../components/Categories';
 import Footer from '../components/Footer';
 import { Outlet, useLocation } from 'react-router-dom';
 import FirstText from './FirstText';
@@ -32,7 +36,7 @@ const MainPage = () => {
   useEffect(() => {
     // 루트 경로 ("/")일 때 헤더와 푸터를 숨김
     if (location.pathname === '/') {
-      setHideHeaderFooter(true); // 헤더와 푸터 숨김
+      setHideHeaderFooter(false); // 헤더와 푸터 보이게
     } else if (
       location.pathname.startsWith('/CS2') ||
       location.pathname.startsWith('/AT4') ||

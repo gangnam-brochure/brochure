@@ -75,50 +75,40 @@ const PlaceDetail = ({ data }) => {
     const onChangeEditOpinion = e => setEditOpinion(e.target.value);
 
     const onClickReview = () => {
-        // 사용자가 이미 이 장소에 리뷰를 작성했는지 확인
         const userReviewExists = currentReviews.some(review => review.nickname === formData.nickname);
 
         if (isEditing) {
-            // 수정 중일 때
             deleteReview(currentReviewId); // 기존 리뷰 삭제
             addReview(data.id, editOpinion, formData.nickname, data.place_name);
             console.log(editOpinion, data, formData.nickname, "리뷰 수정 완료");
             setEditOpinion(''); // 리뷰 입력 필드 초기화
             setIsEditing(false); // 수정 모드 종료
-            
-        } else if (userReviewExists) {
-            // 이미 작성한 리뷰가 있는 경우
-            alert("이미 이 장소에 리뷰를 작성했습니다."); // 사용자에게 알림
-            return;
-        }else{
-
-        // 리뷰 추가
-        addReview(data.id, opinion, formData.nickname, data.place_name);
-        console.log(opinion, data, formData.nickname, "리뷰 등록 완료");
-        setOpinion(''); // 리뷰 입력 필드 초기화
+            //} else if (userReviewExists) {
+            //     alert("이미 이 장소에 리뷰를 작성했습니다."); // 사용자에게 알림
+            //     return;
+        } else {
+            // 리뷰 추가
+            addReview(data.id, opinion, formData.nickname, data.place_name);
+            console.log(opinion, data, formData.nickname, "리뷰 등록 완료");
+            setOpinion(''); // 리뷰 입력 필드 초기화
         }
     };
 
     const handleEdit = (review) => {
-        // 수정할 리뷰를 선택하고 수정 모드로 전환
         setEditOpinion(review.text);
-        
         setIsEditing(true);
         setCurrentReviewId(review.id); // 수정할 리뷰의 ID 저장
     };
 
     const handleCancelEdit = () => {
-        // 수정 취소
         setOpinion('');
         setIsEditing(false);
     };
 
     const handleDelete = (reviewId) => {
-        // 리뷰 삭제
         deleteReview(reviewId);
     };
 
-    // 즐겨찾기 등록 시 등록하는 유저의 닉네임도 같이 전달
     const onClickFavorite = () => {
         if (!isLoggedIn) {
             alert("로그인 후 즐겨찾기를 이용하실 수 있습니다.");
@@ -126,14 +116,13 @@ const PlaceDetail = ({ data }) => {
             alert("사용자 정보가 로드되지 않았습니다. 잠시 후 다시 시도해주세요.");
         } else {
             if (isFavorite) {
-                favoriteOff(data.id, formData.nickname); // 닉네임을 함께 전달하여 해당 사용자만 삭제
+                favoriteOff(data.id, formData.nickname);
             } else {
-                favoriteOn({ data }, formData.nickname); // 닉네임을 전달하여 즐겨찾기에 추가
+                favoriteOn({ data }, formData.nickname);
                 console.log(`즐겨찾기 추가됨: ${data.place_name}, 사용자: ${formData.nickname}`);
             }
         }
     };
-
 
     const onClickBack = () => {
         navigate(`/${data.category_group_code}`);
@@ -147,7 +136,16 @@ const PlaceDetail = ({ data }) => {
             <div className="categories-containers">
                 <div className="place-and-map">
                     <div className='placedata'>
-                        {data.place_name}
+                        <h1>{data.place_name}</h1>
+                        <hr className="divider" />
+                        <div className="info-container">
+                            <div className="info-item">
+                                <h2><strong>주소</strong></h2> <span>{data.address_name}</span>
+                            </div>
+                            <div className="info-item">
+                                <h2><strong>전화번호</strong></h2> <span>{data.phone}</span>
+                            </div>
+                        </div>
                         <button
                             className="onOffStar"
                             onClick={() => {
@@ -161,7 +159,6 @@ const PlaceDetail = ({ data }) => {
                             <FontAwesomeIcon icon={isFavorite ? solidStar : regularStar} />
                         </button>
                     </div>
-    
                     <div className='kakaomap'>
                         <KakaoMapShowingPlace latitude={data.y} longitude={data.x} />
                     </div>
@@ -188,42 +185,44 @@ const PlaceDetail = ({ data }) => {
                             >등록</button>
                         </div>
                     </div>
-                    <ul className='reviewText'>
-                        {currentReviews.map((review, index) => (
-                            <li key={index}>
-                                {review.nickname}님: {review.text}
-                                {/* 로그인한 사용자의 nickname과 review 작성자의 nickname이 일치할 때만 수정 버튼 보이기 */}
-                                {isLoggedIn && review.nickname === formData.nickname && !isEditing && (
-                                    <button onClick={() => handleEdit(review)}>수정</button>
-                                )}
-                                {isLoggedIn && review.nickname === formData.nickname && !isEditing && (
-                                    <button onClick={() => handleDelete(review.id)}>삭제</button>
-                                )}
-                                {/* 수정 상태일 때 아래에 인풋과 버튼 표시 */}
-                                {isEditing && (
-                                    <div className="edit-container">
-                                        <input
-                                            className="reviewEdit"
-                                            type="text"
-                                            placeholder="수정할 내용 입력해주세요"
-                                            value={editOpinion}
-                                            onChange={onChangeEditOpinion}
-                                        />
-                                        <button onClick={() => {
-                                            // 수정된 내용으로 리뷰 업데이트
-                                            onClickReview(); // 여기서 수정 버튼 클릭시 동작
-                                        }}>수정</button>
-                                        <button onClick={handleCancelEdit}>취소</button>
+                    <div className="reviewText">
+                        <div className="review-boxes-container">
+                            {currentReviews.map((review, index) => (
+                                <div key={index} className="review-box">
+                                    <div className="review-content">
+                                        <strong className='name'>{review.nickname}님</strong>
+                                        <p className='reviews'>{review.text}</p>
                                     </div>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
+                                    {isLoggedIn && review.nickname === formData.nickname && !isEditing && (
+                                        <div className="review-actions">
+                                            <button onClick={() => handleEdit(review)}>수정</button>
+                                            <button onClick={() => handleDelete(review.id)}>삭제</button>
+                                        </div>
+                                    )}
+                                    {isEditing && (
+                                        <div className="edit-container">
+                                            <input
+                                                className="reviewEdit"
+                                                type="text"
+                                                placeholder="수정할 내용 입력해주세요"
+                                                value={editOpinion}
+                                                onChange={onChangeEditOpinion}
+                                            />
+                                            <div className='button-container' >
+                                                <button onClick={() => { onClickReview(); }}>수정</button>
+                                                <button onClick={handleCancelEdit}>취소</button>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
     );
-    
 };
 
 export default PlaceDetail;
+
