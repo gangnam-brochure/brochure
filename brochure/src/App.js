@@ -12,7 +12,6 @@ import FavoritePage from './layout/FavoritePage';
 import PlaceDetail from './components/placelist/PlaceDetail';
 import PlaceListNearby from './components/placelist/PlaceListNearby';
 import ReviewPage from './layout/ReviewPage';
-import ReviewBoard from './components/reviews/ReViewBoard';
 import EditProfile from './components/EditProfile/editprofile';
 import Categories from './components/Categories';
 import ChangeProfile from './components/EditProfile/Changeprofile';
@@ -21,8 +20,7 @@ import Myprofile from './components/mypage/Myprofile';
 // import './assets/css/tailwind.css';     // 반응형 패키지
 
 function App() {
-  const [data, setData] = useState([{}]);
-  
+  const [data, setData] = useState([{}]);  
   return (
     <Router>
       <Routes>
@@ -49,7 +47,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/reviewtest" element={<ReviewBoard/>}/> {/*리뷰테트스*/}
+        {/* <Route path="/reviewtest" element={<ReviewBoard/>}/> 리뷰테트스 */}
         {/* <Route path="/reviews" element={<ReviewPage/>}/>  위에 로그인된 유저만 볼 수 있게 만듦 */}
         <Route path="/sociallogin" element={<SocialLoginWrapper />} />
         <Route path="/profile" element={<PrivateRoute />} />  {/* 프로필 페이지 */}

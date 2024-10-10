@@ -30,7 +30,7 @@
 .signupLogo h1 {
   font-size: 36px;
   margin-bottom: 20px;
-  color: #00c6ff;
+  color:rgb(53, 152, 144);
 }
 
 .signupForm input {
@@ -45,7 +45,7 @@
 .signupBtn {
   width: 100%;
   padding: 10px;
-  background-color: #00c6ff;
+  background-color: rgb(53, 152, 144);
   color: white;
   border: none;
   border-radius: 5px;
