@@ -72,7 +72,7 @@ const SignUp = () => {
         if (!response.data.isAvailable) {
           setError((prev) => ({ ...prev, phone: '이미 사용 중인 번호입니다.' }));
         } else if (phone.length > 11) {
-          setError((prev) => ({ ...prev, phone: '번호는 11자 이하여야 합니다.' }));
+          setError((prev) => ({ ...prev, phone: '번호 형식이 올바르지 않습니다.' }));
           setIsPhoneValid(false);
         } else {
           setError((prev) => ({ ...prev, phone: '' }));
@@ -155,119 +155,129 @@ const SignUp = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="signup-form">
-      <h2>이메일로 회원가입</h2>
+    <div className="signup-container">
+      <div className="signup-logo">
+        <h1>번호의 민족</h1>
+        <button 
+          className="back-btn"
+          onClick={() => navigate('/signin')}  // 클릭 시 메인 페이지로 이동
+        >
+          돌아가기
+        </button>
+      </div>
+      <form onSubmit={handleSubmit} className="signup-form">
+        <h2>회원가입</h2>
 
-      {/* 이메일 입력 */}
-      <div className={`form-group ${error.email ? 'error' : ''}`}>
-        <label>이메일 주소 입력</label>
-        <div className="email-input-wrapper">
-          <input
-            type="text"
-            name="emailFront"
-            value={formData.emailFront}
-            onChange={handleChange}
-            placeholder="이메일"
-            required
-            className="email-front-input"
-          />
-          <span>@</span>
-          <input
-            type="text"
-            name="emailDomain"
-            value={formData.emailDomain}
-            onChange={handleChange}
-            disabled={domainOption !== '직접입력'}
-            placeholder="도메인"
-            required
-            className="email-domain-input"
-          />
-          <select
-            name="emailDomainSelect"
-            value={domainOption}
-            onChange={handleDomainChange}
-            className="email-domain-select"
-          >
-            <option value="직접입력">직접입력</option>
-            <option value="naver.com">naver.com</option>
-            <option value="daum.net">daum.net</option>
-            <option value="gmail.com">gmail.com</option>
-            <option value="yahoo.com">yahoo.com</option>
-            <option value="nate.com">nate.com</option>
-            <option value="hanmail.com">hanmail.com</option>
-          </select>
+        {/* 이메일 입력 */}
+        <div className={`form-group ${error.email ? 'error' : ''}`}>
+          <label>이메일 주소 입력</label>
+          <div className="email-input-wrapper">
+            <input
+              type="text"
+              name="emailFront"
+              value={formData.emailFront}
+              onChange={handleChange}
+              placeholder="이메일"
+              required
+              className="email-front-input"
+            />
+            <span>@</span>
+            <input
+              type="text"
+              name="emailDomain"
+              value={formData.emailDomain}
+              onChange={handleChange}
+              disabled={domainOption !== '직접입력'}
+              placeholder="도메인"
+              required
+              className="email-domain-input"
+            />
+            <select
+              name="emailDomainSelect"
+              value={domainOption}
+              onChange={handleDomainChange}
+              className="email-domain-select"
+            >
+              <option value="직접입력">직접입력</option>
+              <option value="naver.com">naver.com</option>
+              <option value="daum.net">daum.net</option>
+              <option value="gmail.com">gmail.com</option>
+              <option value="nate.com">nate.com</option>
+              <option value="yahoo.com">yahoo.com</option>
+              <option value="hanmail.net">hanmail.net</option>
+            </select>
+          </div>
+          {error.email && <p className="error-message">{error.email}</p>}
         </div>
-        {error.email && <p className="error-message">{error.email}</p>}
-      </div>
 
-      {/* 닉네임 입력 */}
-      <div className={`form-group ${error.nickname ? 'error' : ''}`}>
-        <label>닉네임</label>
-        <br />
-        <input
-          type="text"
-          name="nickname"
-          value={formData.nickname}
-          onChange={handleChange}
-          placeholder="닉네임"
-        />
-        {isCheckingNickname && <p>닉네임 확인 중...</p>}
-        {error.nickname && <p className="error-message">{error.nickname}</p>}
-      </div>
+        {/* 닉네임 입력 */}
+        <div className={`form-group ${error.nickname ? 'error' : ''}`}>
+          <label>닉네임</label>
+          <br />
+          <input
+            type="text"
+            name="nickname"
+            value={formData.nickname}
+            onChange={handleChange}
+            placeholder="닉네임"
+          />
+          {isCheckingNickname && <p>닉네임 확인 중...</p>}
+          {error.nickname && <p className="error-message">{error.nickname}</p>}
+        </div>
 
-      {/* 전화번호 입력 */}
-      <div className={`form-group ${error.phone ? 'error' : ''}`}>
-        <label>전화번호</label>
-        <br />
-        <input
-          type="text"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          placeholder="전화번호"
-          required
-        />
-        {isCheckingPhone && <p>전화번호 확인 중...</p>}
-        {error.phone && <p className="error-message">{error.phone}</p>}
-      </div>
+        {/* 전화번호 입력 */}
+        <div className={`form-group ${error.phone ? 'error' : ''}`}>
+          <label>전화번호</label>
+          <br />
+          <input
+            type="text"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="전화번호"
+            required
+          />
+          {isCheckingPhone && <p>전화번호 확인 중...</p>}
+          {error.phone && <p className="error-message">{error.phone}</p>}
+        </div>
 
-      {/* 비밀번호 입력 */}
-      <div className={`form-group ${error.password ? 'error' : ''}`}>
-        <label>비밀번호 (영문, 숫자, 특수문자)</label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="비밀번호"
-          required
-        />
-        {error.password && <p className="error-message">{error.password}</p>}
-      </div>
+        {/* 비밀번호 입력 */}
+        <div className={`form-group ${error.password ? 'error' : ''}`}>
+          <label>비밀번호</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="비밀번호"
+            required
+          />
+          {error.password && <p className="error-message">{error.password}</p>}
+        </div>
 
-      {/* 비밀번호 확인 */}
-      <div className={`form-group ${error.confirmPassword ? 'error' : ''}`}>
-        <label>비밀번호 확인</label>
-        <br />
-        <input
-          type="password"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          placeholder="비밀번호 확인"
-          required
-        />
-        {error.confirmPassword && <p className="error-message">{error.confirmPassword}</p>}
-      </div>
+        {/* 비밀번호 확인 */}
+        <div className={`form-group ${error.confirmPassword ? 'error' : ''}`}>
+          <label>비밀번호 확인</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            placeholder="비밀번호 확인"
+            required
+          />
+          {error.confirmPassword && <p className="error-message">{error.confirmPassword}</p>}
+        </div>
 
-      {/* 회원가입 버튼 */}
-      <button type="submit" className="signup-button" disabled={!isFormValid}>
-        회원가입
-      </button>
+        <button type="submit" className="signup-btn" disabled={!isFormValid}>
+          회원가입
+        </button>
 
-      {error.general && <p className="error-message">{error.general}</p>}
-    </form>
+        {error.general && <p className="error-message">{error.general}</p>}
+      </form>
+    </div>
   );
 };
 
 export default SignUp;
+   

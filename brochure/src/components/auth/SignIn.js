@@ -36,6 +36,15 @@ const SignIn = () => {
 
   return (
     <div className="signin-container">
+      <div className="logo-container">
+        <h1 className="app-title">번호의 민족</h1>
+        <button 
+          className="back-btn"
+          onClick={() => navigate('/')}  // 클릭 시 메인 페이지로 이동
+        >
+          돌아가기
+        </button>
+      </div>
       <form onSubmit={handleSubmit} className="signin-form">
         <h2>로그인</h2>
         <input
@@ -52,20 +61,20 @@ const SignIn = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit">로그인</button>
+        <button type="submit" className="login-btn">로그인</button>
       </form>
-
+  
       {/* 소셜 로그인 섹션 */}
       <div className="social-login-section mt-4 flex flex-col items-center">
         <h3 className="text-center text-lg mb-2">다른 방법으로 로그인</h3>
         <SocialLoginWrapper />
       </div>
-
+  
       <div className="signup-link">
         <p>회원이 아니신가요? <a href="/signup">회원가입</a></p>
       </div>
     </div>
   );
-};
+}  
 
 export default SignIn;
