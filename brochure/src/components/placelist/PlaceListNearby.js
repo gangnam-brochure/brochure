@@ -4,13 +4,14 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import '../../assets/css/categories.css';
 
 const PlaceListNearby = ({setData}) =>
 {
     const [currData, setCurrData] = useState([{}]);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const kakaoAPI = process.env.REACT_APP_KAKAO_REST_API_KEY; 
 
@@ -52,10 +53,15 @@ const PlaceListNearby = ({setData}) =>
         fetchDataEffect();
     }, []);
 
+    const onClickBack = () =>
+    {
+        navigate(`/`);
+    }
+
     return(
         <div className="categories-container">
-            <button>◁</button>
-            <h2 className="categories-title"> category </h2> {/*거리순 정렬? 거리를 보여줄 수 잇나 */}
+            <button onClick={onClickBack}>◁</button>
+            <h2 className="categories-title"> {currData[0].category_group_name} </h2> {/*거리순 정렬? 거리를 보여줄 수 잇나 */}
             {currData.map((place, index)=>(
                 <Link to={`/${categoryCode}/${place.id}`} key={index} onClick={()=>{setData(currData[index])}}>
                     <div key={place.id}>
