@@ -18,7 +18,7 @@
            import "../../assets/css/favorite.css";
            import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
            import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
-           import '../../assets/css/categories.css';
+           import '../../assets/css/placeDetail.css';
            import { useNavigate } from 'react-router-dom';
            import { useEffect, useState } from 'react';
            import axios from 'axios';
@@ -34,13 +34,14 @@
                const [isLoggedIn, setIsLoggedIn] = useState(false);
                const [isEditing, setIsEditing] = useState(false); // 수정 모드 상태 추가
                const [currentReviewId, setCurrentReviewId] = useState(null); // 현재 수정 중인 리뷰 ID
-               const isFavorite = placeData.some(item => item.data.id === data.id);
-               const currentReviews = reviewData.filter(review => review.placeId === data.id);
                const [formData, setFormData] = useState({
                    email: '',
                    phone: '',
                    nickname: '', // 여기서 닉네임을 저장
                });
+               const isFavorite = placeData.some(item => item.data.id === data.id && formData.email);
+               const currentReviews = reviewData.filter(review => review.placeId === data.id && formData.email );
+               console.log("formData.email : " + formData.email);
            
                const navigate = useNavigate();
                const KAKAO_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -48,6 +49,7 @@
                useEffect(() => {
                    const fetchProfile = async () => {
                        const token = Cookies.get('token');
+                       console.error('현재 가져온 token:', token);
                        if (token) {
                            setIsLoggedIn(true); // 로그인 되어 있으면 true로 설정
                        }
@@ -132,13 +134,13 @@
                };
            
                return (
-                   <div className="categories-container">
-                       <h2 className="categories-title"> 〓〓〓〓〓〓〓〓〓〓 </h2>
-                       <h3>{data.place_name}</h3>
-                       <KakaoMapShowingPlace latitude={data.y} longitude={data.x} />
-                       <p>{data.phone}</p>
-                       <p>{data.address_name}</p>
-                       <button
+                    <main style={{ padding: "20px", marginTop: "130px" }}>
+                          <div className="backBtnContainer">
+                             <button className="backBtn" onClick={onClickBack}>돌아가기</button>
+                         </div>
+                   <div className="categories-containers">
+                       <div className='placedata'>
+                        {data.place_name}<button
                         className="onOffStar"
                         onClick={() => {
                             if (!isLoggedIn) {
@@ -152,29 +154,29 @@
                         </button>
            
                        <button onClick={onClickBack}>돌아가기</button>
-           
-                       <p>후기: 
-                           <input 
-                           type="text" 
-                           placeholder="후기 내용 입력해주세요" 
-                           value={opinion} 
-                           onChange={onChangeOpinion} 
-                           />
-                           <button
-                           onClick={() => {
-                               if (!isLoggedIn) {
-                               alert("후기 등록은 로그인 후 이용하실 수 있습니다.");
-                               setOpinion('');
-                               } else {
-                               onClickReview();  // 로그인한 경우 등록 또는 수정 실행
-                               }
-                           }}
-                           >
-                           {isEditing ? '수정' : '등록'}
-                           </button>
-                           {isEditing && <button onClick={handleCancelEdit}>취소</button>}
-                       </p>
-           
+    
+                        <p>후기: 
+                            <input 
+                            type="text" 
+                            placeholder="후기 내용 입력해주세요" 
+                            value={opinion} 
+                            onChange={onChangeOpinion} 
+                            />
+                            <button
+                            onClick={() => {
+                                if (!isLoggedIn) {
+                                alert("후기 등록은 로그인 후 이용하실 수 있습니다.");
+                                setOpinion('');
+                                } else {
+                                onClickReview();  // 로그인한 경우 등록 또는 수정 실행
+                                }
+                            }}
+                            >
+                            {isEditing ? '수정' : '등록'}
+                            </button>
+                            {isEditing && <button onClick={handleCancelEdit}>취소</button>}
+                        </p>
+                            </div>
                        <ul>
                        {currentReviews.map((review, index) => (
                            <li key={index}>
@@ -192,6 +194,7 @@
                        ))}
                        </ul>
                    </div>
+                   </main>
                );
            };
            

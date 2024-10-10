@@ -3,9 +3,12 @@ header {
     color: white;
     padding: 10px;
     position: fixed;
-    top: 0;
+   
     width: 100%;
-    z-index: 1000;
+    top: 0;                 /* 상단에 위치 */
+    left: 0;                /* 좌측에 위치 */
+    right: 0;               /* 우측에 위치 */
+    z-index: 10;  
   }
   
   header h1 {
