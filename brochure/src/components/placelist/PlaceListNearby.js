@@ -66,8 +66,9 @@ const PlaceListNearby = ({setData}) =>
                 <Link to={`/${categoryCode}/${place.id}`} key={index} onClick={()=>{setData(currData[index])}}>
                     <div key={place.id} className ="list-element" >
                         <span>{place.place_name}</span>
+                        <p>{place.phone}</p>
                         <br/>
-                        <span>{place.phone}</span>
+                        현재 거리로부터 {(place.distance)/1000}km
                     </div>
                 </Link>
                 ))}
