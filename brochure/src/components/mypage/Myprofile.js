@@ -51,16 +51,20 @@ const MyProfile = () => {
         </div>
         <div className="profile-info">
           <div className="profile-card email">
-            <label className="label">이메일</label>
+            <label className="label">이메일</label>&nbsp;&nbsp;
             <span className="value">{formData.email}</span>
           </div>
           <div className="profile-card email">
-            <label className="label">닉네임</label>
+            <label className="label">닉네임</label>&nbsp;&nbsp;
             <span className="value">{formData.nickname}</span>
           </div>
           <div className="profile-card email">
-            <label className="label">전화번호</label>
+            <label className="label">전화번호</label>&nbsp;&nbsp;
             <span className="value">{formData.phone}</span>
+          </div>
+          <div className="profile-card email">
+            <label className="label">성별</label>&nbsp;&nbsp;
+            <span className="value">{formData.gender}</span>
           </div>
         </div>
         <div className="button-container">

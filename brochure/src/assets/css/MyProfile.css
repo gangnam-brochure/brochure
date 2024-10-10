@@ -1,18 +1,26 @@
 .mypage-container {
-    padding: 30px;
-    margin-top: 60px;
-    text-align: center;
+    padding: 20px; /* 패딩 줄임 */
+    margin-top: 30px;
+    margin-bottom: 0; /* 하단 마진 제거 */
+    
+    text-align: left;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     background-color: rgba(255, 255, 255, 0.9);
-}
-
-.welcome-message {
+    background-image: radial-gradient(circle, rgba(104, 97, 97, 0.048) 1px, transparent 1px);
+    background-size: 100% auto; /* 배경 크기 설정 */
+    height: calc(100vh - 300px); /* 전체 높이에서 300px 줄임 */
+    background-attachment: fixed;
+    overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+  }
+  
+  .welcome-message {
+    text-align: center;
     font-size: 1.6em;
     margin: 25px 0;
     color: #444;
     font-weight: 600;
-}
+  }
 
 .profile-info {
     display: flex;
@@ -49,14 +57,15 @@
 }
 
 .label {
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-weight: bold;
 }
 
 .value {
-    font-size: 1.2em;
+    
+    font-size: 0.8em;
     color: #856404;
-    margin-top: 5px; /* 레이블과 값 간의 간격 */
+    margin-top: 13px; /* 레이블과 값 간의 간격 */
 }
 
 .button-container {
