@@ -27,14 +27,14 @@ const Categories = () => {
       <div className="category-wrapper">
         {/* 카테고리 링크 추가  수정자: 최예지 */}
         {categories.map((category, index) => (
-          <NavLink to={`/${category.code}`} key={category.code}>
+          <NavLink to={`/${category.code}`} key={category.code} style={{width:"200px", margin:"55px"}}>
             <div className="category-item">
               <span>{category.icon}</span>
-              <p>{category.name}</p>
             </div>
+            <p>{category.name}</p>
           </NavLink>
         ))}
-        <div className="test">
+        {/* <div className="test">
         <NavLink to={"/test"}>
                 <h3>test</h3>
                 </NavLink>
@@ -43,7 +43,7 @@ const Categories = () => {
         <NavLink to={"/reviewtest"}>
                 <h3>review</h3>
                 </NavLink>
-        </div>
+        </div> */}
       </div>
     </div>
   );
