@@ -14,6 +14,7 @@ import '../../assets/css/mypage.css'; //마이페이지에대한 css
 
 const EditProfile = () => {
   const [nickname,setnickname] = useState("");
+  const [Tf,setTf] = useState(0);
   const [formData,setFormData] = useState({
     email: '',
     password: '',
@@ -96,7 +97,7 @@ fetchProfile();
   };
 
 // 기존 비밀번호 확인 함수
-const verifyPassword = async () => {
+const verifyPassword = async (i) => {
   try {
     const token = Cookies.get('token');
     const response = await axios.post(
@@ -110,10 +111,24 @@ const verifyPassword = async () => {
     );
 
     if (response.status === 200) {
-      alert('비밀번호가 확인되었습니다.1');
+      
       // 비밀번호 확인 후 처리할 로직
-      setShowDeleteConfirmation(!showDeleteConfirmation);
+      if(i == 3)
+      {
+        setchangeprofile(false);
+        setchangeprofile2(false);
+        setnewprofile(false);
+        setShowDeleteConfirmation(true); //삭제
+      }
+      else if(i == 2){
+        setchangeprofile(false);
+        setchangeprofile2(false);
+        setShowDeleteConfirmation(false);
+        setnewprofile(true); // 변경
+      }
+      alert('비밀번호가 확인되었습니다.');
     }
+
   } catch (error) {
     setShowDeleteConfirmation(false)
     setnewprofile(false)
@@ -123,12 +138,17 @@ const verifyPassword = async () => {
 };
 
 
-const onClicker = () => {  // 아이디와 비밀번호를 각각 비교합니다.
-  if (verifyPassword()) {
-      
+const onClicker = () => {  // 기존아이디를 위한아이디와 비밀번호를 각각 비교합니다.
+ 
+  setTf(2);
+  let i = 2;
+  if (verifyPassword(i)) {
+    setShowDeleteConfirmation(false);  
     setchangeprofile(false);
+    setchangeprofile2(false);
+    setnewprofile(true);
     setUser1({email:'', password:''});   
-    setnewprofile(!newprofile);
+    console.log(Tf);
 } else {
     alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
     setUser1({email:'', password:''});   
@@ -138,11 +158,15 @@ const onClicker = () => {  // 아이디와 비밀번호를 각각 비교합니�
 
 const onClicker2 = () => {  // 삭제를위한 아이디와 비밀번호를 각각 비교합니다.
     
-  if (verifyPassword()) {
-      
+     setTf(3);
+     let i = 3;
+  if (verifyPassword(i)) {
+       setnewprofile(false);
+      setchangeprofile(false);
       setchangeprofile2(false);
-      setUser1({email:'', password:''});   
-      
+      setUser1({email:'', password:''});      
+      setShowDeleteConfirmation(true);
+      console.log(Tf);
   } else {
     setShowDeleteConfirmation(false) 
     alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");

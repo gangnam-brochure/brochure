@@ -6,12 +6,12 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   background-color: rgba(255, 255, 255, 0.9);
   background-image: radial-gradient(circle, rgba(104, 97, 97, 0.048) 1px, transparent 1px);
-  background-size: 30px 30px;
+  
+  width: 1000px;
   background-attachment: fixed; /* 배경 고정 */
-  height: calc(100vh - 100px); /* 창 높이 조정 */
+  height:1000px; /* 창 높이 조정 */
   overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
 }
-
 .welcome-message {
   text-align: center;
   font-size: 1.6em;
