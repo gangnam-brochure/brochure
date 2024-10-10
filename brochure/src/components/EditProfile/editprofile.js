@@ -22,7 +22,7 @@ const EditProfile = () => {
     phone: '',
     nickname: '',
     food:'',
-    gender:'',
+    gender:'other',
 
 });
 const [error, setError] = useState('비밀번호가 일치하지 않습니다.');

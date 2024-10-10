@@ -33,7 +33,6 @@ const Favorite = () => {
         console.log(`삭제할 ID: ${id}`);
     };
 
-
     useEffect(() => {
         if (placeData) { // placeData가 있을 때만
             console.log(placeData, "placeData 상태");

@@ -1,7 +1,11 @@
 .mypage-container {
-  padding: 30px;
-  margin-top: 60px;
-  text-align: left;
+  padding: 20px;
+  text-align: center;
+  margin-top: 200px; /* 원하는 만큼 위쪽 마진을 조정 */
+  margin-left: auto; /* 좌우 중앙 정렬 */
+  margin-right: auto; /* 좌우 중앙 정렬 */
+
+  
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   background-color: rgba(255, 255, 255, 0.9);
@@ -9,8 +13,15 @@
   
   width: 1000px;
   background-attachment: fixed; /* 배경 고정 */
-  height:1000px; /* 창 높이 조정 */
+  height:auto; /* 창 높이 조정 */
   overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+}
+.parent-container {
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 배치 */
+  justify-content: center; /* 세로 중앙 정렬 */
+  align-items: center; /* 가로 중앙 정렬 */
+  min-height: 100vh; /* 화면 전체 높이 사용 */
 }
 .welcome-message {
   text-align: center;

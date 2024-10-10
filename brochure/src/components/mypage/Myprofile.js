@@ -11,7 +11,7 @@ const MyProfile = () => {
     email: '',
     nickname: '',
     phone: '',
-    gender: '',
+    gender: 'male',
   });
 
   const navigate = useNavigate();
@@ -25,7 +25,12 @@ const MyProfile = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setFormData(response.data);
+      //  setFormData(response.data);
+        
+      setFormData({
+        ...response.data,
+        gender: response.data.gender || 'male', // 성별 기본값 설정
+      });
       } catch (error) {
         console.error('프로필 로드 중 오류 발생:', error);
       }
@@ -38,6 +43,9 @@ const MyProfile = () => {
     navigate(-1);
   };
 
+
+
+  
   return (
     <>
       <Header />

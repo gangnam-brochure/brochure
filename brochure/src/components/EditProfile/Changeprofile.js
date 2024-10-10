@@ -14,7 +14,7 @@ const ChangeProfile = () => {
     phone: '',
     nickname: '',
     food:'',
-    gender:'',
+    gender:'male',
     confirmPassword : ''
     });
 
@@ -39,7 +39,7 @@ const ChangeProfile = () => {
           password: '',
           confirmPassword: '',
           food:response.data.food,
-          gender:response.data.gender,
+          gender: response.data.gender || 'male'
         });
       } catch (error) {
         console.error('프로필 로드 중 오류 발생:', error);
@@ -97,9 +97,17 @@ const handleSubmit = async (e) => {
 
       setSuccessMessage('회원정보가 성공적으로 수정되었습니다.');
       setError('');
+
+       // 알림창 띄우기
+       alert('회원정보가 성공적으로 변경되었습니다.');
+
+       // 페이지 이동
+       navigate("../mypage");
+
     } catch (error) {
       setError('회원정보 수정 중 오류가 발생했습니다.');
     }
+    
   };
 
 const onClickChange = () => {
@@ -180,7 +188,7 @@ const onClickChange = () => {
                        
       </div>
       <div className="button-container" style={{ textAlign: "center", marginTop: "20px" }}>
-                    <button type="submit" className="button" onClick={onClickChange} >변경</button>
+                    <button type="submit" className="button" >변경</button>
                 </div> 
     </form>
       <Footer/>
