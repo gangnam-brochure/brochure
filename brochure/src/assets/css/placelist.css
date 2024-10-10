@@ -1,0 +1,23 @@
+.list-container{
+    background-color: white;
+    padding: 20px;
+    margin: auto;
+}
+
+.list-title{
+    font-family: sans-serif;
+}
+
+.list-element{
+    width: 520px;
+    background-color: white;
+    border: 1px solid #cccccc;
+    padding: 20px;
+}
+
+.list-element span{
+    font-family:"NotoSansKR";
+    src:url("../fonts/NotoSansKR-VariableFont_wght.ttf") format("truetype");
+    font-size: 26px;
+    font-weight: bold;
+}
