@@ -5,7 +5,8 @@
 }
 
 .categories-container {
-    margin-top: 80px;  /* 헤더 공간 확보 */
+    position: relative;
+    top: 60px;
     padding: 60px;
     margin-bottom: 80px;
   }
