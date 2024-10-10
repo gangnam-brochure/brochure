@@ -1,20 +1,79 @@
+@font-face {
+  font-family: 'BMKkubulim';
+  src: url('../fonts/BMKkubulim.otf') format('opentype');
+}
+
 .second-text-container {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color:  rgb(53, 152, 144);
+  background-color: rgb(53, 152, 144);
   color: white;
 }
 
 .second-text {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 1.5s ease-out, transform 1.5s ease-out, text-shadow 1.5s ease-out;
+  transition: opacity 1s ease-out, transform 1s ease-out, text-shadow 1s ease-out;
+  font-size: 88px;
 }
 
 .second-text.visible {
   opacity: 1;
   transform: translateY(0);
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6);
+  animation: fadeInSlideUp 1s ease forwards; /* 1초 동안 슬라이드 업 애니메이션 */
+}
+
+.second-text.blinking {
+  animation: glitch-blink 0.1s infinite; /* 깜빡임 애니메이션, 깜빡임 속도를 빠르게 설정 */
+}
+
+.second-text.font-changed {
+  font-family: 'BMKkubulim', sans-serif;
+  animation: none; /* 폰트가 바뀌면 깜빡임 멈춤 */
+}
+
+/* 문구가 자연스럽게 슬라이드 업되며 페이드 인되는 애니메이션 */
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 깜빡임 애니메이션, 깜빡임 속도를 빠르게 조정 */
+@keyframes glitch-blink {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
