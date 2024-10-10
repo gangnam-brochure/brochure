@@ -110,8 +110,9 @@ const verifyPassword = async () => {
     );
 
     if (response.status === 200) {
-      alert('비밀번호가 확인되었습니다.');
+      alert('비밀번호가 확인되었습니다.1');
       // 비밀번호 확인 후 처리할 로직
+      setShowDeleteConfirmation(!showDeleteConfirmation);
     }
   } catch (error) {
     setShowDeleteConfirmation(false)
@@ -141,11 +142,12 @@ const onClicker2 = () => {  // 삭제를위한 아이디와 비밀번호를 각�
       
       setchangeprofile2(false);
       setUser1({email:'', password:''});   
-      setShowDeleteConfirmation(!showDeleteConfirmation);
+      
   } else {
-      alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
+    setShowDeleteConfirmation(false) 
+    alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
       setUser1({email:'', password:''});   
-      setShowDeleteConfirmation(false)
+      
   }
 };
 
