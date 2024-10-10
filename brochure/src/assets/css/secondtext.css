@@ -1,0 +1,20 @@
+.second-text-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:  rgb(53, 152, 144);
+  color: white;
+}
+
+.second-text {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out, text-shadow 1.5s ease-out;
+}
+
+.second-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6);
+}

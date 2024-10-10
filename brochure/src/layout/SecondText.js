@@ -1,6 +1,9 @@
-// SecondText.js
+/*
+    작성자 : 김동규 - 2024-10-10 / 최초 작성
+    설명 : 홈페이지 두 번째 화면 애니메이션
+*/
 import React, { useEffect, useRef, useState } from 'react';
-import '../assets/css/secondcontext.css';
+import '../assets/css/secondtext.css';
 
 const SecondText = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,11 +16,11 @@ const SecondText = () => {
           if (entry.isIntersecting) {
             setIsVisible(true);
           } else {
-            setIsVisible(false); // 화면을 벗어나면 다시 숨김 상태로
+            setIsVisible(false);
           }
         });
       },
-      { threshold: 0.5 } // 텍스트가 50% 이상 보이면 애니메이션 시작
+      { threshold: 0.5 }
     );
 
     if (secondTextRef.current) {
@@ -33,7 +36,7 @@ const SecondText = () => {
 
   return (
     <div className="second-text-container" ref={secondTextRef}>
-      <h2 className={`second-text ${isVisible ? 'visible' : ''}`}>우리는 번호의 민족</h2>
+      <h2 className={`second-text ${isVisible ? 'visible' : ''}`}>번호의 민족이었다</h2>
     </div>
   );
 };
