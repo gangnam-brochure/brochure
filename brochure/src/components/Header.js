@@ -93,7 +93,7 @@ const Header = () => {
             </span>
           </h1>
         </div>
-        <img src={require(`../assets/images/mainlogo.png`)} style={{width: "237px"}} onClick={goHome}/>
+        <img src={require(`../assets/images/mainlogo.png`)} style={{width: "237px", paddingRight: "850px"}} onClick={goHome}/>
 
       </div>
 
