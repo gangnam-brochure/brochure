@@ -2,8 +2,9 @@
 
 /* 카테고리 컨테이너 및 스타일 */
 .categories-container {
-  position: relative;
-  top: 60px;
+    position: relative;
+    top: 60px;
+    padding: 30px;
     margin-bottom: 80px;
   }
   

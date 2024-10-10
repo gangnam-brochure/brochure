@@ -5,6 +5,7 @@ header {
     position: fixed;
    
     width: 100%;
+    height: 80px;
     top: 0;                 /* 상단에 위치 */
     left: 0;                /* 좌측에 위치 */
     right: 0;               /* 우측에 위치 */
@@ -18,7 +19,7 @@ header {
   
   header p {
     margin-right: 900px;
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .modal {

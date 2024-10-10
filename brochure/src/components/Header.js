@@ -93,7 +93,8 @@ const Header = () => {
             </span>
           </h1>
         </div>
-        <p onClick={goHome}>번호의 민족</p>
+        <img src={require(`../assets/images/mainlogo.png`)} style={{width: "237px"}} onClick={goHome}/>
+
       </div>
 
       {/* 카카오 지도 모달 */}
