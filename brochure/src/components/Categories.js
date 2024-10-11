@@ -2,6 +2,10 @@
     작성자 : 김동규 - 2024-10-02 / 최초 작성
     설명 : 메인 페이지 body 카테고리 섹션
 */
+
+/*
+    수정자: 최예지 2024-10-11 카테고리 이미지 수정
+*/
 import React, { useEffect, useRef, useState } from 'react';
 import '../assets/css/categories.css';
 import { NavLink } from 'react-router-dom';
@@ -26,6 +30,7 @@ const Categories = () => {
     { name: '주유소', icon: 'oil', code: "OL7" }
   ];
 
+  const [itemImg, setItemImg] = useState();
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -57,12 +62,11 @@ const Categories = () => {
       <div className="category-wrapper">
         {/* 왼쪽에서 오른쪽으로 나오는 카테고리 */}
         {categoriesLeft.map((category, index) => (
-          <NavLink 
-          to={`/${category.code}`} 
+          <NavLink to={`/${category.code}`} 
           key={category.code} 
           style={{ width: "200px", margin: "55px" }}>
             <div className={`category-item ${isAnimating ? 'slide-in-left' : 'slide-out-left'}`}>
-              <img src={require(`../assets/images/${category.icon}_color.png`)} width={"78px"}/>
+              <img src={require(`../assets/images/${category.icon}.png`)} width={"78px"}/>
               <p>{category.name}</p>
             </div>
             
@@ -73,7 +77,7 @@ const Categories = () => {
         {categoriesRight.map((category, index) => (
           <NavLink to={`/${category.code}`} key={category.code} style={{ width: "200px", margin: "55px" }}>
             <div className={`category-item ${isAnimating ? 'slide-in-right' : 'slide-out-right'}`}>
-              <img src={require(`../assets/images/${category.icon}_color.png`)} width={"78px"}/>
+              <img src={require(`../assets/images/${category.icon}.png`)} width={"78px"}/>
               <p>{category.name}</p>
             </div>
             
