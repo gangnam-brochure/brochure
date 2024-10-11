@@ -47,10 +47,14 @@ p {
   text-align: center;
 }
 
+.category-item img:hover{
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(113deg) brightness(210%) contrast(102%);
+}
+
 /* Hover 효과 - 배경색 전환 및 아이콘 확대 효과 */
 .category-item:hover {
   transform: scale(1.05); /* 마우스를 올리면 크기 확대 */
-  background-color:rgb(53, 152, 144, .3);
+  background-color:rgb(53, 152, 144, .5);
 }
 
 /* 아이콘이 확대되는 효과 */
