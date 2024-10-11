@@ -69,6 +69,7 @@ const MyProfile = () => {
         <div className="back-button-container">
           <button className="button" onClick={handleBack}>뒤로가기</button>
         </div>
+        
         <h1 className="title">
             {Array.from("안녕 하세요").map((letter, index) => (
               <span key={index}>{letter}</span>

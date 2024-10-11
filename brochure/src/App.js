@@ -17,13 +17,13 @@ import Categories from './components/Categories';
 import ChangeProfile from './components/EditProfile/Changeprofile';
 import UpdateProfileTest from './test/UpdateProfileTest';
 import Myprofile from './components/mypage/Myprofile';
-// import './assets/css/tailwind.css';     // 반응형 패키지
 
 function App() {
   const [data, setData] = useState([{}]);  
   return (
     <Router>
       <Routes>
+
         <Route path="/" element={<MainPage />}>
           <Route index  element={<Categories />}/>
           <Route path=":categoryCode" element={<PlaceListNearby setData={setData}/>}/>

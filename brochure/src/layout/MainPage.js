@@ -10,6 +10,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import FirstText from './FirstText';
 import SecondText from './SecondText';
 
+
 const MainPage = () => {
   const [hideHeaderFooter, setHideHeaderFooter] = useState(false);
   const [showTexts, setShowTexts] = useState(true); // FirstText와 SecondText 보임 여부 관리
