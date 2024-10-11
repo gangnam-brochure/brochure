@@ -45,5 +45,3 @@ const SecondText = ({ triggerAnimation }) => {
 };
 
 export default SecondText;
-
-
