@@ -14,12 +14,12 @@ const ChangeProfile = () => {
     phone: '',
     nickname: '',
     food:'',
-    gender:'',
+    gender:'male',
     confirmPassword : ''
     });
 
     const [nickname,setNickname] = useState("");
-
+    const [Nav,SetNav] = useState(0);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
    // 초기 사용자 정보를 불러오기 (ex: API 호출)
@@ -39,7 +39,7 @@ const ChangeProfile = () => {
           password: '',
           confirmPassword: '',
           food:response.data.food,
-          gender:response.data.gender,
+          gender: response.data.gender || 'male'
         });
       } catch (error) {
         console.error('프로필 로드 중 오류 발생:', error);
@@ -94,31 +94,46 @@ const handleSubmit = async (e) => {
           },
         }
       );
-
+      navigate("../mypage");
       setSuccessMessage('회원정보가 성공적으로 수정되었습니다.');
       setError('');
+    // 알림창 띄우기
+       alert('회원정보가 성공적으로 변경되었습니다.');
+
+       // 페이지 이동
+       
+
     } catch (error) {
       setError('회원정보 수정 중 오류가 발생했습니다.');
+      alert(error);
     }
+    
   };
 
+const onClickChange = () => {
+  alert("변경됨");
+  navigate("../mypage");
 
+}
 
 
     return (
         <>
         <Header/>
+        
         <form onSubmit={handleSubmit}>
       <div className="mypage-container">
+      <div>
       <div className="back-button-container" style={{ textAlign: "right", marginBottom: "10px", marginTop: "15px" }}>
-                    <button className="button" onClick={handleBack}>뒤로가기</button>
+                    <button type="button" className="button" onClick={handleBack}>뒤로가기</button>
+                </div>
                 </div>
                 {console.log(formData.email)}
                 {console.log(formData.password)}
         <h1>개인 정보 변경</h1>
         
         <div className="welcome-message">
-            {formData.email}님! 정보를 변경하거나 수정해주세요
+            {formData.nickname}님! 정보를 변경하거나 수정해주세요
         </div>
         <label className="label">닉네임 : </label>
             <input type="text" 
@@ -173,11 +188,11 @@ const handleSubmit = async (e) => {
           placeholder="비밀번호"
         />*/}
             {/* 버튼을 모든 입력 필드 아래에 위치시킴 */}
-                       
+            <div className="button-container" style={{ textAlign: "center", marginTop: "20px" }}>
+                    <button type="submit" className="button" >변경</button>
+                </div>         
       </div>
-      <div className="button-container" style={{ textAlign: "center", marginTop: "20px" }}>
-                    <button type="submit" className="button" onClick={()=>alert("변경됨")} >변경</button>
-                </div> 
+      
     </form>
       <Footer/>
         </>

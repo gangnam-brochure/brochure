@@ -14,6 +14,7 @@ import '../../assets/css/mypage.css'; //마이페이지에대한 css
 
 const EditProfile = () => {
   const [nickname,setnickname] = useState("");
+  const [Tf,setTf] = useState(0);
   const [formData,setFormData] = useState({
     email: '',
     password: '',
@@ -21,7 +22,7 @@ const EditProfile = () => {
     phone: '',
     nickname: '',
     food:'',
-    gender:'',
+    gender:'other',
 
 });
 const [error, setError] = useState('비밀번호가 일치하지 않습니다.');
@@ -96,7 +97,7 @@ fetchProfile();
   };
 
 // 기존 비밀번호 확인 함수
-const verifyPassword = async () => {
+const verifyPassword = async (i) => {
   try {
     const token = Cookies.get('token');
     const response = await axios.post(
@@ -110,10 +111,26 @@ const verifyPassword = async () => {
     );
 
     if (response.status === 200) {
-      alert('비밀번호가 확인되었습니다.');
+      
       // 비밀번호 확인 후 처리할 로직
+      if(i == 3)
+      {
+        setchangeprofile(false);
+        setchangeprofile2(false);
+        setnewprofile(false);
+        setShowDeleteConfirmation(true); //삭제
+      }
+      else if(i == 2){
+        setchangeprofile(false);
+        setchangeprofile2(false);
+        setShowDeleteConfirmation(false);
+        setnewprofile(true); // 변경
+      }
+      alert('비밀번호가 확인되었습니다.');
     }
+
   } catch (error) {
+    setShowDeleteConfirmation(false)
     setnewprofile(false)
     alert('비밀번호가 일치하지 않습니다.');
     
@@ -121,12 +138,17 @@ const verifyPassword = async () => {
 };
 
 
-const onClicker = () => {  // 아이디와 비밀번호를 각각 비교합니다.
-  if (verifyPassword()) {
-      
+const onClicker = () => {  // 기존아이디를 위한아이디와 비밀번호를 각각 비교합니다.
+ 
+  setTf(2);
+  let i = 2;
+  if (verifyPassword(i)) {
+    setShowDeleteConfirmation(false);  
     setchangeprofile(false);
+    setchangeprofile2(false);
+    setnewprofile(true);
     setUser1({email:'', password:''});   
-    setnewprofile(!newprofile);
+    console.log(Tf);
 } else {
     alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
     setUser1({email:'', password:''});   
@@ -136,13 +158,18 @@ const onClicker = () => {  // 아이디와 비밀번호를 각각 비교합니�
 
 const onClicker2 = () => {  // 삭제를위한 아이디와 비밀번호를 각각 비교합니다.
     
-  if (verifyPassword()) {
-      
+     setTf(3);
+     let i = 3;
+  if (verifyPassword(i)) {
+       setnewprofile(false);
+      setchangeprofile(false);
       setchangeprofile2(false);
-      setUser1({email:'', password:''});   
-      setShowDeleteConfirmation(!showDeleteConfirmation);
+      setUser1({email:'', password:''});      
+      setShowDeleteConfirmation(true);
+      console.log(Tf);
   } else {
-      alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
+    setShowDeleteConfirmation(false) 
+    alert("아이디와 비밀번호가 일치하지 않습니다. 다시 입력해주세요");
       setUser1({email:'', password:''});   
       
   }
@@ -199,7 +226,42 @@ const onCilckNewProfile = () => {  //비밀번호 변경
   }
   
 };
+const deleteToken = () => {
+  Cookies.remove('token');
+  console.log('토큰이 삭제되었습니다.');
+  alert("삭제되었습니다");
+};
 
+const onDelete = async () => {
+ /*} try {
+      const token = Cookies.get('token');
+      await axios.post('/api/logout', {}, {
+          headers: {
+              Authorization: `Bearer ${token}`,
+          },
+      });
+      
+      deleteToken(); //토큰지우기
+      navigate('/signin');
+  } catch (error) {
+      console.error('로그아웃 중 오류 발생:', error);
+  }*/
+      deleteToken(); //토큰지우기
+      navigate('/signin');
+};
+useEffect(() => {
+  // Fade-in 효과
+  const fadeInElement = document.querySelector('.mypage-container');
+  fadeInElement.classList.add('visible');
+
+  const letters = document.querySelectorAll('.title span');
+  letters.forEach((letter, index) => {
+    setTimeout(() => {
+      letter.style.opacity = '1';
+      letter.style.transform = 'translateY(0)';
+    }, index * 100);
+  });
+}, []);
   return (
     <>
       <Header />
@@ -210,9 +272,13 @@ const onCilckNewProfile = () => {  //비밀번호 변경
       <div className="back-button-container" style={{ textAlign: "right", marginBottom: "10px", marginTop: "15px" }}>
                     <button className="button" onClick={handleBack}>뒤로가기</button>
                     </div>
-        <h1>회원 정보 변경</h1>
+                    <h1 className="title">
+            {Array.from("회원 정보 변경").map((letter, index) => (
+              <span key={index}>{letter}</span>
+            ))}
+          </h1>
         <div className="welcome-message">
-          안녕하세요 {nickname} 님
+          안녕하세요 {formData.nickname} 님
           {console.log(formData.email)}
           {console.log(user1.password)}
         </div>
@@ -231,7 +297,7 @@ const onCilckNewProfile = () => {  //비밀번호 변경
         {showDeleteConfirmation && (                // 삭제 창
           <div className="delete-confirmation">
             <h2>정말 삭제하시겠습니까?</h2>
-            <button onClick={() => { /* 여기에 삭제 로직 추가예정 */ }}>확인</button>
+            <button onClick={onDelete}>확인</button>
             <button onClick={handleDeleteClick}>취소</button>
           </div>
         )}

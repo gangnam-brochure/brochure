@@ -1,20 +1,79 @@
+@font-face {
+  font-family: 'BMKkubulim';
+  src: url('../fonts/BMKkubulim.otf') format('opentype');
+}
+
 .second-text-container {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color:  rgb(53, 152, 144);
+  background-color:#01cac4;
   color: white;
+  position: relative;
+  overflow: hidden; /* 컨테이너에서 넘치는 부분을 숨김 */
 }
 
 .second-text {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 1.5s ease-out, transform 1.5s ease-out, text-shadow 1.5s ease-out;
+  transition: opacity 1s ease-out, transform 1s ease-out, text-shadow 1s ease-out;
+  font-size: 88px;
+  z-index: 1; /* 문구가 배경 이미지 위에 있도록 설정 */
+  position: relative;
 }
 
+/* 문구가 0.8초 후 나타남, 최신 트렌드 스타일로 자연스럽게 애니메이션 추가 */
 .second-text.visible {
   opacity: 1;
   transform: translateY(0);
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6);
+  animation: glitch-fade-in 1s ease forwards, glitch-blink 0.05s 10 alternate 0.8s;
+}
+
+.second-text.font-changed {
+  font-family: 'BMKkubulim', sans-serif;
+  animation: none;
+  opacity: 1;
+  transition: none;
+}
+
+/* 배경 이미지 스타일 */
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/second_image.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease-in; /* 배경 이미지가 서서히 나타나도록 설정 */
+  z-index: 0; /* 배경 이미지가 문구 뒤에 위치하도록 설정 */
+}
+
+/* 배경 이미지가 문구 폰트가 바뀌는 순간 나타남 */
+.background-visible {
+  opacity: 1;
+}
+
+/* 깜빡임 효과 */
+@keyframes glitch-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* 페이드 인과 동시에 글리치 효과 */
+@keyframes glitch-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
 }
