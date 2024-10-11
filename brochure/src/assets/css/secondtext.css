@@ -4,6 +4,7 @@
 }
 
 .second-text-container {
+  font-family: "BMHANNAProOTF";
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -23,7 +24,7 @@
   position: relative;
 }
 
-/* 문구가 0.8초 후 나타남, 최신 트렌드 스타일로 자연스럽게 애니메이션 추가 */
+/* 문구가 0.8초 후 나타남 */
 .second-text.visible {
   opacity: 1;
   transform: translateY(0);
@@ -35,7 +36,7 @@
   font-family: 'BMKkubulim', sans-serif;
   animation: none;
   opacity: 1;
-  transition: none;
+  transition: none; 
 }
 
 /* 배경 이미지 스타일 */

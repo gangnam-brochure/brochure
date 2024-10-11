@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 import { signIn } from '../../services/authService';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import SocialLoginWrapper from '../../layout/SocialLogin';
 import styles from '../../assets/css/signin.module.css';
 
@@ -72,7 +72,7 @@ const SignIn = () => {
       </div>
   
       <div className={styles.signupLink}>
-        <p>회원이 아니신가요? <a href="/signup">회원가입</a></p>
+        <p>회원이 아니신가요? <Link to="/signup">회원가입</Link></p>
       </div>
     </div>
     </div>

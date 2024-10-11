@@ -9,6 +9,7 @@ const FirstText = () => {
   const [firstTextVisible, setFirstTextVisible] = useState(false);
   const [secondTextVisible, setSecondTextVisible] = useState(false);
   const firstTextRef = useRef(null);
+  const [brightness, setBrightness] = useState(1);  // 조명의 밝기
 
   const text = "우리는";
 
@@ -34,15 +35,19 @@ const FirstText = () => {
       observer.observe(firstTextRef.current);
     }
 
-    return () => {
-      if (firstTextRef.current) {
-        observer.unobserve(firstTextRef.current);
-      }
+    // 스크롤할 때마다 조명이 밝아지는 효과
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const newBrightness = 0.9 + scrollY / 300;  // 스크롤 할수록 밝기 증가
+      setBrightness(Math.min(newBrightness, 1.2));  // 최대 밝기 설정
     };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <div className="first-text-container" ref={firstTextRef}>
+    <div className="first-text-container" ref={firstTextRef} style={{ filter: `brightness(${brightness})` }}>
       <div className="first-text">
         {text.split("").map((char, index) => (
           <span
