@@ -67,8 +67,8 @@ const Categories = () => {
           style={{ width: "200px", margin: "55px" }}>
             <div className={`category-item ${isAnimating ? 'slide-in-left' : 'slide-out-left'}`}>
               <img src={require(`../assets/images/${category.icon}.png`)} width={"78px"}/>
-              <p>{category.name}</p>
             </div>
+            <p>{category.name}</p>
             
           </NavLink>
         ))}
@@ -78,9 +78,8 @@ const Categories = () => {
           <NavLink to={`/${category.code}`} key={category.code} style={{ width: "200px", margin: "55px" }}>
             <div className={`category-item ${isAnimating ? 'slide-in-right' : 'slide-out-right'}`}>
               <img src={require(`../assets/images/${category.icon}.png`)} width={"78px"}/>
-              <p>{category.name}</p>
             </div>
-            
+            <p>{category.name}</p>
           </NavLink>
         ))}
       </div>

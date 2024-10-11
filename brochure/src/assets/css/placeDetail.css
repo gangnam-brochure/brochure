@@ -1,3 +1,4 @@
+
 .main-Contatiner {
   margin-top: 90px;  /* 큰 따옴표 제거 */
   margin-bottom: 60px; 
@@ -27,6 +28,7 @@
     text-align: left;             /* 텍스트 왼쪽 정렬 */
   }
   .categories-containers {
+    font-family: "NotoSansKR";
     display: flex;
     flex-direction: column;         /* 가로로 정렬 */
     justify-content: center;
@@ -141,6 +143,7 @@
   box-sizing: border-box; /* 패딩과 테두리를 포함하여 전체 너비 계산 */
   font-size: 18px;
   margin-left: 50px;
+  font-family: "NotoSansKR";
 }
 
 .submit-button {
@@ -149,16 +152,19 @@
   top: 70%;  /* 수직 중앙 정렬 */
   transform: translateY(-50%); /* 중앙 정렬을 위해 Y축으로 이동 */
   padding: 10px 15px;
-  background-color: #00c6ff;
+  background-color: rgb(1, 202, 196);
+  font-family: "NotoSansKR";
+  font-weight: 500;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 18px;
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .submit-button:hover {
-  background-color: #00c8ffc4; /* 버튼에 마우스 올렸을 때 색상 변경 */
+  background-color: rgb(1, 202, 196); /* 버튼에 마우스 올렸을 때 색상 변경 */
 }
 /*  */
 
@@ -178,6 +184,7 @@
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 18px;
+  font-family: "NotoSansKR";
 }
 
 .button-container {
@@ -190,7 +197,7 @@
   width: 55px;
   height: 35px;
   padding: 5px 5px;
-  background-color: #00c6ff;
+  background-color: rgb(1, 202, 196);
   color: white;
   border: none;
   border-radius: 4px;
@@ -199,8 +206,9 @@
 }
 
 .button-container button:first-of-type {
-  background-color: #00c6ff; /* 수정 버튼의 배경색 */
-  color: white;
+  display: flex;
+  background-color: white; /* 수정 버튼의 배경색 */
+  border: 1px solid #dddddd;
 }
 
 .button-container button:last-of-type {
@@ -236,6 +244,7 @@
   margin-top: 20px; /* 박스의 상단에서 20px 떨어진 위치 */
   margin-left: 20px; /* 박스의 왼쪽에서 20px 떨어진 위치 */
   text-align: left; /* 왼쪽 정렬 */
+  
 }
 
 .reviews {
@@ -251,6 +260,7 @@
 .name {
   font-weight: bold; /* 강조 */
   font-size: 30px;
+  
 }
 
 .review-item {
@@ -270,16 +280,15 @@
 }
 
 .review-actions button {
-  padding: 5px 10px;
-  font-size: 14px;
+  padding-top: 5px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .review-actions button:first-of-type {
-  background-color: #00c6ff; /* 수정 버튼 배경색 */
-  color: white;
+  background-color: white; /* 수정 버튼 배경색 */
+  border: 1px solid #dddddd;
 }
 
 .review-actions button:last-of-type {
