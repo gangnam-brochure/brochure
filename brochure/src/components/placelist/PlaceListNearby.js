@@ -59,19 +59,24 @@ const PlaceListNearby = ({setData}) =>
     }
 
     return(
-        <div className="list-container">
+        <div>
             <button onClick={onClickBack}>◁</button>
             <h2 className="list-title"> {currData[0].category_group_name} </h2> {/*거리순 정렬? 거리를 보여줄 수 잇나 */}
-            {currData.map((place, index)=>(
-                <Link to={`/${categoryCode}/${place.id}`} key={index} onClick={()=>{setData(currData[index])}}>
-                    <div key={place.id} className ="list-element" >
-                        <span>{place.place_name}</span>
-                        <p>{place.phone}</p>
-                        <br/>
-                        현재 거리로부터 {(place.distance)/1000}km
-                    </div>
-                </Link>
-                ))}
+
+            <div className="list-container">
+                {currData.map((place, index)=>(
+                    <Link to={`/${categoryCode}/${place.id}`} key={index} onClick={()=>{setData(currData[index])}}className="place-container">
+                        <div key={place.id}>
+                            <div>
+                                <div className="place-title">{place.place_name}</div>
+                                <div className="place-distance">현재 거리로부터 {(place.distance)/1000}km</div>
+                            </div>
+                            <div className="place-phonenumber">{place.phone}</div>
+                        </div>
+                    </Link>
+                    ))}
+            </div>
+           
         </div>
     )
 }
