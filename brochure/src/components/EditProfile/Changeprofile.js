@@ -116,6 +116,21 @@ const onClickChange = () => {
 
 }
 
+useEffect(() => {
+  // Fade-in 효과
+  const fadeInElement = document.querySelector('.title');
+  fadeInElement.classList.add('visible');
+
+  const letters = document.querySelectorAll('.title span');
+  letters.forEach((letter, index) => {
+    setTimeout(() => {
+      letter.style.opacity = '1';
+      letter.style.transform = 'translateY(0)';
+    }, index * 100);
+  });
+}, []);
+
+
 
     return (
         <>
@@ -130,16 +145,21 @@ const onClickChange = () => {
                 </div>
                 {console.log(formData.email)}
                 {console.log(formData.password)}
-        <h1>개인 정보 변경</h1>
+                
+                <h1 className="title">
+            {Array.from("회원 정보 변경").map((letter, index) => (
+              <span key={index}>{letter}</span>
+            ))}
+          </h1>
         
         <div className="welcome-message">
-            {formData.nickname}님! 정보를 변경하거나 수정해주세요
+            정보를 변경하거나 수정해주세요!
         </div>
         <label className="label">닉네임 : </label>
             <input type="text" 
             name="nickname" 
             placeholder="nickname" 
-            value={formData.nickname}
+            //value={formData.nickname}
             className="input-field" 
             onChange={onChangeHandler}/>
             
@@ -156,7 +176,7 @@ const onClickChange = () => {
             <input type="text" 
             name="phone" 
             placeholder="전화번호" 
-            value={formData.phone}
+            //value={formData.phone}
             className="input-field" 
             onChange={onChangeHandler}/>
             
