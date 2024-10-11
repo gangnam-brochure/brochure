@@ -37,24 +37,25 @@
 }
 
 .category-item span {
-  font-size: 30px;
-  margin-bottom: 10px;
+  font-size: 15px;
   transition: transform 0.3s ease-in-out; /* 아이콘 확대 애니메이션 추가 */
 }
 
 p {
-  font-size: 15px;
+  font-size: 20px;
   text-align: center;
+  
 }
 
-.category-item img:hover{
+.category-item:hover img{
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(113deg) brightness(210%) contrast(102%);
 }
 
 /* Hover 효과 - 배경색 전환 및 아이콘 확대 효과 */
 .category-item:hover {
   transform: scale(1.05); /* 마우스를 올리면 크기 확대 */
-  background-color:rgb(53, 152, 144, .5);
+  background-color:rgb(1, 202, 196, .5);
+  color: white;
 }
 
 /* 아이콘이 확대되는 효과 */

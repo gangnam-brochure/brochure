@@ -1,9 +1,11 @@
 .list-container{
-    display: flex;
+    display: flex-end;
     flex-wrap: wrap; /* Allows the items to wrap to the next row */
+    justify-content: center;
     width: 100%;
-    background-color: #e0e0e0;
-    padding: 20px;
+    height: 100%;
+    background-color: #eeeeee;
+    padding: 30px;
 }
 
 .list-title{
