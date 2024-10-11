@@ -1,29 +1,29 @@
 /* favorite.css */
 
-/* Main Container Styling */
+/* Main  Styling */
 main {
-    padding: 20px;
-    margin-top: 90px;
-    background-color: #f0f4f8;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* 돌아가기 버튼 스타일링 */
+  margin-top: 10px;  /* 큰 따옴표 제거 */
+  margin-bottom: 60px; 
+  background-color:rgb(53, 152, 144);
+  width: 100%;  /* 화면 전체 너비로 설정 */
+  padding: 0;   /* 추가 여백이 없도록 패딩 제거 */
+  box-sizing: border-box;  /* 패딩과 경계선이 너비에 포함되도록 설정 */
+}
   .backBtnContainer {
     position: fixed;             /* 고정 위치 */
-    top: 100px;                  /* 헤더 높이만큼 아래로 위치 */
+    top: 110px;                  /* 헤더 높이만큼 아래로 위치 */
     left: 0;                    /* 왼쪽에 고정 */
-    right: 0;                   /* 오른쪽에 고정 */
+    right: 0;   
     background-color: #ffffff; /* 배경색 설정 (필요에 따라) */
     padding: 10px;              /* 내부 여백 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-    z-index: 9;                 /* 헤더보다 낮은 z-index로 설정 */
   }
   
   .backBtn {
     background-color: transparent; /* 버튼 배경 투명 */
     border: none;                  /* 테두리 없음 */
-    font-size: 15px;              /* 버튼 글씨 크기 설정 */
+    font-size: 20px; 
+    font-family: "BMHANNAProOTF";             /* 버튼 글씨 크기 설정 */
     cursor: pointer;               /* 포인터 커서 */
     color: black;               /* 버튼 글씨 색상 설정 */
     padding: 10px;                /* 내부 여백 */

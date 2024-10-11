@@ -27,16 +27,23 @@ export const useFavorite = create((set) => ({
 
 
 export const useReview = create((set) => ({
-    reviewData: [],
-    addReview: (placeId, text, nickname, placeName,categoryCode) => set((state) => ({
-        reviewData: [...state.reviewData, { id: Date.now(), placeId, text, nickname, placeName,categoryCode }],
-    })),
-    updateReview: (reviewId, updatedText) => set((state) => ({
-        reviewData: state.reviewData.map((review) => 
-            review.id === reviewId ? { ...review, text: updatedText } : review
-        ),
-    })),
-    deleteReview: (reviewId) => set((state) => ({
-        reviewData: state.reviewData.filter((review) => review.id !== reviewId),
-    })),
+  reviewData: [],
+  addReview: (placeId, text, nickname, placeName, categoryCode, rating) => {
+    console.log("쥬스탠드 레이팅확인:", { placeId, text, nickname, placeName, categoryCode, rating }); // 로그 추가
+    set((state) => ({
+        reviewData: [
+            ...state.reviewData, 
+            { id: Date.now(), placeId, text, nickname, placeName, categoryCode, rating }
+        ],
+    }));
+},
+  updateReview: (reviewId, updatedText, updatedRating) => set((state) => ({
+      reviewData: state.reviewData.map((review) => 
+          review.id === reviewId ? { ...review, text: updatedText, rating: updatedRating } : review // Update rating
+      ),
+  })),
+  deleteReview: (reviewId) => set((state) => ({
+      reviewData: state.reviewData.filter((review) => review.id !== reviewId),
+  })),
+  
 }));

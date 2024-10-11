@@ -28,6 +28,7 @@ import Cookies from 'js-cookie';
 import KakaoMapShowingPlace from './KaKaoMapShowingPlace';
 
 const PlaceDetail = ({ data }) => {
+    const [rating, setRating] = useState(0); // 별점 상태 추가
     const { favoriteOn, favoriteOff, placeData } = useFavorite();
     const { addReview, deleteReview, reviewData } = useReview();
     const [opinion, setOpinion] = useState('');
@@ -79,7 +80,7 @@ const PlaceDetail = ({ data }) => {
 
         if (isEditing) {
             deleteReview(currentReviewId); // 기존 리뷰 삭제
-            addReview(data.id, editOpinion, formData.nickname, data.place_name);
+            addReview(data.id, editOpinion, formData.nickname, data.place_name, data.category_group_code, rating);
             console.log(editOpinion, data, formData.nickname, "리뷰 수정 완료");
             setEditOpinion(''); // 리뷰 입력 필드 초기화
             setIsEditing(false); // 수정 모드 종료
@@ -88,8 +89,14 @@ const PlaceDetail = ({ data }) => {
             //     return;
         } else {
             // 리뷰 추가
-            addReview(data.id, opinion, formData.nickname, data.place_name);
-            console.log(opinion, data, formData.nickname, "리뷰 등록 완료");
+            addReview(data.id, opinion, formData.nickname, data.place_name, data.category_group_code, rating);
+            console.log("리뷰 추가:", {
+                placeId: data.id,
+                text: opinion,
+                nickname: formData.nickname,
+                placeName: data.place_name,
+                rating
+            })
             setOpinion(''); // 리뷰 입력 필드 초기화
         }
     };
@@ -166,6 +173,18 @@ const PlaceDetail = ({ data }) => {
                 <div className="review-container">
                     <div className='review'>
                         <div className="input-container">
+                            <div class="star-rating space-x-4 mx-auto">
+                                <input type="radio" id="5-stars" name="rating" value="5" v-model="ratings" onChange={() => setRating(5)} />
+                                <label for="5-stars" class="star pr-4">★</label>
+                                <input type="radio" id="4-stars" name="rating" value="4" v-model="ratings" onChange={() => setRating(4)} />
+                                <label for="4-stars" class="star">★</label>
+                                <input type="radio" id="3-stars" name="rating" value="3" v-model="ratings" onChange={() => setRating(3)} />
+                                <label for="3-stars" class="star">★</label>
+                                <input type="radio" id="2-stars" name="rating" value="2" v-model="ratings" onChange={() => setRating(2)} />
+                                <label for="2-stars" class="star">★</label>
+                                <input type="radio" id="1-star" name="rating" value="1" v-model="ratings" onChange={() => setRating(1)} />
+                                <label for="1-star" class="star">★</label>
+                            </div>
                             <input
                                 type="text"
                                 placeholder="후기 내용 입력해주세요"
@@ -191,6 +210,15 @@ const PlaceDetail = ({ data }) => {
                                 <div key={index} className="review-box">
                                     <div className="review-content">
                                         <strong className='name'>{review.nickname}님</strong>
+                                        <div className="review-star-rating">
+                                            {[...Array(5)].map((_, index) => (
+                                                <FontAwesomeIcon
+                                                    key={index}
+                                                    icon={index < (review.rating) ? solidStar : regularStar} // 반전된 로직
+                                                    className="review-star"
+                                                />
+                                            ))}
+                                        </div>
                                         <p className='reviews'>{review.text}</p>
                                     </div>
                                     {isLoggedIn && review.nickname === formData.nickname && !isEditing && (
