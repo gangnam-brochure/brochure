@@ -8,6 +8,7 @@ main {
   width: 100%;  /* 화면 전체 너비로 설정 */
   padding: 0;   /* 추가 여백이 없도록 패딩 제거 */
   box-sizing: border-box;  /* 패딩과 경계선이 너비에 포함되도록 설정 */
+  font-family: "NotesansKR";
 }
   .backBtnContainer {
     position: fixed;             /* 고정 위치 */

@@ -5,6 +5,7 @@
   width: 100%;  /* 화면 전체 너비로 설정 */
   padding: 0;   /* 추가 여백이 없도록 패딩 제거 */
   box-sizing: border-box;  /* 패딩과 경계선이 너비에 포함되도록 설정 */
+  font-family: Arial, sans-serif;
 }
   .backBtnContainer {
     position: fixed;             /* 고정 위치 */
@@ -167,7 +168,7 @@
   justify-content: space-between; /* 입력 필드는 왼쪽, 버튼은 오른쪽에 배치 */
   align-items: center; /* 수직 방향으로 가운데 정렬 */
   width: 100%; /* 컨테이너 전체 너비 */
-  margin-top: auto; /* 입력 필드를 컨테이너의 맨 아래로 */
+  margin-top: 40px; /* 입력 필드를 컨테이너의 맨 아래로 */
 }
 
 .reviewEdit {
@@ -180,13 +181,15 @@
   font-size: 18px;
 }
 
-.button-container {
+.button-container1 {
   display: flex;
   flex-direction: column; /* 버튼을 위아래로 배치 */
   margin-left: 10px; /* 입력 필드와 버튼 사이의 간격 */
+  margin-top: 10px;
+
 }
 
-.button-container button {
+.button-container1 button {
   width: 55px;
   height: 35px;
   padding: 5px 5px;
@@ -195,15 +198,17 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-bottom: 5px; /* 버튼 간의 간격 */
+  margin-bottom: 10px;
+  
+  
 }
 
-.button-container button:first-of-type {
+.button-container1 button:first-of-type {
   background-color: #00c6ff; /* 수정 버튼의 배경색 */
   color: white;
 }
 
-.button-container button:last-of-type {
+.button-container1 button:last-of-type {
   background-color: red; /* 취소 버튼을 빨간색으로 */
   color: white;
 }
