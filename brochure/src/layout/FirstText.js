@@ -8,8 +8,9 @@ import '../assets/css/firsttext.css';
 const FirstText = () => {
   const [firstTextVisible, setFirstTextVisible] = useState(false);
   const [secondTextVisible, setSecondTextVisible] = useState(false);
+  const [textShifted, setTextShifted] = useState(false); // 문구 애니메이션 제어
   const firstTextRef = useRef(null);
-  const [brightness, setBrightness] = useState(1);  // 조명의 밝기
+  const [brightness, setBrightness] = useState(0.9);  // 조명의 밝기
 
   const text = "우리는";
 
@@ -22,9 +23,14 @@ const FirstText = () => {
             setTimeout(() => {
               setSecondTextVisible(true); // 2초 후 "알고보니" 애니메이션 시작
             }, 2000);
+
+            setTimeout(() => {
+              setTextShifted(true); // 문구 이동 애니메이션 실행
+            }, 3000);
           } else {
             setFirstTextVisible(false);
             setSecondTextVisible(false);
+            setTextShifted(false); // 애니메이션 리셋
           }
         });
       },
@@ -48,7 +54,7 @@ const FirstText = () => {
 
   return (
     <div className="first-text-container" ref={firstTextRef} style={{ filter: `brightness(${brightness})` }}>
-      <div className="first-text">
+      <div className={`first-text ${textShifted ? 'shifted-up' : ''}`}>
         {text.split("").map((char, index) => (
           <span
             key={index}
@@ -61,7 +67,14 @@ const FirstText = () => {
       </div>
 
       {secondTextVisible && (
-        <div className="first-second-text fade-in-slide-up">알고보니</div>
+        <div className={`first-second-text fade-in-slide-up`}>
+          <span className={`second-part ${textShifted ? 'shifted-up' : ''}`}>
+            알고
+          </span>
+          <span className={`second-part ${textShifted ? 'shifted-down' : ''}`}>
+            보니
+          </span>
+        </div>
       )}
     </div>
   );
