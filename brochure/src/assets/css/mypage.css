@@ -28,8 +28,8 @@
   text-align: center;
   font-size: 1.6em;
   margin: 25px 0;
-  color: #444;
-  font-weight: 600;
+  font-family: "NotoSansKR" !important;
+    font-weight: 800 !important;
 }
 
 .button-group {
@@ -50,6 +50,7 @@
   width : 200px;
   transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s ease;
   font-family: "NotoSansKR";
+  font-weight: 600;
 }
 
 .mypage-button:hover {
@@ -60,6 +61,7 @@
 }
 
 h1 {
+
   font-size: 2.2em;
   color: #333;
 }
@@ -76,7 +78,7 @@ h1 {
 
 .delete-confirmation h2 {
   margin-bottom: 15px;
-  color: #333;
+  color: #911919;
 }
 
 .delete-confirmation label {
@@ -269,4 +271,11 @@ select:focus {
 /* 옵션 스타일 */
 option {
   padding: 10px; /* 옵션 패딩 */
+}
+.sanssans {
+  text-align: center;
+  font-size: 1.6em;
+  margin: 25px 0;
+  font-family: "NotoSansKR" !important;
+  font-weight:100; 
 }

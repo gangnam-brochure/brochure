@@ -86,8 +86,8 @@ const MyPage = () => {
               <span key={index}>{letter}</span>
             ))}
           </h1>
-          <div className="welcome-message">
-            안녕하세요 {formData.nickname} 님
+          <div className="sanssans">
+           <strong> 안녕하세요 {formData.nickname} 님</strong>
           </div>
           <div className="button-group">
             <button onClick={() => handleClick("../favorites")} className="mypage-button">
