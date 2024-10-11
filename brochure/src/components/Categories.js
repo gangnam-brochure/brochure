@@ -11,19 +11,19 @@ const Categories = () => {
   const categoriesRef = useRef(null);
 
   const categoriesLeft = [
-    { name: '편의점', icon: '🏪', code: "CS2" },
-    { name: '관광명소', icon: '💈', code: "AT4" },
-    { name: '음식점', icon: '🎬', code: "FD6" },
-    { name: '카페', icon: '🎬', code: "CE7" },
-    { name: '숙박', icon: '🎬', code: "AD5" }
+    { name: '편의점', icon: 'convenient', code: "CS2" },
+    { name: '관광명소', icon: 'sightseeing', code: "AT4" },
+    { name: '음식점', icon: 'food', code: "FD6" },
+    { name: '카페', icon: 'cafe', code: "CE7" },
+    { name: '숙박', icon: 'hotel', code: "AD5" }
   ];
 
   const categoriesRight = [
-    { name: '주차장', icon: '🎬', code: "PK6" },
-    { name: '지하철역', icon: '🎬', code: "SW8" },
-    { name: '공공기관', icon: '🎬', code: "PO3" },
-    { name: '문화시설', icon: '🎬', code: "CT1" },
-    { name: '주유소', icon: '🎬', code: "OL7" }
+    { name: '주차장', icon: 'parking', code: "PK6" },
+    { name: '지하철역', icon: 'subway', code: "SW8" },
+    { name: '공공기관', icon: 'government', code: "PO3" },
+    { name: '문화시설', icon: 'culture', code: "CT1" },
+    { name: '주유소', icon: 'oil', code: "OL7" }
   ];
 
   useEffect(() => {
@@ -62,7 +62,7 @@ const Categories = () => {
           key={category.code} 
           style={{ width: "200px", margin: "55px" }}>
             <div className={`category-item ${isAnimating ? 'slide-in-left' : 'slide-out-left'}`}>
-              <span>{category.icon}</span>
+              <img src={require(`../assets/images/${category.icon}_color.png`)} width={"78px"}/>
               <p>{category.name}</p>
             </div>
             
@@ -73,7 +73,7 @@ const Categories = () => {
         {categoriesRight.map((category, index) => (
           <NavLink to={`/${category.code}`} key={category.code} style={{ width: "200px", margin: "55px" }}>
             <div className={`category-item ${isAnimating ? 'slide-in-right' : 'slide-out-right'}`}>
-              <span>{category.icon}</span>
+              <img src={require(`../assets/images/${category.icon}_color.png`)} width={"78px"}/>
               <p>{category.name}</p>
             </div>
             
