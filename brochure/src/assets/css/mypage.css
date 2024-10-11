@@ -49,12 +49,14 @@
   cursor: pointer;
   width : 200px;
   transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s ease;
+  font-family: "NotoSansKR";
 }
 
 .mypage-button:hover {
   background-color: rgb(1,202,196);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
 }
 
 h1 {
@@ -139,7 +141,7 @@ h1 {
 }
 
 .input-field:focus {
-  border-color: #0056b3;
+  border-color:  rgb(1,202,196);
   outline: none;
 }
 
@@ -182,13 +184,13 @@ h1 {
 }
 
 .profile-card.email {
-  border: 2px solid #007BFF;
+  border: 2px solid  rgb(1,202,196);
   background-color: #E7F3FF;
 }
 
 .profile-card.email:hover {
   background-color: #B3D7FF;
-  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.5);
+  box-shadow: 0 4px 10px  rgb(1,202,196);
 }
 
 .profile-card.nickname {
@@ -248,4 +250,23 @@ h1 {
 .title span.visible {
   opacity: 1; /* 글자 보이게 */
   transform: translateY(0); /* 원래 위치로 돌아옴 */
+}
+select {
+  padding: 10px; /* 패딩 추가 */
+  border: 1px solid #ccc; /* 테두리 */
+  border-radius: 5px; /* 둥근 모서리 */
+  font-size: 1em; /* 폰트 크기 */
+  background-color: #f8f8f8; /* 배경 색상 */
+  transition: border-color 0.3s; /* 테두리 색상 변화 시 애니메이션 */
+}
+
+/* 선택 박스에 포커스가 있을 때 스타일 */
+select:focus {
+  border-color:  rgb(1,202,196); /* 포커스 시 테두리 색상 변경 */
+  outline: none; /* 기본 아웃라인 제거 */
+}
+
+/* 옵션 스타일 */
+option {
+  padding: 10px; /* 옵션 패딩 */
 }
