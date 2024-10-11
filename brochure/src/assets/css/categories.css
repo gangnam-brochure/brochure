@@ -1,12 +1,13 @@
 /* 카테고리 컨테이너 및 스타일 */
 .categories-container {
-  font-family: "BMHANNAProOTF";
+  font-family: "NotoSansKR";
   margin-top: 80px;
   padding: 60px;
   margin-bottom: 80px;
 }
 
 .categories-title {
+  font-family: "BMHANNAProOTF";
   font-size: 40px;
   margin-bottom: 20px;
 }
@@ -55,7 +56,6 @@ p {
 .category-item:hover {
   transform: scale(1.05); /* 마우스를 올리면 크기 확대 */
   background-color:rgb(1, 202, 196, .5);
-  color: white;
 }
 
 /* 아이콘이 확대되는 효과 */
