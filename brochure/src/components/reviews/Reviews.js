@@ -6,12 +6,15 @@
     수정 삭제 가능해야함
 
 */
+import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
+import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from "react";
 import { useReview } from "../../Store";
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 import "../../assets/css/review.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Reviews = () => {
     const navigate = useNavigate();
@@ -21,7 +24,7 @@ export const Reviews = () => {
 
     useEffect(() => {
         const fetchUserProfile = async () => {
-            const token = Cookies.get('token'); 
+            const token = Cookies.get('token');
             if (token) {
                 try {
                     const response = await axios.get('/api/get-profile', {
@@ -29,7 +32,7 @@ export const Reviews = () => {
                             Authorization: `Bearer ${token}`,
                         },
                     });
-                    setUserNickname(response.data.nickname); 
+                    setUserNickname(response.data.nickname);
                 } catch (error) {
                     console.error('Error fetching user profile:', error);
                 }
@@ -38,6 +41,7 @@ export const Reviews = () => {
 
         fetchUserProfile();
     }, []);
+
     useEffect(() => {
         if (userNickname) {
             const userReviews = reviewData.filter(review => review.nickname === userNickname);
@@ -46,20 +50,27 @@ export const Reviews = () => {
     }, [reviewData, userNickname]);
 
     return (
-        <main style={{ padding: "20px", marginTop: "90px" }}>
-             <div className="backBtnContainer">
+        <main>
+            <div className="backBtnContainer">
                 <button className="backBtn" onClick={() => navigate(-1)}>돌아가기</button>
             </div>
             <div className="placeinfo">
                 {reviewList.length > 0 ? (
                     reviewList.map((review, index) => (
+                        <Link to={`/${review.categoryCode}/${review.id}`}>
                         <li key={index} className="review-item">
-                            <Link to={`/${review.categoryCode}/${review.id}`}>
-                            <p><strong>가게 이름:</strong> {review.placeName}</p>
-                            </Link>
-                            <p><strong>리뷰:</strong> {review.text}</p>
-
-                        </li>
+                                <h1>가게 이름: {review.placeName}</h1>
+                            <p className='rName'><strong>리뷰:</strong> {review.text}</p>
+                            <div className="review-star-rating1">
+                                {[...Array(5)].map((_, index) => (
+                                    <FontAwesomeIcon
+                                        key={index}
+                                        icon={index < review.rating ? solidStar : regularStar}
+                                        className="review-star"
+                                    />
+                                ))}
+                            </div>
+                        </li></Link>
                     ))
                 ) : (
                     <p>작성한 리뷰가 없습니다.</p>

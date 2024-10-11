@@ -76,7 +76,7 @@ const Favorite = () => {
   
   // 즐겨찾기 삭제 핸들러
   return (
-        <main style={{ padding: "20px", marginTop: "90px" }}>
+        <main>
              <div className="backBtnContainer">
                 <button className="backBtn" onClick={() => navigate(-1)}>돌아가기</button>
             </div>
