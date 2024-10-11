@@ -128,6 +128,8 @@ const PlaceDetail = ({ data }) => {
         navigate(`/${data.category_group_code}`);
     };
 
+    console.log("data : " + data);
+
     return (
         <main className='main-Contatiner'>
             <div className="backBtnContainer">

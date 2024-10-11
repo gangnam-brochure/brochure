@@ -19,14 +19,14 @@
 }
 
 /* 배경 이미지가 우측에서 좌측으로 움직이는 애니메이션 */
-@keyframes background-slide {
+/* @keyframes background-slide {
   0% {
-    background-position: 0 20px; /* 처음 위치에서 시작 */
+    background-position: 0 20px; 
   }
   100% {
-    background-position: -100vw 20px; /* 좌측으로 화면 너비만큼 이동 */
+    background-position: -100vw 20px;
   }
-}
+} */
 
 /* 로그인 컨테이너 스타일 */
 .signinContainer {
