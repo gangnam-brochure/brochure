@@ -17,13 +17,14 @@ import Categories from './components/Categories';
 import ChangeProfile from './components/EditProfile/Changeprofile';
 import UpdateProfileTest from './test/UpdateProfileTest';
 import Myprofile from './components/mypage/Myprofile';
+import NotFound from './components/NotFound';
 
 function App() {
   const [data, setData] = useState([{}]);  
+  
   return (
     <Router>
       <Routes>
-
         <Route path="/" element={<MainPage />}>
           <Route index  element={<Categories />}/>
           <Route path=":categoryCode" element={<PlaceListNearby setData={setData}/>}/>
@@ -56,9 +57,13 @@ function App() {
         <Route path="/changeprofile" element={<ChangeProfile />} />  {/* 회원정보 변경 페이지 */}
         <Route path="/edit" element={<UpdateProfileTest />} />  {/* 테스트 */}
         <Route path="/myprofile" element={<Myprofile />} />  {/* 내프로필 정보 */}
+        
         {/* 카카오 및 네이버 로그인 콜백 처리 */}
         <Route path="/oauth/kakao/callback" element={<LoginRedirectHandler />} />
         <Route path="/oauth/naver/callback" element={<LoginRedirectHandler />} />
+
+        {/* 잘못된 경로로 접근할 때 NotFound 페이지로 이동 */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
