@@ -11,7 +11,7 @@ const NotFound = () => {
     <div className="not-found-container">
         <h1 className='not-found-num'>404 ERROR</h1>
         <h1 className='not-found-text'>길을 잃으신 것 같습니다...</h1>
-        <button className='not-found-button'><Link to="/">메인으로</Link></button>
+        <button className='not-found-button'><Link to="/">돌아가기</Link></button>
     </div>
   );
 };
