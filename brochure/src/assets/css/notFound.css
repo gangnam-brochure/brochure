@@ -30,6 +30,8 @@
 .not-found-text {
     position: relative;
     bottom: 300px;
+
+    font-family: "NotoSansKR";
 }
 
 .not-found-num {
@@ -40,5 +42,13 @@
 .not-found-button {
     position: relative;
     bottom: 100%;
+    border-radius: 10px;
+
+    background-color: rgb(1, 202, 196);
+    width: 300px;
+    height: 80px;
+    font-family: "NotoSansKR";
+    font-size: 28px;
+    font-weight: bold;
 }
   
