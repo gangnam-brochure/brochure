@@ -9,6 +9,7 @@
     text-align: center;
     background-color: #f8f9fa;
     color: #333;
+    padding-top: 60px;
   
     /* 이미지 반복 설정 */
     background-repeat: repeat-x;
@@ -42,7 +43,7 @@
 
 .not-found-button {
   font-family: "BMHANNAProOTF";
-    position: relative;
+  position: relative;
     bottom: 300px;
     border: none;
     border-radius: 10px;
@@ -53,6 +54,8 @@
 }
 
 .not-found-container p{
+  position: relative;
+  bottom: 300px;
   font-family: "NotoSansKR";
   font-size: 15px;
 }
