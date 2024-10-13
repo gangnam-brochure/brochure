@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import useCurrCoords from '../placelist/Coords';
 
 const KakaoMapModal = ({ onClose, onSelectLocation }) => {
   const [map, setMap] = useState(null); // 지도 객체를 상태로 관리
@@ -7,7 +8,7 @@ const KakaoMapModal = ({ onClose, onSelectLocation }) => {
     lat: 37.4988635,
     lng: 127.0266457,
   }); // 선택된 위치 저장 (초기 위치: 하이미디어 강남)
-
+  const {latitude, longitude, setCurrCoords} = useCurrCoords();
   useEffect(() => {
     const loadKakaoMap = () => {
       const { kakao } = window;
@@ -40,6 +41,8 @@ const KakaoMapModal = ({ onClose, onSelectLocation }) => {
         // 선택한 위치로 마커를 이동
         createdMarker.setPosition(latlng);
         setSelectedPosition({ lat: latlng.getLat(), lng: latlng.getLng() });
+        setCurrCoords(latlng.getLat(), latlng.getLng()); // 현재 좌표 저장
+
 
         // 지도의 중심을 선택한 위치로 이동
         createdMap.setCenter(latlng);

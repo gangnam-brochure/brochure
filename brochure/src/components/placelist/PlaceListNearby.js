@@ -9,12 +9,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import '../../assets/css/placelist.css';
+import useCurrCoords from "./Coords";
 import NotFound from "../NotFound";
 
 const PlaceListNearby = ({ setData }) => {
     const [currData, setCurrData] = useState([]); // 빈 배열로 초기화
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const { lat, lng, setCurrCoords } = useCurrCoords();
 
     const kakaoAPI = process.env.REACT_APP_KAKAO_REST_API_KEY;
 
@@ -31,7 +33,8 @@ const PlaceListNearby = ({ setData }) => {
 
     const fetchData = () => {
         // x, y에 location 받아와서 넣어야 됨!!
-        return fetch(`https://dapi.kakao.com/v2/local/search/category.json?category_group_code=${categoryCode}&y=37.514322572335935&x=127.06283102249932&radius=20000`, {
+        return fetch(`https://dapi.kakao.com/v2/local/search/category.json?category\_group\_code=${categoryCode}&y=${lat}&x=${lng}&&radius=20000`, {
+
             headers: {
                 Authorization: `KakaoAK ${kakaoAPI}`
             }
