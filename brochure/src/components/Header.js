@@ -3,14 +3,21 @@
     설명 : 메인 페이지 헤더 영역
 */
 
+/*
+    수정자 : 최예지 - 2024-10-12
+    설명 : zustand 이용해 현재 위도 경도 저장
+*/
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import KakaoMapModal from '../components/auth/KakaoMapModal';  // 카카오 지도 모달 컴포넌트 가져오기
 import '../assets/css/header.css';
 import { useNavigate } from 'react-router-dom';
 import marker from '../assets/images/marker.png';
+import useCurrCoords from './placelist/Coords';
 
 const Header = () => {
+  const {lat, lng, setCurrCoords} = useCurrCoords();
   const [location, setLocation] = useState('현재 위치 불러오는 중...');
   const [address, setAddress] = useState('주소 불러오는 중...');
   const [showModal, setShowModal] = useState(false);  // 모달 표시 여부
@@ -51,6 +58,7 @@ const Header = () => {
         (position) => {
           const { latitude, longitude } = position.coords;
           setLocation(`위도: ${latitude}, 경도: ${longitude}`);
+          setCurrCoords(latitude, longitude); //zustand 이용해 현재 위도, 경도 저장
 
           // 위도와 경도를 Kakao API를 통해 주소로 변환
           getAddressFromCoordinates(latitude, longitude);
@@ -68,6 +76,7 @@ const Header = () => {
       setAddress('브라우저가 위치 서비스를 지원하지 않습니다.');
     }
   }, []);
+
 
   // 카카오 지도에서 선택한 좌표를 받아와서 Kakao API로 주소 변환
   const handleLocationSelect = (latitude, longitude) => {

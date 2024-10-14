@@ -84,9 +84,9 @@ const PlaceDetail = ({ data }) => {
             console.log(editOpinion, data, formData.nickname, "리뷰 수정 완료");
             setEditOpinion(''); // 리뷰 입력 필드 초기화
             setIsEditing(false); // 수정 모드 종료
-            //} else if (userReviewExists) {
-            //     alert("이미 이 장소에 리뷰를 작성했습니다."); // 사용자에게 알림
-            //     return;
+            } else if (userReviewExists) {
+                 alert("이미 이 장소에 리뷰를 작성했습니다."); // 사용자에게 알림
+                 return;
         } else {
             // 리뷰 추가
             addReview(data.id, opinion, formData.nickname, data.place_name, data.category_group_code, rating);
@@ -225,8 +225,12 @@ const PlaceDetail = ({ data }) => {
                                     </div>
                                     {isLoggedIn && review.nickname === formData.nickname && !isEditing && (
                                         <div className="review-actions">
-                                            <button onClick={() => handleEdit(review)}>수정</button>
-                                            <button onClick={() => handleDelete(review.id)}>삭제</button>
+                                            <button onClick={() => handleEdit(review)}>
+                                                <img src={require("../../assets/images/edit.png")} width={"20px"}/>
+                                            </button>
+                                            <button onClick={() => handleDelete(review.id)}>
+                                                <img src={require("../../assets/images/delete.png")} width={"20px"}/>
+                                            </button>
                                         </div>
                                     )}
                                     {isEditing && (
@@ -238,7 +242,7 @@ const PlaceDetail = ({ data }) => {
                                                 value={editOpinion}
                                                 onChange={onChangeEditOpinion}
                                             />
-                                            <div className='button-container' >
+                                            <div className='button-container1' >
                                                 <button onClick={() => { onClickReview(); }}>수정</button>
                                                 <button onClick={handleCancelEdit}>취소</button>
                                             </div>

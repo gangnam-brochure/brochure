@@ -1,8 +1,8 @@
 main {
     padding: 20px;
     margin-top: 90px;
-    background-color:rgb(53, 152, 144);;
-    font-family: 'Arial', sans-serif;
+    background-color:rgb(1, 202, 196);
+    font-family: "NotesansKR";
   }
   
   /* 돌아가기 버튼 스타일링 */
@@ -48,7 +48,7 @@ main {
     height: 280px;     /* 고정된 높이 */
     padding: 20px;     /* 내부 여백 */
     background-color: #ffffff;
-    border: 1px solid #e0e0e0;
+    border: 1px solid black;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     position: relative; /* 기준 위치 설정 */

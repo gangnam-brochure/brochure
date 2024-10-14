@@ -9,7 +9,7 @@ import Footer from '../components/Footer';
 import { Outlet, useLocation } from 'react-router-dom';
 import FirstText from './FirstText';
 import SecondText from './SecondText';
-
+import NotFound from '../components/NotFound';
 
 const MainPage = () => {
   const [hideHeaderFooter, setHideHeaderFooter] = useState(false);
@@ -20,32 +20,28 @@ const MainPage = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      // 스크롤 위치에 따라 헤더와 푸터를 숨김, 특정 카테고리 페이지에서는 항상 보이게 설정
       if (scrollPosition < 1600 && showTexts) {
         setHideHeaderFooter(true);
       } else {
-        setHideHeaderFooter(false); // 카테고리 클릭 후 헤더와 푸터 항상 보이게
+        setHideHeaderFooter(false);
       }
 
-      // 스크롤 위치가 특정 값을 넘을 때 SecondText 애니메이션 트리거
       if (scrollPosition > 800) {
-        setTriggerSecondText(true); // 스크롤 다운 시 SecondText 애니메이션 시작
+        setTriggerSecondText(true);
       } else {
-        setTriggerSecondText(false); // 스크롤 업 시 애니메이션 리셋
+        setTriggerSecondText(false);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [showTexts]);
 
   useEffect(() => {
-    // 루트 경로 ("/")일 때 헤더와 푸터를 숨김
+    // 루트 경로 ("/")일 때만 FirstText와 SecondText를 보여주고, 그 외에는 숨김
     if (location.pathname === '/') {
-      setHideHeaderFooter(false); // 헤더와 푸터 보이게
+      setShowTexts(true);
+      setHideHeaderFooter(false);
     } else if (
       location.pathname.startsWith('/CS2') ||
       location.pathname.startsWith('/AT4') ||
@@ -58,30 +54,40 @@ const MainPage = () => {
       location.pathname.startsWith('/CT1') ||
       location.pathname.startsWith('/OL7')
     ) {
-      setShowTexts(false); // 카테고리 페이지일 경우 텍스트 숨김
-      setHideHeaderFooter(false); // 헤더와 푸터는 항상 보이게 설정
+      setShowTexts(false);
+      setHideHeaderFooter(false);
     } else {
-      setShowTexts(true); // 다른 페이지에서는 텍스트 보임
+      setShowTexts(false); // 이 외의 경로에서는 숨김
     }
   }, [location]);
 
+  // 404 페이지일 때 헤더와 푸터를 숨기는 조건 추가
+  const isNotFoundPage = location.pathname === '*' || location.pathname === '/404';
+
   return (
     <div className="home-page">
-      {/* 조건부로 헤더와 푸터 렌더링 */}
-      {!hideHeaderFooter && <Header />}
-
-      {/* FirstText와 SecondText가 showTexts가 true일 때만 렌더링 */}
-      {showTexts && (
+      {/* 잘못된 경로에서는 NotFound 컴포넌트를 렌더링 */}
+      {isNotFoundPage ? (
+        <NotFound />
+      ) : (
         <>
-          <FirstText />
-          <SecondText triggerAnimation={triggerSecondText} />
+          {/* 조건부로 헤더와 푸터 렌더링 */}
+          {!hideHeaderFooter && <Header />}
+
+          {/* FirstText와 SecondText가 showTexts가 true일 때만 렌더링 */}
+          {showTexts && (
+            <>
+              <FirstText />
+              <SecondText triggerAnimation={triggerSecondText} />
+            </>
+          )}
+
+          {/* 메인 콘텐츠 렌더링 */}
+          <Outlet />
+
+          {!hideHeaderFooter && <Footer />}
         </>
       )}
-
-      {/* 메인 콘텐츠 렌더링 */}
-      <Outlet />
-
-      {!hideHeaderFooter && <Footer />}
     </div>
   );
 };
