@@ -272,6 +272,7 @@ useEffect(() => {
       <div className="back-button-container" style={{ textAlign: "right", marginBottom: "10px", marginTop: "15px" }}>
                     <button className="button" onClick={handleBack}>뒤로가기</button>
                     </div>
+                    
                     <h1 className="title">
             {Array.from("회원 정보 변경").map((letter, index) => (
               <span key={index}>{letter}</span>

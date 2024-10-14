@@ -4,7 +4,7 @@
 main {
   margin-top: 10px;  /* 큰 따옴표 제거 */
   margin-bottom: 60px; 
-  background-color:rgb(53, 152, 144);
+  background-color:rgb(1, 202, 196);
   width: 100%;  /* 화면 전체 너비로 설정 */
   padding: 0;   /* 추가 여백이 없도록 패딩 제거 */
   box-sizing: border-box;  /* 패딩과 경계선이 너비에 포함되도록 설정 */

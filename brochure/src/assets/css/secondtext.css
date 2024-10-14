@@ -21,6 +21,8 @@
   font-size: 88px;
   z-index: 1; /* 문구가 배경 이미지 위에 있도록 설정 */
   position: relative;
+
+  animation: blink 1s infinite;
 }
 
 /* 문구가 0.8초 후 나타남 */
@@ -75,5 +77,4 @@
     opacity: 1;
     transform: translateY(0);
   }
-
 }

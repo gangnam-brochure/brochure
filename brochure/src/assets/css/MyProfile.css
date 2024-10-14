@@ -6,14 +6,29 @@
     text-align: left;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.9);
-    background-image: radial-gradient(circle, rgba(104, 97, 97, 0.048) 1px, transparent 1px);
-    background-size: 100% auto; /* 배경 크기 설정 */
+    background-color: rgba(255, 255, 255, 0.);
+    background-size: cover; /* 배경 크기 설정 */
     width : 500px;
     height: calc(100vh - 300px); /* 전체 높이에서 300px 줄임 */
     background-attachment: fixed;
     overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
   }
+  .background {
+    background-image: url('../images/second_image.png');
+    opacity: 0; /* 배경 이미지의 불투명도 */
+    transition: opacity 1s ease-in;
+    position: absolute; /* 다른 요소와 겹치도록 설정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* 배경 이미지가 콘텐츠 뒤에 있도록 설정 */
+}
+
+.content {
+    position: relative; /* 콘텐츠를 다른 요소와 겹치게 할 수 있음 */
+    z-index: 1; /* 콘텐츠가 배경 이미지 위에 오도록 설정 */
+}
   
   .welcome-message {
     text-align: center;
@@ -39,7 +54,7 @@
 }
 
 .profile-card.email {
-    border: 2px solid #007BFF;
+    border: 2px solid rgb(1,202,196);
     background-color: #E7F3FF;
     width : 170px;
 }
@@ -77,6 +92,7 @@
 
 .button {
     padding: 12px 18px;
+    font-family: "BMHANNAProOTF";
     background-color: #007bff;
     color: white;
     border: none;
@@ -126,3 +142,15 @@
     opacity: 1; /* 글자 보이게 */
     transform: translateY(0); /* 원래 위치로 돌아옴 */
   }
+
+  .button {
+    background-color: rgb(1,202,196) !important;
+    color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.2s  box-shadow 0.2s ease;;
+  margin-top: 12px; /* 강제로 설정 */
+  font-family: "BMHANNAProOTF";
+}

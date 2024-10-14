@@ -225,8 +225,12 @@ const PlaceDetail = ({ data }) => {
                                     </div>
                                     {isLoggedIn && review.nickname === formData.nickname && !isEditing && (
                                         <div className="review-actions">
-                                            <button onClick={() => handleEdit(review)}>수정</button>
-                                            <button onClick={() => handleDelete(review.id)}>삭제</button>
+                                            <button onClick={() => handleEdit(review)}>
+                                                <img src={require("../../assets/images/edit.png")} width={"20px"}/>
+                                            </button>
+                                            <button onClick={() => handleDelete(review.id)}>
+                                                <img src={require("../../assets/images/delete.png")} width={"20px"}/>
+                                            </button>
                                         </div>
                                     )}
                                     {isEditing && (
