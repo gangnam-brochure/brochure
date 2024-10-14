@@ -65,13 +65,14 @@ const PlaceListNearby = ({ setData }) => {
 
     return (
         <div>
-            <div className="back-container">
-                <button className="backBtn" onClick={onClickBack}>돌아가기</button>
-            </div>
-
             {/* 데이터가 존재하는 경우에만 제목을 렌더링 */}
             {currData.length > 0 ? (
-                <h2 className="list-title"> {currData[0].category_group_name} </h2>
+                // <h2 className="list-title"> {currData[0].category_group_name} </h2>
+                <div className="back-container">
+                    <button className="backBtn" onClick={onClickBack}>{currData[0].category_group_name}</button>
+                </div>
+
+                
             ) : (
                 <NotFound/>
             )}
