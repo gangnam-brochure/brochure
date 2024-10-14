@@ -59,8 +59,8 @@ export const Reviews = () => {
                     reviewList.map((review, index) => (
                         <Link to={`/${review.categoryCode}/${review.id}`}>
                         <li key={index} className="review-item">
-                                <h1>가게 이름: {review.placeName}</h1>
-                            <p className='rName'><strong>리뷰:</strong> {review.text}</p>
+                                <h1>장소 : {review.placeName}</h1>
+                            <p className='rName'><strong>리뷰 :</strong> {review.text}</p>
                             <div className="review-star-rating1">
                                 {[...Array(5)].map((_, index) => (
                                     <FontAwesomeIcon

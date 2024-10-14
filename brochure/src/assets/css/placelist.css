@@ -1,15 +1,27 @@
-@font-face {
+
+.list-container{
+    display: flex;
+    flex-wrap: wrap; /* Allows the items to wrap to the next row */
+    width: 100%;
+    background-color: #e0e0e0;
+    padding: 20px;
+    font-family: "NotesansKR";
+}
+
+/* @font-face {
     font-family: "NotoSansKR";
     src: url(../fonts/NotoSansKR-VariableFont_wght.ttf) format("truetype");
-}
+} */
 .list-container{
     display: inline-flex;
     flex-wrap: wrap; /* Allows the items to wrap to the next row */
     justify-content: flex-start;
     box-sizing: border-box;
     width: 100%;
+    min-height: 900px;
     background-color: #eeeeee;
     padding: 80px;
+    margin-top: 120px;
 }
 
 .place-container{
@@ -27,19 +39,19 @@
 }
 
 .place-title{
-    font-family: "NotoSansKR";
+    font-family: "BMHANNAProOTF"; 
     font-size: 27px;
     font-weight: 700;
 }
 
 .place-distance{
-    font-family: "NotoSansKR";
+    font-family: "BMHANNAProOTF"; 
     font-size: 12px;
     color: #888;
 }
 
 .place-element{
-    width: 520px;
+    width: 510px;
     height: 280px;
     background-color: white;
     border: 1px solid #cccccc;
@@ -47,8 +59,19 @@
 }
 
 .place-phonenumber{
-    font-family: "NotoSansKR";
+    margin-top: 25px;
+    
+    font-family: "BMHANNAProOTF"; 
     font-size: 18px;
-    font-weight: bold;
-      
+    font-weight: bold;   
 }
+
+.back-container {
+    position: fixed;             /* 고정 위치 */
+    top: 100px;                  /* 헤더 높이만큼 아래로 위치 */
+    left: 0;                    /* 왼쪽에 고정 */
+    right: 0;                   /* 오른쪽에 고정 */
+    background-color: #ffffff; /* 배경색 설정 (필요에 따라) */
+    padding: 10px;              /* 내부 여백 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  }
