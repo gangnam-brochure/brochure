@@ -8,8 +8,10 @@
     justify-content: flex-start;
     box-sizing: border-box;
     width: 100%;
+    min-height: 900px;
     background-color: #eeeeee;
     padding: 80px;
+    margin-top: 35px;
 }
 
 .place-container{
@@ -39,7 +41,7 @@
 }
 
 .place-element{
-    width: 520px;
+    width: 510px;
     height: 280px;
     background-color: white;
     border: 1px solid #cccccc;
@@ -47,8 +49,19 @@
 }
 
 .place-phonenumber{
+    margin-top: 25px;
+    
     font-family: "BMHANNAProOTF"; 
     font-size: 18px;
-    font-weight: bold;
-      
+    font-weight: bold;   
 }
+
+.back-container {
+    position: fixed;             /* 고정 위치 */
+    top: 100px;                  /* 헤더 높이만큼 아래로 위치 */
+    left: 0;                    /* 왼쪽에 고정 */
+    right: 0;                   /* 오른쪽에 고정 */
+    background-color: #ffffff; /* 배경색 설정 (필요에 따라) */
+    padding: 10px;              /* 내부 여백 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  }
