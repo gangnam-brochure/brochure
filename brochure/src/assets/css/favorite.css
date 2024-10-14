@@ -41,6 +41,7 @@ main {
     margin: 0; 
     margin-top: 70px;                /* 기본 마진을 제거 */
     padding: 0;                /* 기본 패딩을 제거 */
+    font-family: "BMHANNAProOTF"; 
   }
   /* Favorite List Item */
   .favorite-item {
