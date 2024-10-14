@@ -69,7 +69,7 @@ const PlaceListNearby = ({ setData }) => {
             {currData.length > 0 ? (
                 // <h2 className="list-title"> {currData[0].category_group_name} </h2>
                 <div className="back-container">
-                    <button className="backBtn" onClick={onClickBack}>{currData[0].category_group_name}</button>
+                    <button className="backBtn" onClick={onClickBack}>{"<　" + currData[0].category_group_name}</button>
                 </div>
 
                 
