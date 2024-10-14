@@ -10,7 +10,10 @@
 #npm install axios
 #npm install js-cookie
 #npm install @react-oauth/google
-#npm run build
+#npm install framer-motion
+#npm install react-transition-group
 
 #npm install --save @fortawesome/fontawesome-free
-#npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons
+#npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons@fortawesome/free-regular-svg-icons
+
+
